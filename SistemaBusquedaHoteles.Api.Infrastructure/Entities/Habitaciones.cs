@@ -1,18 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SistemaBusquedaHoteles.Api.Infrastructure.Entities
 {
     public class Habitaciones
     {
-        [ScaffoldColumn(false)]
         [Key]
         public int Id { get; set; }
-        public int Cantidad { get; set; }
-        public int CupoMaximo { get; set; }
+        public DateTime Fecha { get; set; }
+        public bool Disponible { get; set; }
+        public int TipoId { get; set; }
+        public int SedeId { get; set; }
+        public int TarifaId { get; set; }
+        public int reservaId { get; set; }
+
+
+        public TipoAlojamiento Tipo { get; set; }
+        public Sedes Sede { get; set; }
+        public Tarifas Tarifa { get; set; }
+        public Reservacion Reserva { get; set; }
     }
 }

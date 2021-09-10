@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using SistemaBusquedaHoteles.Api.Domain;
 using SistemaBusquedaHoteles.Api.Domain.Models;
+using SistemaBusquedaHoteles.Api.Infrastructure.Repositories.IRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,20 +12,31 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 {
     public class TipoAlojamientoDomainServices : ITipoAlojamientoDomain
     {
-        private readonly ITipoAlojamientoDomain tipoAlojamientoDomain;
+        private readonly ITipoAlojamientoRepository tipoAlojamientoRepository;
+        private readonly IMapper mapper;
 
-        public TipoAlojamientoDomainServices(ITipoAlojamientoDomain tipoAlojamientoDomain, IMapper mapper)
+        public TipoAlojamientoDomainServices(ITipoAlojamientoRepository tipoAlojamientoRepository, IMapper mapper)
         {
-            this.tipoAlojamientoDomain = tipoAlojamientoDomain;
+            this.tipoAlojamientoRepository = tipoAlojamientoRepository;
+            this.mapper = mapper;
         }
+
         public TipoAlojamientoViewModel GetAlojamientoById(int id)
         {
-            return tipoAlojamientoDomain.GetAlojamientoById(id);
+            var tAlojamiento = tipoAlojamientoRepository.GetAlojamientoById(id);
+
+            var result = mapper.Map<TipoAlojamientoViewModel>(tAlojamiento);
+
+            return result;
         }
 
         public IEnumerable<TipoAlojamientoViewModel> GetAlojamientos()
         {
-            return tipoAlojamientoDomain.GetAlojamientos();
+            var tipos = tipoAlojamientoRepository.GetAlojamientos();
+
+            var result = mapper.Map<IEnumerable<TipoAlojamientoViewModel>>(tipos);
+
+            return result;
         }
     }
 }

@@ -1,19 +1,18 @@
 ﻿using SistemaBusquedaHoteles.Api.Domain.Models;
 using SistemaBusquedaHoteles.Api.Domain.QueryFilters;
-using SistemaBusquedaHoteles.Api.Infrastructure.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SistemaBusquedaHoteles.Api.Domain
+namespace SistemaBusquedaHoteles.Api.Application
 {
-    public interface IHabitacionesDomain
+    public interface IHabitacionesApplication
     {
         IEnumerable<HabitacionesViewModel> GetAll(HabitacionesQueryFilter filter);
         HabitacionesViewModel GetById(int id);
-        HabitacionesViewModel Create(Habitaciones habitaciones);
+        HabitacionesViewModel Create(HabitacionesViewModel habitaciones);
         HabitacionesViewModel Update(HabitacionesViewModel habitaciones);
         void Delete(int id);
     }

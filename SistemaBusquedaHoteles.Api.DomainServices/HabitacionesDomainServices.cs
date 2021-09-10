@@ -1,13 +1,12 @@
 ﻿using AutoMapper;
 using SistemaBusquedaHoteles.Api.Domain;
 using SistemaBusquedaHoteles.Api.Domain.Models;
+using SistemaBusquedaHoteles.Api.Domain.QueryFilters;
 using SistemaBusquedaHoteles.Api.Infrastructure.Entities;
 using SistemaBusquedaHoteles.Api.Infrastructure.Repositories.IRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SistemaBusquedaHoteles.Api.DomainServices
 {
@@ -21,12 +20,13 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             this.habitacionesRepository = habitacionesRepository;
             this.mapper = mapper;
         }
+
         public HabitacionesViewModel Create(Habitaciones habitaciones)
         {
             habitacionesRepository.Create(habitaciones);
-            
+
             var result = mapper.Map<HabitacionesViewModel>(habitaciones);
-            
+
             return result;
         }
 
@@ -35,11 +35,52 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             habitacionesRepository.Delete(id);
         }
 
-        public IEnumerable<HabitacionesViewModel> GetAll()
+        public IEnumerable<HabitacionesViewModel> GetAll(HabitacionesQueryFilter filter)
         {
             var habitaciones = habitacionesRepository.GetAll();
 
             var result = mapper.Map<IEnumerable<HabitacionesViewModel>>(habitaciones);
+
+            if (filter.Ciudad != null)
+            {
+                result = result.Where(p => p.Sedes.Ciudad.ToLower() == filter.Ciudad.ToLower());
+            }
+
+            if (filter.Fecha != null)
+            {
+                var dates = from d in result
+                            select d.Fecha;
+
+                foreach (var item in dates)
+                {
+                    if (Equals(filter.Fecha, item))
+                    {
+                        
+                    }
+                }
+                
+                result = result.Where(p => p.Fecha.ToShortDateString() == filter.Fecha?.ToShortDateString());
+            }
+
+            if (filter.Tarifa!= 0)
+            {
+                result = result.Where(p => p.Tarifa.Valor == filter.Tarifa);
+            }
+
+            if (filter.CantidadPersonas != 0)
+            {
+                result = result.Where(p => p.Sedes.CupoMax == filter.CantidadPersonas);
+            }
+
+            if (filter.Tipo != null)
+            {
+                result = result.Where(p => p.TipoAlojamientos.Nombre.ToLower() == filter.Tipo.ToLower());
+            }
+
+            if (filter.TotalHabitaciones != 0)
+            {
+                result = result.Where(p => p.Sedes.TotalHabitaciones == filter.TotalHabitaciones);
+            }
 
             return result;
         }

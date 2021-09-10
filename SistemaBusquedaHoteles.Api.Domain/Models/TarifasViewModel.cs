@@ -1,19 +1,16 @@
 ﻿using SistemaBusquedaHoteles.Api.Infrastructure.Entities;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SistemaBusquedaHoteles.Api.Domain.Models
 {
-    public class SedesViewModel
+    public class TarifasViewModel
     {
         public int Id { get; set; }
-        public string Ciudad { get; set; }
-        public int CupoMax { get; set; }
-        public int TotalHabitaciones { get; set; }
-
+        public double Valor { get; set; }
+        public string Temporada { get; set; }
     }
 }

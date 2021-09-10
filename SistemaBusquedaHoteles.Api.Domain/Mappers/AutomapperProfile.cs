@@ -1,11 +1,6 @@
 ﻿using AutoMapper;
 using SistemaBusquedaHoteles.Api.Domain.Models;
 using SistemaBusquedaHoteles.Api.Infrastructure.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SistemaBusquedaHoteles.Api.Domain.Mappers
 {
@@ -13,7 +8,13 @@ namespace SistemaBusquedaHoteles.Api.Domain.Mappers
     {
         public AutomapperProfile()
         {
-            CreateMap<Habitaciones, HabitacionesViewModel>();
+            CreateMap<Habitaciones, HabitacionesViewModel>()
+                .ForMember(dest => dest.Sedes, opt => opt.MapFrom(src => src.Sede))
+                .ForMember(dest => dest.Tarifa, opt => opt.MapFrom(src => src.Tarifa))
+                .ForMember(dest => dest.TipoAlojamientos, opt => opt.MapFrom(src => src.Tipo))
+                .ForMember(dest => dest.ReservaModel, opt => opt.MapFrom(src => src.Reserva))
+                .ForPath(dest => dest.ReservaModel.HabitacionesModel, member => member.MapFrom(src => src.Reserva.Habitacion));
+
             CreateMap<HabitacionesViewModel, Habitaciones>();
 
             CreateMap<Sedes, SedesViewModel>();
@@ -21,6 +22,12 @@ namespace SistemaBusquedaHoteles.Api.Domain.Mappers
 
             CreateMap<TipoAlojamiento, TipoAlojamientoViewModel>();
             CreateMap<TipoAlojamientoViewModel, TipoAlojamiento>();
+
+            CreateMap<Tarifas, TarifasViewModel>();
+            CreateMap<TarifasViewModel, Tarifas>();
+
+            CreateMap<Reservacion, ReservacionViewModel>();
+            CreateMap<ReservacionViewModel, Reservacion>();
         }
     }
 }

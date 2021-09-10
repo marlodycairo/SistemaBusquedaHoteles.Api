@@ -9,7 +9,6 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Entities
 {
     public class TipoAlojamiento
     {
-        [ScaffoldColumn(false)]
         [Key]
         public int Id { get; set; }
         public string Nombre { get; set; }

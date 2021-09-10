@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 
 namespace SistemaBusquedaHoteles.Api.Infrastructure.Entities
 {
-    public class Sedes
+    public class Tarifas
     {
         [Key]
         public int Id { get; set; }
-        public string Ciudad { get; set; }
-        public int CupoMax { get; set; }
-        public int TotalHabitaciones { get; set; }
+        public double Valor { get; set; }
+        public string Temporada { get; set; }
     }
 }

@@ -9,23 +9,25 @@ using System.Threading.Tasks;
 
 namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
 {
-    public class TipoAlojamientoRepository : ITipoAlojamientoRepository
+    public class TarifasRepository : ITarifasRepository
     {
         private readonly ApplicationDbContext context;
 
-        public TipoAlojamientoRepository(ApplicationDbContext context)
+        public TarifasRepository(ApplicationDbContext context)
         {
             this.context = context;
         }
 
-        public TipoAlojamiento GetAlojamientoById(int id)
+        public Tarifas GetTarifaById(int id)
         {
-            return context.TipoAlojamiento.FirstOrDefault(p => p.Id == id);
+            var tarifa = context.Tarifas.FirstOrDefault(p => p.Id == id);
+
+            return tarifa;
         }
 
-        public IEnumerable<TipoAlojamiento> GetAlojamientos()
+        public IEnumerable<Tarifas> GetTarifas()
         {
-            return context.TipoAlojamiento.ToList();
+            return context.Tarifas.ToList();
         }
     }
 }

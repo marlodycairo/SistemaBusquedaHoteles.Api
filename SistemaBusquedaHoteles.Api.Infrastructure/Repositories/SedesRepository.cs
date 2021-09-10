@@ -19,7 +19,7 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
         }
         public Sedes GetSedeById(int id)
         {
-            return context.Sedes.Find(id);
+            return context.Sedes.FirstOrDefault(p => p.Id == id);
         }
 
         public IEnumerable<Sedes> GetSedes()

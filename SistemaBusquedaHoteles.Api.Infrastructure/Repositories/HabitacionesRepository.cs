@@ -2,11 +2,8 @@
 using SistemaBusquedaHoteles.Api.Infrastructure.Context;
 using SistemaBusquedaHoteles.Api.Infrastructure.Entities;
 using SistemaBusquedaHoteles.Api.Infrastructure.Repositories.IRepository;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
 {
@@ -18,6 +15,7 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
         {
             this.context = context;
         }
+
         public Habitaciones Create(Habitaciones habitaciones)
         {
             context.Habitaciones.Add(habitaciones);
@@ -28,7 +26,7 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
 
         public void Delete(int id)
         {
-            var habitacion = context.Habitaciones.FirstOrDefault(p => p.Id == id);
+            Habitaciones habitacion = context.Habitaciones.FirstOrDefault(p => p.Id == id);
 
             context.Remove(habitacion);
             context.SaveChanges();
@@ -36,12 +34,19 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
 
         public IEnumerable<Habitaciones> GetAll()
         {
-            return context.Habitaciones.ToList();
+            //return context.Habitaciones.ToList();
+            return (from p in context.Habitaciones
+                        select p).Include(s => s.Sede)
+                        .Include(ti => ti.Tipo)
+                        .Include(t => t.Tarifa)
+                        .Include(r => r.Reserva)
+                        .ThenInclude(h => h.Habitacion)
+                        .ToList();
         }
 
         public Habitaciones GetById(int id)
         {
-            return context.Habitaciones.Find(id);
+            return context.Habitaciones.FirstOrDefault(p => p.Id == id);
         }
 
         public Habitaciones Update(Habitaciones habitaciones)
