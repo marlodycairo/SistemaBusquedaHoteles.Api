@@ -55,10 +55,10 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                 {
                     if (Equals(filter.Fecha, item))
                     {
-                        
+                        string message = "Fecha no disponible. Seleccione otra fecha.";
+                        result = result.Where(p => p.Fecha.ToShortDateString() == filter.Fecha?.ToShortDateString());
                     }
                 }
-                
                 result = result.Where(p => p.Fecha.ToShortDateString() == filter.Fecha?.ToShortDateString());
             }
 

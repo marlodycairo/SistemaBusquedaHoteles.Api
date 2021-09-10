@@ -53,7 +53,6 @@ namespace SistemaBusquedaHoteles.Api.Domain.Helpers
 
             List<DateTime> lst = new List<DateTime>();
 
-
             //Comprueba si la fecha solicitada ya existe
             foreach (var item in query)
             {
