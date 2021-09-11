@@ -8,11 +8,11 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Entities
         [Key]
         public int Id { get; set; }
         public DateTime Fecha { get; set; }
-        public bool Disponible { get; set; }
+        public string Estado { get; set; }
         public int TipoId { get; set; }
         public int SedeId { get; set; }
         public int TarifaId { get; set; }
-        public int reservaId { get; set; }
+        public int ReservaId { get; set; }
 
 
         public TipoAlojamiento Tipo { get; set; }

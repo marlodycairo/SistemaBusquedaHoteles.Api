@@ -16,14 +16,11 @@ namespace SistemaBusquedaHoteles.Controllers
     {
         private readonly IBuscadorApplication buscadorApplication;
         private readonly IHabitacionesApplication habitacionesApplication;
-        private readonly Calendario calendario;
 
-        public BuscadorController(IBuscadorApplication buscadorApplication, IHabitacionesApplication habitacionesApplication,
-            Calendario calendario)
+        public BuscadorController(IBuscadorApplication buscadorApplication, IHabitacionesApplication habitacionesApplication)
         {
             this.buscadorApplication = buscadorApplication;
             this.habitacionesApplication = habitacionesApplication;
-            this.calendario = calendario;
         }
 
         [HttpGet]
@@ -37,15 +34,10 @@ namespace SistemaBusquedaHoteles.Controllers
 
             List<ReservacionViewModel> result = new List<ReservacionViewModel>();
 
-            var lstFechas = calendario.GetCalendario(fecha);
 
             var query = from p in obHabitaciones
                         select p.Fecha;
 
-            if (lstFechas == query)
-            {
-
-            }
             //Ciudades
             if (!string.IsNullOrEmpty(buscar))
             {
@@ -56,15 +48,6 @@ namespace SistemaBusquedaHoteles.Controllers
                                                             || Convert.ToString(p.Tarifa.Valor).Contains(item.Trim())).ToList();
                 }
             }
-
-            ////Fechas
-            //if (!string.IsNullOrEmpty(Convert.ToString(fecha)))
-            //{
-            //    foreach (string item in fecha.ToShortDateString().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries))
-            //    {
-            //        obHabitaciones = obHabitaciones.Where(p => p.Fecha.ToShortDateString().Contains(item)).ToList();
-            //    }
-            //}
 
             switch (orden)
             {
@@ -131,7 +114,7 @@ namespace SistemaBusquedaHoteles.Controllers
                 TotalRegistros = totalRegistros,
                 TotalPaginas = totalPaginas,
                 PaginaActual = pagina,
-                BusquedaActual = buscar,
+                //BusquedaActual = buscar,
                 OrdenActual = orden,
                 TipoOrdenActual = tipo_Orden,
                 Resultado = obHabitaciones

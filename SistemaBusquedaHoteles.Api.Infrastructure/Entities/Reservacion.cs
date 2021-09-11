@@ -13,7 +13,18 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Entities
         public int Id { get; set; }
         public string IDReservacion { get; set; }
         public DateTime Fecha { get; set; }
+        public int TotalPersonas { get; set; }
+        public int TotalHabitaciones { get; set; }
+        public double ValorTotal { get; set; }
+        public int SedeId { get; set; }
+        public int TipoAlojamientoId { get; set; }
+        public int TarifaId { get; set; }
+        public int ClienteId { get; set; }
 
         public Habitaciones Habitacion { get; set; }
+        public Sedes Sede { get; set; }
+        public TipoAlojamiento TAlojamiento { get; set; }
+        public Tarifas Tarifa { get; set; }
+        public Clientes Cliente { get; set; }
     }
 }

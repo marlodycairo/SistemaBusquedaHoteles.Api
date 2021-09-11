@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories.IRepository
 {
-    public interface IReservacionRepository
+    public interface IClienteRepository
     {
-        IEnumerable<Reservacion> GetReservaciones();
-        Reservacion GetReservaById(int id);
-        Reservacion CreateReservacion(Reservacion reservacion);
-        Reservacion UpdateReservacion(Reservacion reservacion);
+        IEnumerable<Clientes> GetReservaciones();
+        Clientes GetReservaById(int id);
+        Clientes CreateReservacion(Clientes clientes);
+        Clientes UpdateReservacion(Clientes clientes);
         void DeleteReservacion(int id);
     }
 }

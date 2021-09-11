@@ -15,7 +15,6 @@ using SistemaBusquedaHoteles.Api.DomainServices;
 using SistemaBusquedaHoteles.Api.Infrastructure.Context;
 using SistemaBusquedaHoteles.Api.Infrastructure.Repositories;
 using SistemaBusquedaHoteles.Api.Infrastructure.Repositories.IRepository;
-using SistemaBusquedaHoteles.Api.Domain.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,10 +70,6 @@ namespace SistemaBusquedaHoteles
             services.AddScoped<IReservacionRepository, ReservacionRepository>();
             services.AddScoped<IReservacionDomain, ReservacionDomainServices>();
             services.AddScoped<IReservacionApplication, ReservacionApplicationServices>();
-
-            services.AddScoped<Calendario>();
-
-
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SistemaBusquedaHoteles.Api.Domain;
+using SistemaBusquedaHoteles.Api.Domain.Helpers;
 using SistemaBusquedaHoteles.Api.Domain.Models;
 using SistemaBusquedaHoteles.Api.Domain.QueryFilters;
 using SistemaBusquedaHoteles.Api.Infrastructure.Entities;
@@ -48,22 +49,27 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
             if (filter.Fecha != null)
             {
-                var dates = from d in result
-                            select d.Fecha;
-
-                foreach (var item in dates)
+                foreach (var item in result)
                 {
-                    if (Equals(filter.Fecha, item))
+                    if (!Equals(item.Fecha, filter.Fecha))
                     {
-                        string message = "Fecha no disponible. Seleccione otra fecha.";
-                        result = result.Where(p => p.Fecha.ToShortDateString() == filter.Fecha?.ToShortDateString());
+                        //item.Estado = true;
                     }
                 }
+
                 result = result.Where(p => p.Fecha.ToShortDateString() == filter.Fecha?.ToShortDateString());
             }
 
-            if (filter.Tarifa!= 0)
+            if (filter.Tarifa != 0)
             {
+                foreach (var item in result)
+                {
+                    if (item.TipoAlojamientos.Nombre == filter.Tipo)
+                    {
+                        var test = item.Tarifa.Valor;
+                    }
+                }
+
                 result = result.Where(p => p.Tarifa.Valor == filter.Tarifa);
             }
 
@@ -74,6 +80,12 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
             if (filter.Tipo != null)
             {
+                foreach (var item in result)
+                {
+                    var test = item.TipoAlojamientos.Nombre;
+                    item.TipoAlojamientos.Nombre = test;
+                }
+
                 result = result.Where(p => p.TipoAlojamientos.Nombre.ToLower() == filter.Tipo.ToLower());
             }
 

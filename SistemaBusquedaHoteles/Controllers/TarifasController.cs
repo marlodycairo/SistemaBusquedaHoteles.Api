@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SistemaBusquedaHoteles.Api.Application;
 using SistemaBusquedaHoteles.Api.Domain.Models;
+using SistemaBusquedaHoteles.Api.Domain.QueryFilters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +22,9 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<TarifasViewModel> GetTarifas()
+        public IEnumerable<TarifasViewModel> GetTarifas(TarifasQueryFilter filter)
         {
-            return tarifasApplication.GetTarifas();
+            return tarifasApplication.GetTarifas(filter);
         }
 
         [HttpGet("{id}")]

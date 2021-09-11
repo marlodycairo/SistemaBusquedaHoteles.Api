@@ -28,7 +28,7 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
         {
             Habitaciones habitacion = context.Habitaciones.FirstOrDefault(p => p.Id == id);
 
-            context.Remove(habitacion);
+            context.Remove(habitacion).State = EntityState.Deleted;
             context.SaveChanges();
         }
 

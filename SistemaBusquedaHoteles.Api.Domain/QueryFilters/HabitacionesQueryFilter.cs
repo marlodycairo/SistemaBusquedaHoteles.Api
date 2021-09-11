@@ -14,14 +14,5 @@ namespace SistemaBusquedaHoteles.Api.Domain.QueryFilters
         public int CantidadPersonas { get; set; }
         public string Tipo { get; set; }
         public int TotalHabitaciones { get; set; }
-        
-        ////pendiente de realizar.
-        //public double TotalPagar { get; set; }
-        //public double Total()
-        //{
-        //    double total = 0;
-        //    total = TotalHabitaciones * Tarifa;
-        //    return total;
-        //}
     }
 }

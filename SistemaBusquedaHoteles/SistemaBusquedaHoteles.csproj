@@ -21,6 +21,7 @@
     <ProjectReference Include="..\SistemaBusquedaHoteles.Api.ApplicationServices\SistemaBusquedaHoteles.Api.ApplicationServices.csproj" />
     <ProjectReference Include="..\SistemaBusquedaHoteles.Api.Application\SistemaBusquedaHoteles.Api.Application.csproj" />
     <ProjectReference Include="..\SistemaBusquedaHoteles.Api.DomainServices\SistemaBusquedaHoteles.Api.DomainServices.csproj" />
+    <ProjectReference Include="..\SistemaBusquedaHoteles.Api.Domain\SistemaBusquedaHoteles.Api.Domain.csproj" />
     <ProjectReference Include="..\SistemaBusquedaHoteles.Api.Infrastructure\SistemaBusquedaHoteles.Api.Infrastructure.csproj" />
   </ItemGroup>
 

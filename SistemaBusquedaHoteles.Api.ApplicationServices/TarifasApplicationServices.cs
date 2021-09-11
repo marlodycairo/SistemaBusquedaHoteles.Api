@@ -1,6 +1,7 @@
 ﻿using SistemaBusquedaHoteles.Api.Application;
 using SistemaBusquedaHoteles.Api.Domain;
 using SistemaBusquedaHoteles.Api.Domain.Models;
+using SistemaBusquedaHoteles.Api.Domain.QueryFilters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,9 +24,9 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
             return tarifasDomain.GetTarifaById(id);
         }
 
-        public IEnumerable<TarifasViewModel> GetTarifas()
+        public IEnumerable<TarifasViewModel> GetTarifas(TarifasQueryFilter filter)
         {
-            return tarifasDomain.GetTarifas();
+            return tarifasDomain.GetTarifas(filter);
         }
     }
 }

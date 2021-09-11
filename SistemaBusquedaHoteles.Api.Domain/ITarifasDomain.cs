@@ -1,4 +1,5 @@
 ﻿using SistemaBusquedaHoteles.Api.Domain.Models;
+using SistemaBusquedaHoteles.Api.Domain.QueryFilters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace SistemaBusquedaHoteles.Api.Domain
 {
     public interface ITarifasDomain
     {
-        IEnumerable<TarifasViewModel> GetTarifas();
+        IEnumerable<TarifasViewModel> GetTarifas(TarifasQueryFilter filter);
         TarifasViewModel GetTarifaById(int id);
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SistemaBusquedaHoteles.Api.Application;
 using SistemaBusquedaHoteles.Api.Domain.Models;
+using SistemaBusquedaHoteles.Api.Domain.QueryFilters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,15 +22,33 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<ReservacionViewModel> VerTodasLasReservas()
+        public IEnumerable<ReservacionViewModel> VerTodasLasReservas([FromQuery] ReservacionQueryFilter filter)
         {
-            return reservacionApplication.GetReservaciones();
+            return reservacionApplication.GetReservaciones(filter);
         }
 
         [HttpGet("{id}")]
         public ReservacionViewModel GetReservacionById(int id)
         {
             return reservacionApplication.GetReservaById(id);
+        }
+
+        [HttpPost]
+        public ReservacionViewModel CreateReservacion(ReservacionViewModel reservacion)
+        {
+            return reservacionApplication.CreateReservacion(reservacion);
+        }
+
+        [HttpPut]
+        public ReservacionViewModel UpdateReservacion(ReservacionViewModel reservacion)
+        {
+            return reservacionApplication.UpdateReservacion(reservacion);
+        }
+
+        [HttpDelete("{id}")]
+        public void DeleteReservacion(int id)
+        {
+            reservacionApplication.DeleteReservacion(id);
         }
     }
 }

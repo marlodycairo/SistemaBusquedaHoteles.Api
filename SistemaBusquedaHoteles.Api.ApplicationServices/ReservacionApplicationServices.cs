@@ -2,6 +2,8 @@
 using SistemaBusquedaHoteles.Api.Application;
 using SistemaBusquedaHoteles.Api.Domain;
 using SistemaBusquedaHoteles.Api.Domain.Models;
+using SistemaBusquedaHoteles.Api.Domain.QueryFilters;
+using SistemaBusquedaHoteles.Api.Infrastructure.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,14 +23,32 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
             this.mapper = mapper;
         }
 
+        public ReservacionViewModel CreateReservacion(ReservacionViewModel reservacion)
+        {
+            var objReservacion = mapper.Map<Reservacion>(reservacion);
+            var reservaciones = reservacionDomain.CreateReservacion(objReservacion);
+
+            return reservaciones;
+        }
+
+        public void DeleteReservacion(int id)
+        {
+            reservacionDomain.DeleteReservacion(id);
+        }
+
         public ReservacionViewModel GetReservaById(int id)
         {
             return reservacionDomain.GetReservaById(id);
         }
 
-        public IEnumerable<ReservacionViewModel> GetReservaciones()
+        public IEnumerable<ReservacionViewModel> GetReservaciones(ReservacionQueryFilter filter)
         {
-            return reservacionDomain.GetReservaciones();
+            return reservacionDomain.GetReservaciones(filter);
+        }
+
+        public ReservacionViewModel UpdateReservacion(ReservacionViewModel reservacion)
+        {
+            return reservacionDomain.UpdateReservacion(reservacion);
         }
     }
 }

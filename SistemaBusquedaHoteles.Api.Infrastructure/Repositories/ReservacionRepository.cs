@@ -1,4 +1,5 @@
-﻿using SistemaBusquedaHoteles.Api.Infrastructure.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using SistemaBusquedaHoteles.Api.Infrastructure.Context;
 using SistemaBusquedaHoteles.Api.Infrastructure.Entities;
 using SistemaBusquedaHoteles.Api.Infrastructure.Repositories.IRepository;
 using System;
@@ -18,6 +19,22 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
             this.context = context;
         }
 
+        public Reservacion CreateReservacion(Reservacion reservacion)
+        {
+            context.Reservacion.Add(reservacion);
+            context.SaveChanges();
+
+            return reservacion;
+        }
+
+        public void DeleteReservacion(int id)
+        {
+            var reserva = context.Reservacion.FirstOrDefault(p => p.Id == id);
+
+            context.Remove(id).State = EntityState.Deleted;
+            context.SaveChanges();
+        }
+
         public Reservacion GetReservaById(int id)
         {
             return context.Reservacion.FirstOrDefault(p => p.Id == id);
@@ -25,7 +42,20 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
 
         public IEnumerable<Reservacion> GetReservaciones()
         {
-            return context.Reservacion.ToList();
+            return context.Reservacion
+                .Include(p => p.Cliente)
+                .Include(p => p.Habitacion)
+                .Include(p => p.Sede)
+                .Include(p => p.TAlojamiento)
+                .Include(p => p.Tarifa).ToList();
+        }
+
+        public Reservacion UpdateReservacion(Reservacion reservacion)
+        {
+            context.Entry(reservacion).State = EntityState.Modified;
+            context.SaveChanges();
+
+            return reservacion;
         }
     }
 }

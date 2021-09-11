@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using SistemaBusquedaHoteles.Api.Domain;
 using SistemaBusquedaHoteles.Api.Domain.Models;
+using SistemaBusquedaHoteles.Api.Domain.QueryFilters;
 using SistemaBusquedaHoteles.Api.Infrastructure.Repositories.IRepository;
 using System;
 using System.Collections.Generic;
@@ -30,11 +31,26 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             return result;
         }
 
-        public IEnumerable<TarifasViewModel> GetTarifas()
+        public IEnumerable<TarifasViewModel> GetTarifas(TarifasQueryFilter filter)
         {
             var tarifas = tarifasRepository.GetTarifas();
 
             var result = mapper.Map<IEnumerable<TarifasViewModel>>(tarifas);
+
+            if (filter.Temporada != null)
+            {
+                //rango de fechas
+                //temporada alta/baja
+
+
+                result = result.Where(p => p.Temporada == filter.Temporada);
+            }
+
+            if (filter.Valor == 0)
+            {
+                //precio varía segun temporada y tipo alojamiento
+                result = result.Where(p => p.Valor == filter.Valor);
+            }
 
             return result;
         }
