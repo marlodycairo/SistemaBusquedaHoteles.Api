@@ -1,4 +1,5 @@
 ﻿using SistemaBusquedaHoteles.Api.Domain.Models;
+using SistemaBusquedaHoteles.Api.Infrastructure.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,10 @@ namespace SistemaBusquedaHoteles.Api.Application
 {
     public interface IClienteApplication
     {
-        IEnumerable<ClienteViewModel> GetReservaciones();
-        ClienteViewModel GetReservaById(int id);
-        ClienteViewModel CreateReservacion(ClienteViewModel clientes);
-        ClienteViewModel UpdateReservacion(ClienteViewModel clientes);
-        void DeleteReservacion(int id);
+        IEnumerable<ClienteViewModel> GetClientes();
+        ClienteViewModel GetClienteById(int id);
+        ClienteViewModel CreateCliente(ClienteViewModel clientes);
+        ClienteViewModel UpdateCliente(ClienteViewModel clientes);
+        void DeleteCliente(int id);
     }
 }

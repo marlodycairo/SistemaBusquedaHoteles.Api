@@ -52,6 +52,46 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
             var result = mapper.Map<IEnumerable<ReservacionViewModel>>(reservas);
 
+            if (filter.Ciudad != null)
+            {
+                result = result.Where(p => p.SedesModel.Ciudad.ToLower() == filter.Ciudad.ToLower());
+            }
+
+            if (filter.Fecha != null)
+            {
+                result = result.Where(p => p.Fecha.ToShortDateString() == filter.Fecha?.ToShortDateString());
+            }
+
+            if (filter.TotalPersonas != 0)
+            {
+                result = result.Where(p => p.TotalPersonas == filter.TotalPersonas);
+            }
+
+            if (filter.TotalHabitaciones != 0)
+            {
+                result = result.Where(p => p.TotalHabitaciones == filter.TotalHabitaciones);
+            }
+
+            if (filter.ValorTotal != 0)
+            {
+                result = result.Where(p => p.ValorTotal == filter.ValorTotal);
+            }
+
+            if (filter.TipoAlojamiento != null)
+            {
+                result = result.Where(p => p.TipoAlojamientoModel.Nombre.ToLower() == filter.TipoAlojamiento.ToLower());
+            }
+
+            if (filter.Tarifa != 0)
+            {
+                result = result.Where(p => p.TarifasModel.Valor == filter.Tarifa);
+            }
+
+            if (filter.IDCliente != null)
+            {
+                result = result.Where(p => p.ClienteModel.IDCliente.ToLower().Trim() == filter.IDCliente.ToLower().Trim());
+            }
+
             return result;
         }
 

@@ -40,7 +40,8 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
                         .Include(ti => ti.Tipo)
                         .Include(t => t.Tarifa)
                         .Include(r => r.Reserva)
-                        .ThenInclude(h => h.Habitacion)
+                        .Include(r => r.Reserva)
+                        .ThenInclude(c => c.Cliente)
                         .ToList();
         }
 

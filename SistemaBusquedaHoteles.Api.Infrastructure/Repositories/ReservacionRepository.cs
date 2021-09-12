@@ -43,11 +43,11 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
         public IEnumerable<Reservacion> GetReservaciones()
         {
             return context.Reservacion
-                .Include(p => p.Cliente)
-                .Include(p => p.Habitacion)
                 .Include(p => p.Sede)
                 .Include(p => p.TAlojamiento)
-                .Include(p => p.Tarifa).ToList();
+                .Include(p => p.Tarifa)
+                .Include(p => p.Cliente)
+                .ToList();
         }
 
         public Reservacion UpdateReservacion(Reservacion reservacion)

@@ -19,7 +19,6 @@ namespace SistemaBusquedaHoteles.Api.Domain.Models
         public int TarifaId { get; set; }
         public int ClienteId { get; set; }
 
-        public HabitacionesViewModel HabitacionesModel { get; set; }
         public SedesViewModel SedesModel { get; set; }
         public TipoAlojamientoViewModel TipoAlojamientoModel { get; set; }
         public TarifasViewModel TarifasModel { get; set; }

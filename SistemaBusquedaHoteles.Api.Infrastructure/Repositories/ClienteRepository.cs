@@ -1,4 +1,5 @@
-﻿using SistemaBusquedaHoteles.Api.Infrastructure.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using SistemaBusquedaHoteles.Api.Infrastructure.Context;
 using SistemaBusquedaHoteles.Api.Infrastructure.Entities;
 using SistemaBusquedaHoteles.Api.Infrastructure.Repositories.IRepository;
 using System;
@@ -18,38 +19,38 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
             this.context = context;
         }
 
-        public Clientes CreateReservacion(Clientes clientes)
+        public Clientes CreateCliente(Clientes cliente)
         {
-            context.Cliente.Add(clientes);
+            context.Cliente.Add(cliente);
             context.SaveChanges();
 
-            return clientes;
+            return cliente;
         }
 
-        public void DeleteReservacion(int id)
+        public void DeleteCliente(int id)
         {
-            var reserva = context.Cliente.FirstOrDefault(p => p.Id == id);
+            var cliente = context.Cliente.FirstOrDefault(p => p.Id == id);
 
-            context.Remove(reserva);
-
-
-
-            return ;
+            context.Remove(cliente).State = EntityState.Deleted;
+            context.SaveChanges();
         }
 
-        public Clientes GetReservaById(int id)
+        public Clientes GetClienteById(int id)
         {
-            throw new NotImplementedException();
+            return context.Cliente.FirstOrDefault(p => p.Id == id);
         }
 
-        public IEnumerable<Clientes> GetReservaciones()
+        public IEnumerable<Clientes> GetClientes()
         {
-            throw new NotImplementedException();
+            return context.Cliente.ToList();
         }
 
-        public Clientes UpdateReservacion(Clientes clientes)
+        public Clientes UpdateCliente(Clientes cliente)
         {
-            throw new NotImplementedException();
+            context.Entry(cliente).State = EntityState.Modified;
+            context.SaveChanges();
+
+            return cliente;
         }
     }
 }

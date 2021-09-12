@@ -9,10 +9,10 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories.IRepository
 {
     public interface IClienteRepository
     {
-        IEnumerable<Clientes> GetReservaciones();
-        Clientes GetReservaById(int id);
-        Clientes CreateReservacion(Clientes clientes);
-        Clientes UpdateReservacion(Clientes clientes);
-        void DeleteReservacion(int id);
+        IEnumerable<Clientes> GetClientes();
+        Clientes GetClienteById(int id);
+        Clientes CreateCliente(Clientes clientes);
+        Clientes UpdateCliente(Clientes clientes);
+        void DeleteCliente(int id);
     }
 }

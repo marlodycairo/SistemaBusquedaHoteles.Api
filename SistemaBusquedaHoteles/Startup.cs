@@ -71,6 +71,10 @@ namespace SistemaBusquedaHoteles
             services.AddScoped<IReservacionDomain, ReservacionDomainServices>();
             services.AddScoped<IReservacionApplication, ReservacionApplicationServices>();
 
+            services.AddScoped<IClienteRepository, ClienteRepository>();
+            services.AddScoped<IClienteDomain, ClienteDomainService>();
+            services.AddScoped<IClienteApplication, ClienteApplicationService>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

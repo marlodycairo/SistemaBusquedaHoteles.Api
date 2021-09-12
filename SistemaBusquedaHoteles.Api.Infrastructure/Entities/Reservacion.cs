@@ -21,7 +21,6 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Entities
         public int TarifaId { get; set; }
         public int ClienteId { get; set; }
 
-        public Habitaciones Habitacion { get; set; }
         public Sedes Sede { get; set; }
         public TipoAlojamiento TAlojamiento { get; set; }
         public Tarifas Tarifa { get; set; }
