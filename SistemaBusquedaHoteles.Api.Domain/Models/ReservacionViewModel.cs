@@ -18,10 +18,14 @@ namespace SistemaBusquedaHoteles.Api.Domain.Models
         public int TipoAlojamientoId { get; set; }
         public int TarifaId { get; set; }
         public int ClienteId { get; set; }
+        public int HabitacionId { get; set; }
+
+        public string Respuesta { get; set; }
 
         public SedesViewModel SedesModel { get; set; }
         public TipoAlojamientoViewModel TipoAlojamientoModel { get; set; }
         public TarifasViewModel TarifasModel { get; set; }
         public ClienteViewModel ClienteModel { get; set; }
+        public HabitacionesViewModel HabitacionesModel { get; set; }
     }
 }

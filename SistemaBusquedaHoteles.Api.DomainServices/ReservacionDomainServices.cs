@@ -1,5 +1,4 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using SistemaBusquedaHoteles.Api.Domain;
 using SistemaBusquedaHoteles.Api.Domain.Models;
 using SistemaBusquedaHoteles.Api.Domain.QueryFilters;
@@ -52,44 +51,56 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
             var result = mapper.Map<IEnumerable<ReservacionViewModel>>(reservas);
 
+            List<ReservacionViewModel> testList = new List<ReservacionViewModel>();
+
             if (filter.Ciudad != null)
-            {
+            {                
                 result = result.Where(p => p.SedesModel.Ciudad.ToLower() == filter.Ciudad.ToLower());
             }
 
             if (filter.Fecha != null)
             {
-                result = result.Where(p => p.Fecha.ToShortDateString() == filter.Fecha?.ToShortDateString());
+                var message = $"No hay una habitación disponible en la fecha { filter.Fecha }";
+
+                var prueba = new ReservacionViewModel();
+                foreach (var item in result)
+                {
+                    if (Equals(filter.Fecha, item.Fecha))
+                    {
+                        var test = item.Respuesta;
+                        item.Respuesta = message;
+                        testList.Add(item);
+                        return testList;
+                    }
+                }
             }
 
             if (filter.TotalPersonas != 0)
             {
+                var message = $"En este momento no contamos con habitaciones con esta capacidad { filter.TotalPersonas }";
+                var test = 0;
+
+                foreach (var item in result)
+                {
+                    if (filter.TotalPersonas < item.TotalPersonas)
+                    {
+
+                    }
+                    else
+                    {
+                        test = item.TotalPersonas;
+                        item.Respuesta = message;
+                        testList.Add(item);
+                        return testList;
+                    }
+                }
+
                 result = result.Where(p => p.TotalPersonas == filter.TotalPersonas);
             }
 
             if (filter.TotalHabitaciones != 0)
             {
                 result = result.Where(p => p.TotalHabitaciones == filter.TotalHabitaciones);
-            }
-
-            if (filter.ValorTotal != 0)
-            {
-                result = result.Where(p => p.ValorTotal == filter.ValorTotal);
-            }
-
-            if (filter.TipoAlojamiento != null)
-            {
-                result = result.Where(p => p.TipoAlojamientoModel.Nombre.ToLower() == filter.TipoAlojamiento.ToLower());
-            }
-
-            if (filter.Tarifa != 0)
-            {
-                result = result.Where(p => p.TarifasModel.Valor == filter.Tarifa);
-            }
-
-            if (filter.IDCliente != null)
-            {
-                result = result.Where(p => p.ClienteModel.IDCliente.ToLower().Trim() == filter.IDCliente.ToLower().Trim());
             }
 
             return result;

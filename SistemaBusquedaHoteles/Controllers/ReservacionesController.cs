@@ -22,7 +22,7 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<ReservacionViewModel> VerTodasLasReservas([FromQuery] ReservacionQueryFilter filter)
+        public IEnumerable<ReservacionViewModel> GetReservaciones([FromQuery] ReservacionQueryFilter filter)
         {
             return reservacionApplication.GetReservaciones(filter);
         }
