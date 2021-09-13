@@ -41,7 +41,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             var reservas = reservacionRepository.GetReservaById(id);
 
             var result = mapper.Map<ReservacionViewModel>(reservas);
-            
+
             return result;
         }
 
@@ -50,6 +50,10 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             var reservas = reservacionRepository.GetReservaciones();
 
             var result = mapper.Map<IEnumerable<ReservacionViewModel>>(reservas);
+
+            DateTime date = (DateTime)filter.Fecha;
+
+            ReservacionViewModel testModel = new ReservacionViewModel();
 
             List<ReservacionViewModel> testList = new List<ReservacionViewModel>();
 
@@ -61,15 +65,22 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             if (filter.Fecha != null)
             {
                 var message = $"No hay una habitación disponible en la fecha { filter.Fecha }";
-
-                var prueba = new ReservacionViewModel();
+                
                 foreach (var item in result)
                 {
                     if (Equals(filter.Fecha, item.Fecha))
                     {
                         var test = item.Respuesta;
                         item.Respuesta = message;
-                        testList.Add(item);
+
+                        var testFecha = item.Fecha;
+                        item.Fecha = date;
+
+                        testList.Add(new ReservacionViewModel() 
+                        {
+                            Fecha = item.Fecha,
+                            Respuesta = item.Respuesta
+                        });
                         return testList;
                     }
                 }
@@ -77,29 +88,36 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
             if (filter.TotalPersonas != 0)
             {
-                var message = $"En este momento no contamos con habitaciones con esta capacidad { filter.TotalPersonas }";
+                var message = $"En este momento no contamos con habitaciones con esta capacidad. Considere la posibilidad de reservar varias habitaciones.";
                 var test = 0;
 
                 foreach (var item in result)
                 {
-                    if (filter.TotalPersonas < item.TotalPersonas)
+                    if (filter.TotalPersonas < item.SedesModel.CupoMax)
                     {
 
                     }
                     else
                     {
-                        test = item.TotalPersonas;
+                        item.Fecha = date;
+                        //test = item.SedesModel.CupoMax;
                         item.Respuesta = message;
-                        testList.Add(item);
+                        testList.Add(new ReservacionViewModel() 
+                        {
+                            Fecha = item.Fecha,
+                            Respuesta = item.Respuesta
+                        });
                         return testList;
                     }
                 }
 
-                result = result.Where(p => p.TotalPersonas == filter.TotalPersonas);
+                result = result.Where(p => p.SedesModel.CupoMax <= filter.TotalPersonas);
             }
 
             if (filter.TotalHabitaciones != 0)
             {
+
+
                 result = result.Where(p => p.TotalHabitaciones == filter.TotalHabitaciones);
             }
 
