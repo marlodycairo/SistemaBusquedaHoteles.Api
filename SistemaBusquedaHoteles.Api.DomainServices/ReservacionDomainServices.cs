@@ -23,6 +23,83 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             this.mapper = mapper;
         }
 
+        public int CalcularHabitacionesDisponibles(string ciudad)
+        {
+            var reservaciones = reservacionRepository.GetReservaciones();
+            var result = mapper.Map<IEnumerable<ReservacionViewModel>>(reservaciones);
+
+            int totalHabitacionesDisponibles = 0;
+            int totalOcupadas = 0;
+
+            foreach (var item in result)
+            {
+                if (item.SedesModel.Ciudad.ToLower() == ciudad.ToLower())
+                {
+                    totalOcupadas++;
+                }
+            }
+
+            var totalPorSede = (from p in result
+                                    where p.HabitacionesModel.Sedes.Ciudad.ToLower() == ciudad.ToLower()
+                                   select p.SedesModel.TotalHabitaciones).FirstOrDefault();
+
+
+            totalHabitacionesDisponibles = totalPorSede - totalOcupadas;
+
+            return totalHabitacionesDisponibles;
+        }
+
+        public double CalcularTarifa()
+        {
+            var reservaciones = reservacionRepository.GetReservaciones();
+            var result = mapper.Map<IEnumerable<ReservacionViewModel>>(reservaciones);
+
+            return 0;
+        }
+
+        public DateTime CalcularTemporada()
+        {
+            var reservaciones = reservacionRepository.GetReservaciones();
+            var result = mapper.Map<IEnumerable<ReservacionViewModel>>(reservaciones);
+
+            //Fecha inicio temporada alta meses Noviembre 1 hasta Abril 20
+            var fInicioAl1 = new DateTime(2021, 11, 1);
+
+            //Temporada Alta es desde el 20 de junio, Julio y agosto.
+            DateTime tAlta1 = new DateTime(2021, 11, 1).AddMonths(5).AddDays(20);
+
+            //Fecha inicio temporada alta meses Junio 21 hasta Agosto 30
+            var fInicioAl2 = new DateTime(2021, 6, 21);
+
+            //desde el 21 de junio, Julio hasta agosto 30.
+            DateTime tAlta2 = new DateTime(2021, 6, 21).AddMonths(2).AddDays(10);
+
+
+            //Fecha inicio temporada baja meses Abril 22 hasta 20 de junio
+            var fInicioBaj1 = new DateTime(2022, 4, 22);
+
+            //Temporada Baja Abril + Mayo + hasta el 22 de junio +Septiembre a octubre
+            DateTime tBaja1 = new DateTime(2022, 4, 22).AddMonths(2).AddDays(30);
+
+            //Fecha inicio temporada baja meses Septiembre 1 hasta Octubre 30
+            var fInicioBaj2 = new DateTime(2021, 9, 1);
+
+            //Temporada Baja meses Septiembre - Octubre
+            DateTime tBaja2 = new DateTime(2021, 9, 1).AddMonths(1).AddDays(31);
+
+            return DateTime.Now;
+        }
+
+        public double CalcularValorAPagar()
+        {
+            var reservaciones = reservacionRepository.GetReservaciones();
+            var result = mapper.Map<IEnumerable<ReservacionViewModel>>(reservaciones);
+
+            return 0;
+        }
+
+
+
         public ReservacionViewModel CreateReservacion(Reservacion reservacion)
         {
             reservacionRepository.CreateReservacion(reservacion);
@@ -51,71 +128,33 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
             var result = mapper.Map<IEnumerable<ReservacionViewModel>>(reservas);
 
-            DateTime date = (DateTime)filter.Fecha;
-
             ReservacionViewModel testModel = new ReservacionViewModel();
 
             List<ReservacionViewModel> testList = new List<ReservacionViewModel>();
 
             if (filter.Ciudad != null)
-            {                
+            {
                 result = result.Where(p => p.SedesModel.Ciudad.ToLower() == filter.Ciudad.ToLower());
             }
 
             if (filter.Fecha != null)
             {
-                var message = $"No hay una habitación disponible en la fecha { filter.Fecha }";
-                
-                foreach (var item in result)
-                {
-                    if (Equals(filter.Fecha, item.Fecha))
-                    {
-                        var test = item.Respuesta;
-                        item.Respuesta = message;
-
-                        var testFecha = item.Fecha;
-                        item.Fecha = date;
-
-                        testList.Add(new ReservacionViewModel() 
-                        {
-                            Fecha = item.Fecha,
-                            Respuesta = item.Respuesta
-                        });
-                        return testList;
-                    }
-                }
+                result = result.Where(p => p.Fecha.ToShortDateString() == filter.Fecha?.ToShortDateString());
             }
 
             if (filter.TotalPersonas != 0)
             {
-                var message = $"En este momento no contamos con habitaciones con esta capacidad. Considere la posibilidad de reservar varias habitaciones.";
-                var test = 0;
-
-                foreach (var item in result)
-                {
-                    if (filter.TotalPersonas < item.SedesModel.CupoMax)
-                    {
-
-                    }
-                    else
-                    {
-                        item.Fecha = date;
-                        //test = item.SedesModel.CupoMax;
-                        item.Respuesta = message;
-                        testList.Add(new ReservacionViewModel() 
-                        {
-                            Fecha = item.Fecha,
-                            Respuesta = item.Respuesta
-                        });
-                        return testList;
-                    }
-                }
-
                 result = result.Where(p => p.SedesModel.CupoMax <= filter.TotalPersonas);
             }
 
             if (filter.TotalHabitaciones != 0)
             {
+                var reservaciones = new ReservacionViewModel();
+
+                var reserva = new ReservacionDomainServices(reservacionRepository, mapper);
+
+                var test = reserva.CalcularHabitacionesDisponibles(filter.Ciudad.ToLower());
+                
 
 
                 result = result.Where(p => p.TotalHabitaciones == filter.TotalHabitaciones);
@@ -131,6 +170,17 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             reservacionRepository.UpdateReservacion(reservas);
 
             return reservacion;
+        }
+
+        
+        
+        
+        public DateTime ValidarFechasDisponibles()
+        {
+            var reservaciones = reservacionRepository.GetReservaciones();
+            var result = mapper.Map<IEnumerable<ReservacionViewModel>>(reservaciones);
+
+            return DateTime.Today;
         }
     }
 }
