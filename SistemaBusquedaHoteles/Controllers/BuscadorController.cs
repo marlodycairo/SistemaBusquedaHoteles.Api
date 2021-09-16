@@ -24,13 +24,13 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpGet]
-        public ActionResult<GenericPagination<HabitacionesViewModel>> ConsultarAlojamiento(HabitacionesQueryFilter filter, string buscar, DateTime fecha, string orden = "Id", string tipo_Orden = "ASC", int pagina = 1, int registro_por_pagina = 10)
+        public ActionResult<GenericPagination<HabitacionesViewModel>> ConsultarAlojamiento(string buscar, DateTime fecha, string orden = "Id", string tipo_Orden = "ASC", int pagina = 1, int registro_por_pagina = 10)
         {
             List<HabitacionesViewModel> obHabitaciones; //= new List<HabitacionesViewModel>();
 
             GenericPagination<HabitacionesViewModel> paginadorModel;
 
-            obHabitaciones = (List<HabitacionesViewModel>)habitacionesApplication.GetAll(filter);
+            obHabitaciones = (List<HabitacionesViewModel>)habitacionesApplication.GetAll();
 
             List<ReservacionViewModel> result = new List<ReservacionViewModel>();
 
@@ -44,8 +44,8 @@ namespace SistemaBusquedaHoteles.Controllers
                 foreach (string item in buscar.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries))
                 {
                     obHabitaciones = obHabitaciones.Where(p => p.Sedes.Ciudad.ToLower().Contains(item.ToLower().Trim())
-                                                            || p.TipoAlojamientos.Nombre.ToLower().Contains(item.ToLower().Trim())
-                                                            || Convert.ToString(p.Tarifa.Valor).Contains(item.Trim())).ToList();
+                                                            || p.TipoAlojamientos.Nombre.ToLower().Contains(item.ToLower().Trim())).ToList();
+                                                            //|| Convert.ToString(p.Tarifa.Valor).Contains(item.Trim())).ToList();
                 }
             }
 
@@ -75,17 +75,17 @@ namespace SistemaBusquedaHoteles.Controllers
 
                     break;
 
-                case "Tarifa.Valor":
-                    if (tipo_Orden.ToLower() == "desc")
-                    {
-                        obHabitaciones = obHabitaciones.OrderByDescending(p => p.Tarifa.Valor).ToList();
-                    }
-                    else if (tipo_Orden.ToLower() == "asc")
-                    {
-                        obHabitaciones = obHabitaciones.OrderBy(p => p.Tarifa.Valor).ToList();
-                    }
+                //case "Tarifa.Valor":
+                //    if (tipo_Orden.ToLower() == "desc")
+                //    {
+                //        obHabitaciones = obHabitaciones.OrderByDescending(p => p.Tarifa.Valor).ToList();
+                //    }
+                //    else if (tipo_Orden.ToLower() == "asc")
+                //    {
+                //        obHabitaciones = obHabitaciones.OrderBy(p => p.Tarifa.Valor).ToList();
+                //    }
 
-                    break;
+                   // break;
                 default:
                     if (tipo_Orden.ToLower() == "desc")
                     {

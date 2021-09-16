@@ -34,10 +34,10 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Context
             //    .WithOne(i => i.Sedes)
             //    .HasForeignKey<Reservacion>(s => s.SedeId);
 
-            modelBuilder.Entity<Habitaciones>()
-               .HasOne(s => s.Reserva)
-               .WithOne(i => i.Habitacion)
-               .HasForeignKey<Reservacion>(s => s.HabitacionId);
+            //modelBuilder.Entity<Habitaciones>()
+            //   .HasOne(s => s.Reserva)
+            //   .WithOne(i => i.Habitacion)
+            //   .HasForeignKey<Reservacion>(s => s.HabitacionId);
 
             ////Configuracion propiedades de navegacion consultar: (https://docs.microsoft.com/en-us/ef/core/modeling/relationships?tabs=fluent-api%2Cfluent-api-simple-key%2Csimple-key)
             //modelBuilder.Entity<Sedes>()

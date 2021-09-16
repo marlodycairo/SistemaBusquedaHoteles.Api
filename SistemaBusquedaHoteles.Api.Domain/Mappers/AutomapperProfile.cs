@@ -10,10 +10,10 @@ namespace SistemaBusquedaHoteles.Api.Domain.Mappers
         {
             CreateMap<Habitaciones, HabitacionesViewModel>()
                 .ForMember(dest => dest.Sedes, opt => opt.MapFrom(src => src.Sede))
-                .ForMember(dest => dest.TipoAlojamientos, opt => opt.MapFrom(src => src.Tipo))
-                .ForMember(dest => dest.Tarifa, opt => opt.MapFrom(src => src.Tarifa))
-                .ForMember(dest => dest.ReservaModel, opt => opt.MapFrom(src => src.Reserva))
-                .ForPath(dest => dest.ReservaModel.ClienteModel, member => member.MapFrom(src => src.Reserva.Cliente));
+                .ForMember(dest => dest.TipoAlojamientos, opt => opt.MapFrom(src => src.Tipo));
+                //.ForMember(dest => dest.Tarifa, opt => opt.MapFrom(src => src.Tarifa))
+                //.ForMember(dest => dest.ReservaModel, opt => opt.MapFrom(src => src.Reserva))
+                //.ForPath(dest => dest.ReservaModel.ClienteModel, member => member.MapFrom(src => src.Reserva.Cliente));
 
             CreateMap<HabitacionesViewModel, Habitaciones>();
 

@@ -36,63 +36,11 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             habitacionesRepository.Delete(id);
         }
 
-        public IEnumerable<HabitacionesViewModel> GetAll(HabitacionesQueryFilter filter)
+        public IEnumerable<HabitacionesViewModel> GetAll()
         {
             var habitaciones = habitacionesRepository.GetAll();
 
             var result = mapper.Map<IEnumerable<HabitacionesViewModel>>(habitaciones);
-
-            if (filter.Ciudad != null)
-            {
-                result = result.Where(p => p.Sedes.Ciudad.ToLower() == filter.Ciudad.ToLower());
-            }
-
-            if (filter.Fecha != null)
-            {
-                foreach (var item in result)
-                {
-                    if (!Equals(item.Fecha, filter.Fecha))
-                    {
-                        //item.Estado = true;
-                    }
-                }
-
-                result = result.Where(p => p.Fecha.ToShortDateString() == filter.Fecha?.ToShortDateString());
-            }
-
-            if (filter.Tarifa != 0)
-            {
-                foreach (var item in result)
-                {
-                    if (item.TipoAlojamientos.Nombre == filter.Tipo)
-                    {
-                        var test = item.Tarifa.Valor;
-                    }
-                }
-
-                result = result.Where(p => p.Tarifa.Valor == filter.Tarifa);
-            }
-
-            if (filter.CantidadPersonas != 0)
-            {
-                result = result.Where(p => p.Sedes.CupoMax == filter.CantidadPersonas);
-            }
-
-            if (filter.Tipo != null)
-            {
-                foreach (var item in result)
-                {
-                    var test = item.TipoAlojamientos.Nombre;
-                    item.TipoAlojamientos.Nombre = test;
-                }
-
-                result = result.Where(p => p.TipoAlojamientos.Nombre.ToLower() == filter.Tipo.ToLower());
-            }
-
-            if (filter.TotalHabitaciones != 0)
-            {
-                result = result.Where(p => p.Sedes.TotalHabitaciones == filter.TotalHabitaciones);
-            }
 
             return result;
         }

@@ -10,7 +10,7 @@ namespace SistemaBusquedaHoteles.Api.Application
 {
     public interface IHabitacionesApplication
     {
-        IEnumerable<HabitacionesViewModel> GetAll(HabitacionesQueryFilter filter);
+        IEnumerable<HabitacionesViewModel> GetAll();
         HabitacionesViewModel GetById(int id);
         HabitacionesViewModel Create(HabitacionesViewModel habitaciones);
         HabitacionesViewModel Update(HabitacionesViewModel habitaciones);

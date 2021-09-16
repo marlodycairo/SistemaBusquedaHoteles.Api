@@ -14,7 +14,7 @@ namespace SistemaBusquedaHoteles.Api.Domain.Helpers
         {
             //Obtiene las fechas para el tiempo asignada.
             var fechaInit = new DateTime(2021, 9, 1);
-            var fFin = new DateTime(2021, 9, 1).AddYears(1).AddMonths(2).AddDays(31);
+            var fFin = new DateTime(2021, 9, 1).AddYears(2).AddMonths(2).AddDays(31);
 
             var listadoFechas = new List<DateTime>();
 

@@ -37,9 +37,9 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
             habitacionesDomain.Delete(id);
         }
 
-        public IEnumerable<HabitacionesViewModel> GetAll(HabitacionesQueryFilter filter)
+        public IEnumerable<HabitacionesViewModel> GetAll()
         {
-            return habitacionesDomain.GetAll(filter);
+            return habitacionesDomain.GetAll();
         }
 
         public HabitacionesViewModel GetById(int id)

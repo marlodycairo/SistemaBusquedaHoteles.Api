@@ -18,10 +18,10 @@ namespace SistemaBusquedaHoteles.Api.Domain
         void DeleteReservacion(int id);
 
 
-        DateTime ValidarFechasDisponibles();
-        double CalcularTarifa();
+        DateTime ValidarFechasDisponibles(DateTime? fecha);
+        double TarifasDisponibles();
         double CalcularValorAPagar();
         int CalcularHabitacionesDisponibles(string ciudad);
-        DateTime CalcularTemporada();
+        DateTime CalcularTemporada(DateTime? fecha);
     }
 }

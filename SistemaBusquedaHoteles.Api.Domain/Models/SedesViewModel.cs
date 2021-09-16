@@ -14,6 +14,5 @@ namespace SistemaBusquedaHoteles.Api.Domain.Models
         public string Ciudad { get; set; }
         public int CupoMax { get; set; }
         public int TotalHabitaciones { get; set; }
-
     }
 }

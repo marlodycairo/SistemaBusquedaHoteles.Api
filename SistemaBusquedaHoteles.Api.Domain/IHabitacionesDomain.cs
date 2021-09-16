@@ -11,7 +11,7 @@ namespace SistemaBusquedaHoteles.Api.Domain
 {
     public interface IHabitacionesDomain
     {
-        IEnumerable<HabitacionesViewModel> GetAll(HabitacionesQueryFilter filter);
+        IEnumerable<HabitacionesViewModel> GetAll();
         HabitacionesViewModel GetById(int id);
         HabitacionesViewModel Create(Habitaciones habitaciones);
         HabitacionesViewModel Update(HabitacionesViewModel habitaciones);

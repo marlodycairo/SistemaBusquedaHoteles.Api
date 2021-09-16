@@ -12,9 +12,6 @@ namespace SistemaBusquedaHoteles.Api.Domain.QueryFilters
         public DateTime? Fecha { get; set; }
         public int TotalPersonas { get; set; }
         public int TotalHabitaciones { get; set; }
-        //public double ValorTotal { get; set; }
-        //public string TipoAlojamiento { get; set; }
-        //public double Tarifa { get; set; }
-        //public string IDCliente { get; set; }
+        public string SeleccionarTipoHabitacion { get; set; }
     }
 }

@@ -18,9 +18,9 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<HabitacionesViewModel> GetHabitaciones([FromQuery] HabitacionesQueryFilter filter)
+        public IEnumerable<HabitacionesViewModel> GetHabitaciones()
         {
-            return habitacionesApplication.GetAll(filter);
+            return habitacionesApplication.GetAll();
         }
 
         [HttpGet("{id}")]

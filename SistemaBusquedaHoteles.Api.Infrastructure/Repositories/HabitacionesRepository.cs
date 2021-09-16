@@ -38,10 +38,10 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
             return (from p in context.Habitaciones
                         select p).Include(s => s.Sede)
                         .Include(ti => ti.Tipo)
-                        .Include(t => t.Tarifa)
-                        .Include(r => r.Reserva)
-                        .Include(r => r.Reserva)
-                        .ThenInclude(c => c.Cliente)
+                        //.Include(t => t.Tarifa)
+                        //.Include(r => r.Reserva)
+                        //.Include(r => r.Reserva)
+                        //.ThenInclude(c => c.Cliente)
                         .ToList();
         }
 
