@@ -72,8 +72,6 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             var sedes = sedesRepository.GetSedes();
             var lstSedes = mapper.Map<IEnumerable<SedesViewModel>>(sedes);
 
-            ReservacionViewModel reservacion = new ReservacionViewModel();
-
             var reservaciones = new List<ReservacionViewModel>();
 
             var habitacion = new List<HabitacionesViewModel>();
@@ -97,7 +95,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                     if (filter.Fecha == item.Fecha || filter.Fecha < item.Fecha)
                     {
                         //Envia un mensaje si la fecha no está disponible.
-                        reservaciones.Add(new ReservacionViewModel()
+                        reservaciones.Add(new ReservacionViewModel
                         {
                             Fecha = item.Fecha,
                             Respuesta = message
@@ -117,7 +115,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                     if (filter.TotalPersonas > item.SedesModel.CupoMax)
                     {
                         //Envia un mensaje si supera la cantidad de huespedes por habitación
-                        reservaciones.Add(new ReservacionViewModel()
+                        reservaciones.Add(new ReservacionViewModel
                         {
                             Respuesta = message
                         });
@@ -128,7 +126,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
             if (filter.TotalHabitaciones != 0)
             {
-                var reservaciones = new ReservacionViewModel();
+                var reservacio = new ReservacionViewModel();
 
                 var reserva = new ReservacionDomainServices(reservacionRepository, mapper, habitacionesRepository, tarifasRepository, alojamientoRepository, sedesRepository);
 
@@ -153,7 +151,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
                 foreach (var item in query)
                 {
-                    testList.Add(new ReservacionViewModel()
+                    reservaciones.Add(new ReservacionViewModel()
                     {
                         Fecha = item.Fecha,
                         Sede = item.SedesModel.Ciudad,
@@ -165,7 +163,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
                 double totalAPagar = filter.TotalHabitaciones * pruebas;
             }
-            return testList;
+            return reservaciones;
         }
 
         public ReservacionViewModel UpdateReservacion(ReservacionViewModel reservacion)
