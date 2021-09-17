@@ -182,9 +182,8 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             var reservaciones = reservacionRepository.GetReservaciones();
             var result = mapper.Map<IEnumerable<ReservacionViewModel>>(reservaciones);
 
-            //listado de habitaciones
             var habitaciones = habitacionesRepository.GetAll();
-            var lista = mapper.Map<IEnumerable<HabitacionesViewModel>>(habitaciones);
+            var listaHabitaciones = mapper.Map<IEnumerable<HabitacionesViewModel>>(habitaciones);
 
             var tarifas = tarifasRepository.GetTarifas();
             var listaTarifas = mapper.Map<IEnumerable<TarifasViewModel>>(tarifas);
@@ -195,13 +194,6 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             var sedes = sedesRepository.GetSedes();
             var lstSedes = mapper.Map<IEnumerable<SedesViewModel>>(sedes);
 
-            var listadotarifas = new List<TarifasViewModel>();
-
-            var objTarifas = new TarifasViewModel();
-
-            var objHabitaciones = new HabitacionesViewModel();
-
-            var listadoReservas = new List<ReservacionViewModel>();
 
             //Fecha inicio temporada baja meses Septiembre 1 hasta Octubre 30
             var fInicioBaj2 = new DateTime(2021, 9, 1);
@@ -215,12 +207,12 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             //Temporada Baja Abril + Mayo + hasta el 22 de junio +Septiembre a octubre
             DateTime tBaja1 = new DateTime(2022, 4, 22).AddMonths(2);
 
-            var test = (from p in lista
+            var query = (from p in listaHabitaciones
                         join reservas in result on p.TipoAlojamientos.Nombre equals reservas.TipoAlojamientoModel.Nombre
                         where p.TipoAlojamientos.Nombre == tipoHabitacion
                         select reservas);
 
-            foreach (var item in test)
+            foreach (var item in query)
             {
                 if (fecha >= fInicioBaj2 && fecha <= tBaja2 || fecha >= fInicioBaj1 && fecha <= tBaja1)
                 {
@@ -235,98 +227,10 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             return valorHabitacion;
         }
 
-        public DateTime CalcularTemporada(DateTime? fechaConsulta)
-        {
-            var reservaciones = reservacionRepository.GetReservaciones();
-            var result = mapper.Map<IEnumerable<ReservacionViewModel>>(reservaciones);
 
-            //Fecha inicio temporada alta meses Noviembre 1 hasta Abril 20
-            var fInicioAl1 = new DateTime(2021, 11, 1);
-
-            //Temporada Alta es desde el 20 de junio, Julio y agosto.
-            DateTime tAlta1 = new DateTime(2021, 11, 1).AddMonths(5).AddDays(20);
-
-            //Fecha inicio temporada alta meses Junio 21 hasta Agosto 30
-            var fInicioAl2 = new DateTime(2022, 6, 21);
-
-            //desde el 21 de junio, Julio hasta agosto 30.
-            DateTime tAlta2 = new DateTime(2022, 6, 21).AddMonths(2).AddDays(11);
-
-            //Obtiene las fechas para el tiempo asignada.
-            var fechaInit = new DateTime(2021, 1, 1);
-            var fFin = new DateTime(2022, 12, 31).AddDays(1);
-
-            var listadoFechas = new List<DateTime>();
-
-            for (DateTime fechas = fechaInit; fechas < fFin; fechas = fechas.AddDays(1))
-            {
-                listadoFechas.Add(fechas);
-            }
-
-            //temporada baja
-            //Fecha inicio temporada baja meses Abril 22 hasta 20 de junio
-            var fInicioBaj1 = new DateTime(2022, 4, 21);
-
-            //Temporada Baja Abril + Mayo + hasta el 22 de junio +Septiembre a octubre
-            DateTime tBaja1 = new DateTime(2022, 4, 22).AddMonths(2);
-
-            //Fecha inicio temporada baja meses Septiembre 1 hasta Octubre 30
-            var fInicioBaj2 = new DateTime(2021, 9, 1);
-
-            //Temporada Baja meses Septiembre - Octubre
-            DateTime tBaja2 = new DateTime(2021, 9, 1).AddMonths(1).AddDays(31);
-
-            var temporadaAlta = new List<DateTime>();
-            var TAlta = new List<DateTime>();
-            var TBaja = new List<DateTime>();
-            foreach (var item in listadoFechas)
-            {
-                for (DateTime fecha = fInicioAl1; fecha < tAlta1; fecha = fecha.AddDays(1))
-                {
-                    if (item == fecha)
-                    {
-                        TAlta.Add(item);
-                    }
-                }
-
-                for (DateTime fecha = fInicioAl2; fecha < tAlta2; fecha = fecha.AddDays(1))
-                {
-                    if (item == fecha)
-                    {
-                        TAlta.Add(item);
-                    }
-                }
-
-                for (DateTime fecha = fInicioBaj2; fecha < tBaja2; fecha = fecha.AddDays(1))
-                {
-                    if (item == fecha)
-                    {
-                        TBaja.Add(item);
-                    }
-                }
-
-                for (DateTime fecha = fInicioBaj1; fecha < tBaja1; fecha = fecha.AddDays(1))
-                {
-                    if (item == fecha)
-                    {
-                        TBaja.Add(item);
-                    }
-                }
-            }
-
-            foreach (var item in TBaja)
-            {
-                if (fechaConsulta == item)
-                {
-                    return item;
-                }
-            }
-            return DateTime.Now;
-        }
-
-        //Realizado
         public int CalcularHabitacionesDisponibles(string ciudad)
         {
+
             var reservaciones = reservacionRepository.GetReservaciones();
             var result = mapper.Map<IEnumerable<ReservacionViewModel>>(reservaciones);
 
@@ -336,15 +240,15 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             var sedes = sedesRepository.GetSedes();
             var listadoSedes = mapper.Map<IEnumerable<SedesViewModel>>(sedes);
 
-            int totalHabitacionesDisponibles = 0;
-            int totalOcupadas = 0;
-            int totalDisponibles = 0;
+            int totalHabitacionesDisponibles;
+            int totalOcupadas;
+            int totalDisponibles;
             
             foreach (var item in result)
             {
                 if (item.SedesModel.Ciudad.ToLower() == ciudad.ToLower())
                 {
-                    totalOcupadas++;
+                    int totalOcupadas++;
                 }
             }
 
