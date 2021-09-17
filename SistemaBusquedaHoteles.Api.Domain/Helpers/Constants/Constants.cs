@@ -17,5 +17,7 @@ namespace SistemaBusquedaHoteles.Api.Domain.Helpers.Constants
         public const int totalHabitacionesDisponibles = 0;
         public const int totalOcupadas = 0;
         public const int totalDisponibles = 0;
+
+
     }
 }
