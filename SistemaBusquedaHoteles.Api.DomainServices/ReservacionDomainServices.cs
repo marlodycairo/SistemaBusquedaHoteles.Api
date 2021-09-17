@@ -318,9 +318,6 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             {
                 if (fechaConsulta == item)
                 {
-                    //var alta = "Temporada Alta";
-                    //var baja = "Temporada Baja";
-                    string message = "Temporada Baja";
                     return item;
                 }
             }
@@ -342,11 +339,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             int totalHabitacionesDisponibles = 0;
             int totalOcupadas = 0;
             int totalDisponibles = 0;
-            //int total = 0;
-
-            List<ReservacionViewModel> model = new List<ReservacionViewModel>();
-            List<SedesViewModel> sedesViews = new List<SedesViewModel>();
-
+            
             foreach (var item in result)
             {
                 if (item.SedesModel.Ciudad.ToLower() == ciudad.ToLower())
@@ -372,8 +365,6 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             var totalPorSede = (from p in result
                                 where p.SedesModel.Ciudad.ToLower() == ciudad.ToLower()
                                 select p.SedesModel.TotalHabitaciones).FirstOrDefault();
-
-            //restar cantidad de habitaciones segun los tipos de alojamiento//estandar, premium o vip
 
             totalHabitacionesDisponibles = totalPorSede - totalOcupadas;
 
