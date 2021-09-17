@@ -97,12 +97,12 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                     if (filter.Fecha == item.Fecha || filter.Fecha < item.Fecha)
                     {
                         //Envia un mensaje si la fecha no está disponible.
-                        testList.Add(new ReservacionViewModel()
+                        reservaciones.Add(new ReservacionViewModel()
                         {
                             Fecha = item.Fecha,
                             Respuesta = message
                         });
-                        return testList;
+                        return reservaciones;
                     }
                 }
                 //si la fecha esta disponible debe permitirle ver las habitaciones disponibles de la sede seleccionada
@@ -117,11 +117,11 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                     if (filter.TotalPersonas > item.SedesModel.CupoMax)
                     {
                         //Envia un mensaje si supera la cantidad de huespedes por habitación
-                        testList.Add(new ReservacionViewModel()
+                        reservaciones.Add(new ReservacionViewModel()
                         {
                             Respuesta = message
                         });
-                        return testList;
+                        return reservaciones;
                     }
                 }
             }
