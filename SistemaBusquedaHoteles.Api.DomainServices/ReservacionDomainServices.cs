@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SistemaBusquedaHoteles.Api.Domain;
+using SistemaBusquedaHoteles.Api.Domain.Helpers.Constants;
 using SistemaBusquedaHoteles.Api.Domain.Models;
 using SistemaBusquedaHoteles.Api.Domain.QueryFilters;
 using SistemaBusquedaHoteles.Api.Infrastructure.Entities;
@@ -88,7 +89,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                 var reserva = new ReservacionDomainServices(reservacionRepository, mapper, habitacionesRepository,
                     tarifasRepository, alojamientoRepository, sedesRepository);
 
-                string message = $"Lo sentimos, no hay habitaciones disponibles para la fecha seleccionada { filter.Fecha }.";
+                var message = Constants.fechaNoDisponible;
 
                 foreach (var item in result)
                 {
@@ -109,7 +110,6 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
             if (filter.TotalPersonas != 0)
             {
-                string message = $"No hay habitaciones disponibles en la fecha { filter.Fecha } para alojar la cantidad de huespedes seleccionados. Recuerde que tiene la opción de reservar varias habitaciones.";
                 foreach (var item in result)
                 {
                     if (filter.TotalPersonas > item.SedesModel.CupoMax)
@@ -117,7 +117,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                         //Envia un mensaje si supera la cantidad de huespedes por habitación
                         reservaciones.Add(new ReservacionViewModel
                         {
-                            Respuesta = message
+                            Respuesta = Constants.superaCapacidadMax
                         });
                         return reservaciones;
                     }
@@ -146,7 +146,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                             on p.TipoAlojamientos.Nombre equals r.TipoAlojamientoModel.Nombre
                             where p.TipoAlojamientos.Nombre.ToLower() == filter.SeleccionarTipoHabitacion.ToLower()
                             where r.SedesModel.Ciudad.ToLower() == filter.Ciudad.ToLower()
-                            where p.Estado == "disponible"
+                            where p.Estado == Constants.message
                             select r;
 
                 foreach (var item in query)
@@ -220,17 +220,14 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                 }
                 else
                 {
-                    item.TarifasModel.Temporada = "alta";
+                    item.TarifasModel.Temporada = Constants.confirmartemporada;
                 }
             }
-
             return valorHabitacion;
         }
 
-
         public int CalcularHabitacionesDisponibles(string ciudad)
         {
-
             var reservaciones = reservacionRepository.GetReservaciones();
             var result = mapper.Map<IEnumerable<ReservacionViewModel>>(reservaciones);
 
@@ -240,15 +237,15 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             var sedes = sedesRepository.GetSedes();
             var listadoSedes = mapper.Map<IEnumerable<SedesViewModel>>(sedes);
 
-            int totalHabitacionesDisponibles;
-            int totalOcupadas;
-            int totalDisponibles;
+            int totalHabitacionesDisponibles = Constants.totalHabitacionesDisponibles;
+            int totalOcupadas = Constants.totalOcupadas;
+            int totalDisponibles = Constants.totalDisponibles ;
             
             foreach (var item in result)
             {
                 if (item.SedesModel.Ciudad.ToLower() == ciudad.ToLower())
                 {
-                    int totalOcupadas++;
+                    totalOcupadas++;
                 }
             }
 
@@ -259,7 +256,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
             foreach (var item in tipos)
             {
-                if (item.SedesModel.Ciudad.ToLower() == ciudad.ToLower() && item.HabitacionesModel.Estado == "disponible")
+                if (item.SedesModel.Ciudad.ToLower() == ciudad.ToLower() && item.HabitacionesModel.Estado == Constants.message)
                 {
                     totalDisponibles++;
                 }

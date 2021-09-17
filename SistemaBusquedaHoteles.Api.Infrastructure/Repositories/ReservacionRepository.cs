@@ -53,6 +53,7 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
 
         public Reservacion UpdateReservacion(Reservacion reservacion)
         {
+
             context.Entry(reservacion).State = EntityState.Modified;
             context.SaveChanges();
 
