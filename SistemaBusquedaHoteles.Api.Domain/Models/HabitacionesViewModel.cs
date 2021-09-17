@@ -13,8 +13,8 @@ namespace SistemaBusquedaHoteles.Api.Domain.Models
         //public int ReservaId { get; set; }
 
         public TipoAlojamientoViewModel TipoAlojamientos { get; set; }
-        public SedesViewModel Sedes { get; set; }
-        //public TarifasViewModel Tarifa { get; set; }
+        public TarifasViewModel Tarifa { get; set; }
+        public SedesViewModel SedesView { get; set; }
         //public ReservacionViewModel ReservaModel { get; set; }
     }
 }

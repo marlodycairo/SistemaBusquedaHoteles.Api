@@ -1,4 +1,5 @@
-﻿using SistemaBusquedaHoteles.Api.Infrastructure.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using SistemaBusquedaHoteles.Api.Infrastructure.Context;
 using SistemaBusquedaHoteles.Api.Infrastructure.Entities;
 using SistemaBusquedaHoteles.Api.Infrastructure.Repositories.IRepository;
 using System;
@@ -17,6 +18,7 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
         {
             this.context = context;
         }
+
         public Sedes GetSedeById(int id)
         {
             return context.Sedes.FirstOrDefault(p => p.Id == id);

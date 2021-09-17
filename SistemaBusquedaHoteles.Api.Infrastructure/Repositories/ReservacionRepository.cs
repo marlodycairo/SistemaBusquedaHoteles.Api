@@ -38,7 +38,6 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
         public Reservacion GetReservaById(int id)
         {
             return context.Reservacion.FirstOrDefault(p => p.Id == id);
-
         }
 
         public IEnumerable<Reservacion> GetReservaciones()

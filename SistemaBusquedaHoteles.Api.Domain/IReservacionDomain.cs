@@ -19,7 +19,7 @@ namespace SistemaBusquedaHoteles.Api.Domain
 
 
         DateTime ValidarFechasDisponibles(DateTime? fecha);
-        double TarifasDisponibles();
+        double TarifasDisponibles(DateTime? fecha, string tipoHabitacion);
         double CalcularValorAPagar();
         int CalcularHabitacionesDisponibles(string ciudad);
         DateTime CalcularTemporada(DateTime? fecha);

@@ -38,66 +38,66 @@ namespace SistemaBusquedaHoteles.Controllers
             var query = from p in obHabitaciones
                         select p.Fecha;
 
-            //Ciudades
-            if (!string.IsNullOrEmpty(buscar))
-            {
-                foreach (string item in buscar.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries))
-                {
-                    obHabitaciones = obHabitaciones.Where(p => p.Sedes.Ciudad.ToLower().Contains(item.ToLower().Trim())
-                                                            || p.TipoAlojamientos.Nombre.ToLower().Contains(item.ToLower().Trim())).ToList();
-                                                            //|| Convert.ToString(p.Tarifa.Valor).Contains(item.Trim())).ToList();
-                }
-            }
+            ////Ciudades
+            //if (!string.IsNullOrEmpty(buscar))
+            //{
+            //    foreach (string item in buscar.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries))
+            //    {
+            //        obHabitaciones = obHabitaciones.Where(p => p.Sedes.Ciudad.ToLower().Contains(item.ToLower().Trim())
+            //                                                || p.TipoAlojamientos.Nombre.ToLower().Contains(item.ToLower().Trim())).ToList();
+            //                                                //|| Convert.ToString(p.Tarifa.Valor).Contains(item.Trim())).ToList();
+            //    }
+            //}
 
-            switch (orden)
-            {
-                case "Id":
-                    if (tipo_Orden.ToLower() == "desc")
-                    {
-                        obHabitaciones = obHabitaciones.OrderByDescending(p => p.Sedes.Ciudad).ToList();
-                    }
-                    else if (tipo_Orden.ToLower() == "asc")
-                    {
-                        obHabitaciones = obHabitaciones.OrderBy(p => p.Sedes.Ciudad).ToList();
-                    }
+            //switch (orden)
+            //{
+            //    case "Id":
+            //        if (tipo_Orden.ToLower() == "desc")
+            //        {
+            //            obHabitaciones = obHabitaciones.OrderByDescending(p => p.Sedes.Ciudad).ToList();
+            //        }
+            //        else if (tipo_Orden.ToLower() == "asc")
+            //        {
+            //            obHabitaciones = obHabitaciones.OrderBy(p => p.Sedes.Ciudad).ToList();
+            //        }
 
-                    break;
+            //        break;
 
-                case "TipoAlojamientos.Nombre":
-                    if (tipo_Orden.ToLower() == "desc")
-                    {
-                        obHabitaciones = obHabitaciones.OrderByDescending(p => p.TipoAlojamientos.Nombre).ToList();
-                    }
-                    else if (tipo_Orden.ToLower() == "asc")
-                    {
-                        obHabitaciones = obHabitaciones.OrderBy(p => p.TipoAlojamientos.Nombre).ToList();
-                    }
+            //    case "TipoAlojamientos.Nombre":
+            //        if (tipo_Orden.ToLower() == "desc")
+            //        {
+            //            obHabitaciones = obHabitaciones.OrderByDescending(p => p.TipoAlojamientos.Nombre).ToList();
+            //        }
+            //        else if (tipo_Orden.ToLower() == "asc")
+            //        {
+            //            obHabitaciones = obHabitaciones.OrderBy(p => p.TipoAlojamientos.Nombre).ToList();
+            //        }
 
-                    break;
+            //        break;
 
-                //case "Tarifa.Valor":
-                //    if (tipo_Orden.ToLower() == "desc")
-                //    {
-                //        obHabitaciones = obHabitaciones.OrderByDescending(p => p.Tarifa.Valor).ToList();
-                //    }
-                //    else if (tipo_Orden.ToLower() == "asc")
-                //    {
-                //        obHabitaciones = obHabitaciones.OrderBy(p => p.Tarifa.Valor).ToList();
-                //    }
+            //    //case "Tarifa.Valor":
+            //    //    if (tipo_Orden.ToLower() == "desc")
+            //    //    {
+            //    //        obHabitaciones = obHabitaciones.OrderByDescending(p => p.Tarifa.Valor).ToList();
+            //    //    }
+            //    //    else if (tipo_Orden.ToLower() == "asc")
+            //    //    {
+            //    //        obHabitaciones = obHabitaciones.OrderBy(p => p.Tarifa.Valor).ToList();
+            //    //    }
 
-                   // break;
-                default:
-                    if (tipo_Orden.ToLower() == "desc")
-                    {
-                        obHabitaciones = obHabitaciones.OrderByDescending(p => p.Sedes.Ciudad).ToList();
-                    }
-                    else if (tipo_Orden.ToLower() == "asc")
-                    {
-                        obHabitaciones = obHabitaciones.OrderBy(p => p.Sedes.Ciudad).ToList();
-                    }
+            //       // break;
+            //    default:
+            //        if (tipo_Orden.ToLower() == "desc")
+            //        {
+            //            obHabitaciones = obHabitaciones.OrderByDescending(p => p.Sedes.Ciudad).ToList();
+            //        }
+            //        else if (tipo_Orden.ToLower() == "asc")
+            //        {
+            //            obHabitaciones = obHabitaciones.OrderBy(p => p.Sedes.Ciudad).ToList();
+            //        }
 
-                    break;
-            }
+            //        break;
+            //}
 
             int totalRegistros = 0;
             int totalPaginas = 0;

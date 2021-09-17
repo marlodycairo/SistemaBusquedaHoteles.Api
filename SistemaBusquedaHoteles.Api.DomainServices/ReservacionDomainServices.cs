@@ -17,12 +17,20 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
         private readonly IReservacionRepository reservacionRepository;
         private readonly IMapper mapper;
         private readonly IHabitacionesRepository habitacionesRepository;
+        private readonly ITarifasRepository tarifasRepository;
+        private readonly ITipoAlojamientoRepository alojamientoRepository;
+        private readonly ISedesRepository sedesRepository;
 
-        public ReservacionDomainServices(IReservacionRepository reservacionRepository, IMapper mapper, IHabitacionesRepository habitacionesRepository)
+        public ReservacionDomainServices(IReservacionRepository reservacionRepository, IMapper mapper, IHabitacionesRepository habitacionesRepository,
+            ITarifasRepository tarifasRepository, ITipoAlojamientoRepository alojamientoRepository,
+            ISedesRepository sedesRepository)
         {
             this.reservacionRepository = reservacionRepository;
             this.mapper = mapper;
             this.habitacionesRepository = habitacionesRepository;
+            this.tarifasRepository = tarifasRepository;
+            this.alojamientoRepository = alojamientoRepository;
+            this.sedesRepository = sedesRepository;
         }
 
         public ReservacionViewModel CreateReservacion(Reservacion reservacion)
@@ -49,29 +57,39 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
         public IEnumerable<ReservacionViewModel> GetReservaciones(ReservacionQueryFilter filter)
         {
+            //listado de reservaciones
             var reservas = reservacionRepository.GetReservaciones();
-
             var result = mapper.Map<IEnumerable<ReservacionViewModel>>(reservas);
 
+            //listado de habitaciones
             var habitaciones = habitacionesRepository.GetAll();
             var listaHabitaciones = mapper.Map<IEnumerable<HabitacionesViewModel>>(habitaciones);
+
+            var listHabitaciones = habitacionesRepository.GetAll();
+            var lista = mapper.Map<IEnumerable<HabitacionesViewModel>>(habitaciones);
+
+            var sedes = sedesRepository.GetSedes();
+            var lstSedes = mapper.Map<IEnumerable<SedesViewModel>>(sedes);
 
             ReservacionViewModel testModel = new ReservacionViewModel();
 
             var testList = new List<ReservacionViewModel>();
 
+            var habitacion = new List<HabitacionesViewModel>();
+
             var realizarReserva = new List<ReservacionViewModel>();
 
-            //Realizado
+            double totalAPagar = 0;
+
             if (filter.Ciudad != null)
             {
                 result = result.Where(p => p.SedesModel.Ciudad.ToLower() == filter.Ciudad.ToLower());
             }
 
-            //Realizado
             if (filter.Fecha != null)
             {
-                var reserva = new ReservacionDomainServices(reservacionRepository, mapper, habitacionesRepository);
+                var reserva = new ReservacionDomainServices(reservacionRepository, mapper, habitacionesRepository,
+                    tarifasRepository, alojamientoRepository, sedesRepository);
 
                 string message = $"Lo sentimos, no hay habitaciones disponibles para la fecha seleccionada { filter.Fecha }.";
 
@@ -91,11 +109,9 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                 //si la fecha esta disponible debe permitirle ver las habitaciones disponibles de la sede seleccionada
                 var disponibilidad = reserva.CalcularHabitacionesDisponibles(filter.Ciudad);
 
-
                 //result = result.Where(p => p.Fecha.ToShortDateString() == filter.Fecha?.ToShortDateString());
             }
 
-            //Realizado
             if (filter.TotalPersonas != 0)
             {
                 string message = $"No hay habitaciones disponibles en la fecha { filter.Fecha } para alojar la cantidad de huespedes seleccionados. Recuerde que tiene la opción de reservar varias habitaciones.";
@@ -104,7 +120,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                     if (filter.TotalPersonas > item.SedesModel.CupoMax)
                     {
                         //Envia un mensaje si supera la cantidad de huespedes por habitación
-                        testList.Add(new ReservacionViewModel() 
+                        testList.Add(new ReservacionViewModel()
                         {
                             Respuesta = message
                         });
@@ -114,52 +130,48 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                 //result = result.Where(p => p.SedesModel.CupoMax <= filter.TotalPersonas);
             }
 
-
-
             if (filter.TotalHabitaciones != 0)
             {
                 var reservaciones = new ReservacionViewModel();
 
-                var reserva = new ReservacionDomainServices(reservacionRepository, mapper, habitacionesRepository);
+                var reserva = new ReservacionDomainServices(reservacionRepository, mapper, habitacionesRepository, tarifasRepository, alojamientoRepository, sedesRepository);
 
                 var test = reserva.CalcularHabitacionesDisponibles(filter.Ciudad.ToLower());
-
-
 
                 result = result.Where(p => p.TotalHabitaciones == filter.TotalHabitaciones);
             }
 
-
-
             if (filter.SeleccionarTipoHabitacion != null)
             {
-                //Ver tarifas segun tipo de habitacion elegido
-                var reserva = new ReservacionDomainServices(reservacionRepository, mapper, habitacionesRepository);
-                var habitacion = new List<HabitacionesViewModel>();
+                double costoHabitacion = 0;
 
-                var listHabitaciones = habitacionesRepository.GetAll();
-                var lista = mapper.Map<IEnumerable<HabitacionesViewModel>>(habitaciones);
+                //Consultar tarifas segun tipo de habitacion elegido
+                var reserva = new ReservacionDomainServices(reservacionRepository, mapper, habitacionesRepository,
+                    tarifasRepository, alojamientoRepository, sedesRepository);
 
-                var tipoHabitacion = (from p in lista
-                                     where p.TipoAlojamientos.Nombre.ToLower() == filter.SeleccionarTipoHabitacion.ToLower() && p.Sedes.Ciudad.ToLower() == filter.Ciudad.ToLower() && p.Estado == "disponible"
-                                     select p).ToList();
+                var query = from p in lista
+                            join r in result
+                            on p.TipoAlojamientos.Nombre equals r.TipoAlojamientoModel.Nombre
+                            where p.TipoAlojamientos.Nombre.ToLower() == filter.SeleccionarTipoHabitacion.ToLower()
+                            where r.SedesModel.Ciudad.ToLower() == filter.Ciudad.ToLower()
+                            where p.Estado == "disponible"
+                            select r;
 
-                foreach (var item in tipoHabitacion)
+                foreach (var item in query)
                 {
-                    habitacion.Add(new HabitacionesViewModel() 
+                    testList.Add(new ReservacionViewModel()
                     {
-                        Sedes = item.Sedes,
-                        TipoAlojamientos = item.TipoAlojamientos,
+                        Fecha = item.Fecha,
+                        Sede = item.SedesModel.Ciudad,
+                        TipoDeAlojamiento = item.TipoAlojamientoModel.Nombre,
                         Estado = item.Estado
                     });
                 }
-                var listado = habitacion.ToList();
+                var pruebas = reserva.TarifasDisponibles(filter.Fecha, filter.SeleccionarTipoHabitacion);
 
-
-                var test = reserva.TarifasDisponibles();
+                totalAPagar = filter.TotalHabitaciones * pruebas;
             }
-
-            return result;
+            return testList;
         }
 
         public ReservacionViewModel UpdateReservacion(ReservacionViewModel reservacion)
@@ -171,18 +183,64 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             return reservacion;
         }
 
-
-        public double TarifasDisponibles()
+        public double TarifasDisponibles(DateTime? fecha, string tipoHabitacion)
         {
+            double valorHabitacion = 0;
+
             var reservaciones = reservacionRepository.GetReservaciones();
             var result = mapper.Map<IEnumerable<ReservacionViewModel>>(reservaciones);
 
-            var test = from p in result
-                       select p;
+            //listado de habitaciones
+            var habitaciones = habitacionesRepository.GetAll();
+            var lista = mapper.Map<IEnumerable<HabitacionesViewModel>>(habitaciones);
 
+            var tarifas = tarifasRepository.GetTarifas();
+            var listaTarifas = mapper.Map<IEnumerable<TarifasViewModel>>(tarifas);
 
+            var tipos = alojamientoRepository.GetAlojamientos();
+            var alojamientos = mapper.Map<IEnumerable<TipoAlojamientoViewModel>>(tipos);
 
-            return 0;
+            var sedes = sedesRepository.GetSedes();
+            var lstSedes = mapper.Map<IEnumerable<SedesViewModel>>(sedes);
+
+            var listadotarifas = new List<TarifasViewModel>();
+
+            var objTarifas = new TarifasViewModel();
+
+            var objHabitaciones = new HabitacionesViewModel();
+
+            var listadoReservas = new List<ReservacionViewModel>();
+
+            //Fecha inicio temporada baja meses Septiembre 1 hasta Octubre 30
+            var fInicioBaj2 = new DateTime(2021, 9, 1);
+
+            //Temporada Baja meses Septiembre - Octubre
+            DateTime tBaja2 = new DateTime(2021, 9, 1).AddMonths(1).AddDays(31);
+
+            //Fecha inicio temporada baja meses Abril 22 hasta 20 de junio
+            var fInicioBaj1 = new DateTime(2022, 4, 21);
+
+            //Temporada Baja Abril + Mayo + hasta el 22 de junio +Septiembre a octubre
+            DateTime tBaja1 = new DateTime(2022, 4, 22).AddMonths(2);
+
+            var test = (from p in lista
+                        join reservas in result on p.TipoAlojamientos.Nombre equals reservas.TipoAlojamientoModel.Nombre
+                        where p.TipoAlojamientos.Nombre == tipoHabitacion
+                        select reservas);
+
+            foreach (var item in test)
+            {
+                if (fecha >= fInicioBaj2 && fecha <= tBaja2 || fecha >= fInicioBaj1 && fecha <= tBaja1)
+                {
+                    valorHabitacion = item.TarifasModel.Valor;
+                }
+                else
+                {
+                    item.TarifasModel.Temporada = "alta";
+                }
+            }
+
+            return valorHabitacion;
         }
 
         public DateTime CalcularTemporada(DateTime? fechaConsulta)
@@ -287,7 +345,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             return DateTime.Now;
         }
 
-        
+
         public double CalcularValorAPagar()
         {
             var reservaciones = reservacionRepository.GetReservaciones();
@@ -304,6 +362,9 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
             var habitaciones = habitacionesRepository.GetAll();
             var listaHabitaciones = mapper.Map<IEnumerable<HabitacionesViewModel>>(habitaciones);
+
+            var sedes = sedesRepository.GetSedes();
+            var listadoSedes = mapper.Map<IEnumerable<SedesViewModel>>(sedes);
 
             int totalHabitacionesDisponibles = 0;
             int totalOcupadas = 0;
@@ -322,11 +383,13 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             }
 
             var tipos = from p in listaHabitaciones
-                         select p;
+                        join s in result
+                        on p.TipoAlojamientos.Nombre equals s.TipoAlojamientoModel.Nombre
+                        select s;
 
-            foreach (var item in listaHabitaciones)
+            foreach (var item in tipos)
             {
-                if (item.Sedes.Ciudad.ToLower() == ciudad.ToLower() && item.Estado == "disponible")
+                if (item.SedesModel.Ciudad.ToLower() == ciudad.ToLower() && item.HabitacionesModel.Estado == "disponible")
                 {
                     totalDisponibles++;
                 }
@@ -334,17 +397,17 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
             //cantidad de habitaciones ocupadas por sede
             var totalPorSede = (from p in result
-                                where p.HabitacionesModel.Sedes.Ciudad.ToLower() == ciudad.ToLower()
+                                where p.SedesModel.Ciudad.ToLower() == ciudad.ToLower()
                                 select p.SedesModel.TotalHabitaciones).FirstOrDefault();
 
             //restar cantidad de habitaciones segun los tipos de alojamiento//estandar, premium o vip
 
             totalHabitacionesDisponibles = totalPorSede - totalOcupadas;
 
-           
 
             return totalHabitacionesDisponibles;
         }
+
 
         public DateTime ValidarFechasDisponibles(DateTime? fecha)
         {
