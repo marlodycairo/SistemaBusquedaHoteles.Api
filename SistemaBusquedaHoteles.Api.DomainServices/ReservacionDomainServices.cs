@@ -21,7 +21,8 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
         private readonly ITipoAlojamientoRepository alojamientoRepository;
         private readonly ISedesRepository sedesRepository;
 
-        public ReservacionDomainServices(IReservacionRepository reservacionRepository, IMapper mapper, IHabitacionesRepository habitacionesRepository,
+        public ReservacionDomainServices(IReservacionRepository reservacionRepository, IMapper mapper, 
+            IHabitacionesRepository habitacionesRepository,
             ITarifasRepository tarifasRepository, ITipoAlojamientoRepository alojamientoRepository,
             ISedesRepository sedesRepository)
         {
@@ -287,11 +288,6 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             var temporadaAlta = new List<DateTime>();
             var TAlta = new List<DateTime>();
             var TBaja = new List<DateTime>();
-
-            //var alta = "Temporada Alta";
-            //var baja = "Temporada Baja";
-            var message = "";
-
             foreach (var item in listadoFechas)
             {
                 for (DateTime fecha = fInicioAl1; fecha < tAlta1; fecha = fecha.AddDays(1))
@@ -331,27 +327,13 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             {
                 if (fechaConsulta == item)
                 {
-                    message = "Temporada Baja";
+                    //var alta = "Temporada Alta";
+                    //var baja = "Temporada Baja";
+                    string message = "Temporada Baja";
                     return item;
                 }
             }
-
-            //if (fechaConsulta >= fInicioBaj2 && fechaConsulta <= tBaja2 || fInicioBaj1 >= fechaConsulta && fechaConsulta <= tBaja1)
-            //{
-            //    return fechaConsulta.Value;
-            //}
-
-
             return DateTime.Now;
-        }
-
-
-        public double CalcularValorAPagar()
-        {
-            var reservaciones = reservacionRepository.GetReservaciones();
-            var result = mapper.Map<IEnumerable<ReservacionViewModel>>(reservaciones);
-
-            return 0;
         }
 
         //Realizado

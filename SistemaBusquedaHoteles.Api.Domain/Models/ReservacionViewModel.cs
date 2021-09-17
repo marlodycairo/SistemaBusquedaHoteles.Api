@@ -20,17 +20,17 @@ namespace SistemaBusquedaHoteles.Api.Domain.Models
         public int ClienteId { get; set; }
         public int HabitacionId { get; set; }
 
+        public SedesViewModel SedesModel { get; set; }
+        public TipoAlojamientoViewModel TipoAlojamientoModel { get; set; }
+        public TarifasViewModel TarifasModel { get; set; }
+        public ClienteViewModel ClienteModel { get; set; }
+        public HabitacionesViewModel HabitacionesModel { get; set; }
+
         public string Respuesta { get; set; }
         public string Sede { get; set; }
         public string TipoDeAlojamiento { get; set; }
         public string Estado { get; set; }
         public double ValorHabitacion { get; set; }
         public string Temporadas { get; set; }
-
-        public SedesViewModel SedesModel { get; set; }
-        public TipoAlojamientoViewModel TipoAlojamientoModel { get; set; }
-        public TarifasViewModel TarifasModel { get; set; }
-        public ClienteViewModel ClienteModel { get; set; }
-        public HabitacionesViewModel HabitacionesModel { get; set; }
     }
 }
