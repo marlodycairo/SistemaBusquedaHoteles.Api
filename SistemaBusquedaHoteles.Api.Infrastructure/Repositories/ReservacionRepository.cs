@@ -31,7 +31,7 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
         {
             var reserva = context.Reservacion.FirstOrDefault(p => p.Id == id);
 
-            context.Remove(id).State = EntityState.Deleted;
+            context.Remove(reserva).State = EntityState.Deleted;
             context.SaveChanges();
         }
 
