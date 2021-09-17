@@ -72,15 +72,13 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             var sedes = sedesRepository.GetSedes();
             var lstSedes = mapper.Map<IEnumerable<SedesViewModel>>(sedes);
 
-            ReservacionViewModel testModel = new ReservacionViewModel();
+            ReservacionViewModel reservacion = new ReservacionViewModel();
 
-            var testList = new List<ReservacionViewModel>();
+            var reservaciones = new List<ReservacionViewModel>();
 
             var habitacion = new List<HabitacionesViewModel>();
 
             var realizarReserva = new List<ReservacionViewModel>();
-
-            double totalAPagar = 0;
 
             if (filter.Ciudad != null)
             {
@@ -109,8 +107,6 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                 }
                 //si la fecha esta disponible debe permitirle ver las habitaciones disponibles de la sede seleccionada
                 var disponibilidad = reserva.CalcularHabitacionesDisponibles(filter.Ciudad);
-
-                //result = result.Where(p => p.Fecha.ToShortDateString() == filter.Fecha?.ToShortDateString());
             }
 
             if (filter.TotalPersonas != 0)
@@ -128,7 +124,6 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                         return testList;
                     }
                 }
-                //result = result.Where(p => p.SedesModel.CupoMax <= filter.TotalPersonas);
             }
 
             if (filter.TotalHabitaciones != 0)
@@ -144,8 +139,6 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
             if (filter.SeleccionarTipoHabitacion != null)
             {
-                double costoHabitacion = 0;
-
                 //Consultar tarifas segun tipo de habitacion elegido
                 var reserva = new ReservacionDomainServices(reservacionRepository, mapper, habitacionesRepository,
                     tarifasRepository, alojamientoRepository, sedesRepository);
@@ -170,7 +163,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                 }
                 var pruebas = reserva.TarifasDisponibles(filter.Fecha, filter.SeleccionarTipoHabitacion);
 
-                totalAPagar = filter.TotalHabitaciones * pruebas;
+                double totalAPagar = filter.TotalHabitaciones * pruebas;
             }
             return testList;
         }
