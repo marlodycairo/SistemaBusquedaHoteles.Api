@@ -19,14 +19,14 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
             this.context = context;
         }
 
-        public TipoAlojamiento GetAlojamientoById(int id)
+        public RoomType GetAlojamientoById(int id)
         {
-            return context.TipoAlojamiento.FirstOrDefault(p => p.Id == id);
+            return context.RoomType.FirstOrDefault(p => p.Id == id);
         }
 
-        public IEnumerable<TipoAlojamiento> GetAlojamientos()
+        public IEnumerable<RoomType> GetAlojamientos()
         {
-            return context.TipoAlojamiento
+            return context.RoomType
                 .Include(p => p.Habitaciones)
                 .Include(r => r.Reservacion)
                 .ToList();

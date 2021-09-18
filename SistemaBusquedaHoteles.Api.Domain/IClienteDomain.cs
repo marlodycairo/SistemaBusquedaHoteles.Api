@@ -12,7 +12,7 @@ namespace SistemaBusquedaHoteles.Api.Domain
     {
         IEnumerable<ClienteViewModel> GetClientes();
         ClienteViewModel GetClienteById(int id);
-        ClienteViewModel CreateCliente(Clientes clientes);
+        ClienteViewModel CreateCliente(Customer clientes);
         ClienteViewModel UpdateCliente(ClienteViewModel clientes);
         void DeleteCliente(int id);
     }

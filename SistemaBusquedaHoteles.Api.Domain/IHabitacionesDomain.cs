@@ -13,7 +13,7 @@ namespace SistemaBusquedaHoteles.Api.Domain
     {
         IEnumerable<HabitacionesViewModel> GetAll();
         HabitacionesViewModel GetById(int id);
-        HabitacionesViewModel Create(Habitaciones habitaciones);
+        HabitacionesViewModel Create(Rooms habitaciones);
         HabitacionesViewModel Update(HabitacionesViewModel habitaciones);
         void Delete(int id);
     }

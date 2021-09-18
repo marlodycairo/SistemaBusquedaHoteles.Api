@@ -13,7 +13,7 @@ namespace SistemaBusquedaHoteles.Api.Domain
     {
         IEnumerable<ReservacionViewModel> GetReservaciones(ReservacionQueryFilter filter);
         ReservacionViewModel GetReservaById(int id);
-        ReservacionViewModel CreateReservacion(Reservacion reservacion);
+        ReservacionViewModel CreateReservacion(Reservation reservacion);
         ReservacionViewModel UpdateReservacion(ReservacionViewModel reservacion);
         void DeleteReservacion(int id);
 

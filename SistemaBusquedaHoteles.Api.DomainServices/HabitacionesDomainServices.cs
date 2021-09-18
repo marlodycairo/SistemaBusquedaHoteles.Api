@@ -22,7 +22,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             this.mapper = mapper;
         }
 
-        public HabitacionesViewModel Create(Habitaciones habitaciones)
+        public HabitacionesViewModel Create(Rooms habitaciones)
         {
             habitacionesRepository.Create(habitaciones);
 
@@ -56,7 +56,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
         public HabitacionesViewModel Update(HabitacionesViewModel model)
         {
-            var consulta = mapper.Map<Habitaciones>(model);
+            var consulta = mapper.Map<Rooms>(model);
 
             habitacionesRepository.Update(consulta);
 

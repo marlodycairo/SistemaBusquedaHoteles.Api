@@ -9,10 +9,11 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories.IRepository
 {
     public interface IReservacionRepository
     {
-        IEnumerable<Reservacion> GetReservaciones();
-        Reservacion GetReservaById(int id);
-        Reservacion CreateReservacion(Reservacion reservacion);
-        Reservacion UpdateReservacion(Reservacion reservacion);
-        void DeleteReservacion(int id);
+        Task<IEnumerable<Reservation>> GetReservaciones();
+        Task<Reservation> GetReservaById(int id);
+        Task<Reservation> CreateReservacion(Reservation reservacion);
+        Task<Reservation> UpdateReservacion(Reservation reservacion);
+        Task DeleteReservacion(int id);
+        bool ReservationExists(int id);
     }
 }

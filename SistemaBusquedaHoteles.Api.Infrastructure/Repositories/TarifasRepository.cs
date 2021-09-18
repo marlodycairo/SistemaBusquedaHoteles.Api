@@ -19,14 +19,14 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
             this.context = context;
         }
 
-        public Tarifas GetTarifaById(int id)
+        public Rates GetTarifaById(int id)
         {
             var tarifa = context.Tarifas.FirstOrDefault(p => p.Id == id);
 
             return tarifa;
         }
 
-        public IEnumerable<Tarifas> GetTarifas()
+        public IEnumerable<Rates> GetTarifas()
         {
             return context.Tarifas
                 .Include(p => p.Alojamiento)

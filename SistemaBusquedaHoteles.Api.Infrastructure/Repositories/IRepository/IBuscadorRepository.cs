@@ -9,6 +9,6 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories.IRepository
 {
     public interface IBuscadorRepository
     {
-        IEnumerable<Habitaciones> ConsultarAlojamiento(string buscar);
+        IEnumerable<Rooms> ConsultarAlojamiento(string buscar);
     }
 }

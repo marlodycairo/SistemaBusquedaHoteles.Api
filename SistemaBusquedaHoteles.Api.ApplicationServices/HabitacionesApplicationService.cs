@@ -25,7 +25,7 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
 
         public HabitacionesViewModel Create(HabitacionesViewModel habitaciones)
         {
-            var obHabitaction = mapper.Map<Habitaciones>(habitaciones);
+            var obHabitaction = mapper.Map<Rooms>(habitaciones);
 
             var result = habitacionesDomain.Create(obHabitaction);
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SistemaBusquedaHoteles.Api.Infrastructure.Entities
 {
-    public class Sedes
+    public class Locations
     {
         [Key]
         public int Id { get; set; }
@@ -15,7 +15,7 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Entities
         public int CupoMax { get; set; }
         public int TotalHabitaciones { get; set; }
 
-        public Reservacion Reservaciones { get; set; }
-        public Habitaciones Habitacion { get; set; }
+        public Reservation Reservaciones { get; set; }
+        public Rooms Habitacion { get; set; }
     }
 }

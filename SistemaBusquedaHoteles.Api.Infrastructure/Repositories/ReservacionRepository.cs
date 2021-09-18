@@ -19,30 +19,32 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
             this.context = context;
         }
 
-        public Reservacion CreateReservacion(Reservacion reservacion)
+        public async Task<Reservation> CreateReservacion(Reservation reservacion)
         {
-            context.Reservacion.Add(reservacion);
+
+
+            context.Reservation.Add(reservacion);
             context.SaveChanges();
 
             return reservacion;
         }
 
-        public void DeleteReservacion(int id)
+        public async Task DeleteReservacion(int id)
         {
-            var reserva = context.Reservacion.FirstOrDefault(p => p.Id == id);
+            var reserva = context.Reservation.FirstOrDefault(p => p.Id == id);
 
-            context.Remove(reserva).State = EntityState.Deleted;
+            context.Remove(reserva);
             context.SaveChanges();
         }
 
-        public Reservacion GetReservaById(int id)
+        public Reservation GetReservaById(int id)
         {
-            return context.Reservacion.FirstOrDefault(p => p.Id == id);
+            return context.Reservation.FirstOrDefault(p => p.Id == id);
         }
 
-        public IEnumerable<Reservacion> GetReservaciones()
+        public IEnumerable<Reservation> GetReservaciones()
         {
-            return context.Reservacion
+            return context.Reservation
                 .Include(p => p.Sede)
                 .Include(p => p.TAlojamiento)
                 .Include(p => p.Tarifa)
@@ -51,13 +53,18 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
                 .ToList();
         }
 
-        public Reservacion UpdateReservacion(Reservacion reservacion)
+        public Reservation UpdateReservacion(Reservation reservacion)
         {
 
             context.Update(reservacion);
             context.SaveChanges();
 
             return reservacion;
+        }
+
+        private bool ReservationExists(int id)
+        {
+            return context.Reservation.Any(p => p.Id == id);
         }
     }
 }

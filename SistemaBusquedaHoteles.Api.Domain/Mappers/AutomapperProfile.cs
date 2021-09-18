@@ -8,35 +8,35 @@ namespace SistemaBusquedaHoteles.Api.Domain.Mappers
     {
         public AutomapperProfile()
         {
-            CreateMap<Habitaciones, HabitacionesViewModel>()
+            CreateMap<Rooms, HabitacionesViewModel>()
                 .ForMember(dest => dest.TipoAlojamientos, opt => opt.MapFrom(src => src.Tipo))
                 .ForMember(dest => dest.SedesView, opt => opt.MapFrom(src => src.Sede));
 
-            CreateMap<HabitacionesViewModel, Habitaciones>();
+            CreateMap<HabitacionesViewModel, Rooms>();
 
-            CreateMap<Sedes, SedesViewModel>();
+            CreateMap<Locations, SedesViewModel>();
 
-            CreateMap<SedesViewModel, Sedes>();
+            CreateMap<SedesViewModel, Locations>();
 
-            CreateMap<TipoAlojamiento, TipoAlojamientoViewModel>();
-            CreateMap<TipoAlojamientoViewModel, TipoAlojamiento>();
+            CreateMap<RoomType, TipoAlojamientoViewModel>();
+            CreateMap<TipoAlojamientoViewModel, RoomType>();
 
-            CreateMap<Tarifas, TarifasViewModel>()
+            CreateMap<Rates, TarifasViewModel>()
                 .ForMember(dest => dest.AlojamientoModel, opt => opt.MapFrom(src => src.Alojamiento));
 
-            CreateMap<TarifasViewModel, Tarifas>();
+            CreateMap<TarifasViewModel, Rates>();
 
-            CreateMap<Reservacion, ReservacionViewModel>()
+            CreateMap<Reservation, ReservacionViewModel>()
                 .ForMember(dest => dest.SedesModel, opt => opt.MapFrom(src => src.Sede))
                 .ForMember(dest => dest.TarifasModel, opt => opt.MapFrom(src => src.Tarifa))
                 .ForMember(dest => dest.TipoAlojamientoModel, opt => opt.MapFrom(src => src.TAlojamiento))
                 .ForMember(dest => dest.ClienteModel, opt => opt.MapFrom(src => src.Cliente))
                 .ForMember(dest => dest.HabitacionesModel, opt => opt.MapFrom(src => src.Habitacion));
 
-            CreateMap<ReservacionViewModel, Reservacion>();
+            CreateMap<ReservacionViewModel, Reservation>();
 
-            CreateMap<Clientes, ClienteViewModel>();
-            CreateMap<ClienteViewModel, Clientes>();
+            CreateMap<Customer, ClienteViewModel>();
+            CreateMap<ClienteViewModel, Customer>();
         }
     }
 }

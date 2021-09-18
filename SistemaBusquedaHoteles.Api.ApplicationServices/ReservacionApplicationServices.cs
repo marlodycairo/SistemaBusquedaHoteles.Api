@@ -25,7 +25,7 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
 
         public ReservacionViewModel CreateReservacion(ReservacionViewModel reservacion)
         {
-            var objReservacion = mapper.Map<Reservacion>(reservacion);
+            var objReservacion = mapper.Map<Reservation>(reservacion);
             var reservaciones = reservacionDomain.CreateReservacion(objReservacion);
 
             return reservaciones;

@@ -24,7 +24,7 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
 
         public ClienteViewModel CreateCliente(ClienteViewModel clientes)
         {
-            var obClientes = mapper.Map<Clientes>(clientes);
+            var obClientes = mapper.Map<Customer>(clientes);
             var cliente = clienteDomain.CreateCliente(obClientes);
             return cliente;
         }

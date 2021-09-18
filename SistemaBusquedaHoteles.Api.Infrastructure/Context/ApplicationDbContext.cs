@@ -14,12 +14,12 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Context
         {
         }
 
-        public DbSet<Habitaciones> Habitaciones { get; set; }
-        public DbSet<Sedes> Sedes { get; set; }
-        public DbSet<TipoAlojamiento> TipoAlojamiento { get; set; }
-        public DbSet<Tarifas> Tarifas { get; set; }
-        public DbSet<Reservacion> Reservacion { get; set; }
-        public DbSet<Clientes> Cliente { get; set; }
+        public DbSet<Rooms> Rooms { get; set; }
+        public DbSet<Locations> Locations { get; set; }
+        public DbSet<RoomType> RoomType { get; set; }
+        public DbSet<Rates> Rates { get; set; }
+        public DbSet<Reservation> Reservation { get; set; }
+        public DbSet<Customer> Customer { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

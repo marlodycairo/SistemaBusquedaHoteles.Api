@@ -35,7 +35,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             this.sedesRepository = sedesRepository;
         }
 
-        public ReservacionViewModel CreateReservacion(Reservacion reservacion)
+        public ReservacionViewModel CreateReservacion(Reservation reservacion)
         {
             reservacionRepository.CreateReservacion(reservacion);
 
@@ -167,7 +167,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
         public ReservacionViewModel UpdateReservacion(ReservacionViewModel reservacion)
         {
-            var reservas = mapper.Map<Reservacion>(reservacion);
+            var reservas = mapper.Map<Reservation>(reservacion);
 
             reservacionRepository.UpdateReservacion(reservas);
 

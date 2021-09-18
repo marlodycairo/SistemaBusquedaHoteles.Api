@@ -19,14 +19,14 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
             this.context = context;
         }
 
-        public Sedes GetSedeById(int id)
+        public Locations GetSedeById(int id)
         {
-            return context.Sedes.FirstOrDefault(p => p.Id == id);
+            return context.Locations.FirstOrDefault(p => p.Id == id);
         }
 
-        public IEnumerable<Sedes> GetSedes()
+        public IEnumerable<Locations> GetSedes()
         {
-            return context.Sedes
+            return context.Locations
                 .Include(p => p.Habitacion)
                 .Include(r => r.Reservaciones)
                 .ToList();

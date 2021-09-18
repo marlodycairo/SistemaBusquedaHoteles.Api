@@ -9,7 +9,7 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories.IRepository
 {
     public interface ISedesRepository
     {
-        IEnumerable<Sedes> GetSedes();
-        Sedes GetSedeById(int id);
+        IEnumerable<Locations> GetSedes();
+        Locations GetSedeById(int id);
     }
 }

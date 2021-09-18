@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace SistemaBusquedaHoteles.Api.Infrastructure.Entities
 {
-    public class Clientes
+    public class Customer
     {
         public int Id { get; set; }
         public string NombreCliente { get; set; }
         public string IDCliente { get; set; }
         public string Email { get; set; }
 
-        public Reservacion Reservacion { get; set; }
+        public Reservation Reservacion { get; set; }
     }
 }

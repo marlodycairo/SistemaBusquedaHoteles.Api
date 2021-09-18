@@ -19,9 +19,9 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
             this.context = context;
         }
 
-        public Clientes CreateCliente(Clientes cliente)
+        public Customer CreateCliente(Customer cliente)
         {
-            context.Cliente.Add(cliente);
+            context.Customer.Add(cliente);
             context.SaveChanges();
 
             return cliente;
@@ -29,25 +29,25 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
 
         public void DeleteCliente(int id)
         {
-            var cliente = context.Cliente.FirstOrDefault(p => p.Id == id);
+            var cliente = context.Customer.FirstOrDefault(p => p.Id == id);
 
             context.Remove(cliente).State = EntityState.Deleted;
             context.SaveChanges();
         }
 
-        public Clientes GetClienteById(int id)
+        public Customer GetClienteById(int id)
         {
-            return context.Cliente.FirstOrDefault(p => p.Id == id);
+            return context.Customer.FirstOrDefault(p => p.Id == id);
         }
 
-        public IEnumerable<Clientes> GetClientes()
+        public IEnumerable<Customer> GetClientes()
         {
-            return context.Cliente
+            return context.Customer
                 .Include(p => p.Reservacion)
                 .ToList();
         }
 
-        public Clientes UpdateCliente(Clientes cliente)
+        public Customer UpdateCliente(Customer cliente)
         {
             context.Entry(cliente).State = EntityState.Modified;
             context.SaveChanges();

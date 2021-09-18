@@ -22,7 +22,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             this.mapper = mapper;
         }
 
-        public ClienteViewModel CreateCliente(Clientes clientes)
+        public ClienteViewModel CreateCliente(Customer clientes)
         {
             clienteRepository.CreateCliente(clientes);
 
@@ -56,7 +56,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
         public ClienteViewModel UpdateCliente(ClienteViewModel cliente)
         {
-            var obCliente = mapper.Map<Clientes>(cliente);
+            var obCliente = mapper.Map<Customer>(cliente);
 
             clienteRepository.UpdateCliente(obCliente);
 
