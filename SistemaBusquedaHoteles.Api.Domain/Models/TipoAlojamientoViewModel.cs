@@ -10,5 +10,8 @@ namespace SistemaBusquedaHoteles.Api.Domain.Models
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
+
+        public ReservacionViewModel ReservacionView { get; set; }
+        public HabitacionesViewModel HabitacionesView { get; set; }
     }
 }

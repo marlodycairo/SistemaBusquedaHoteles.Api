@@ -29,7 +29,9 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
         public IEnumerable<Tarifas> GetTarifas()
         {
             return context.Tarifas
-                .Include(p => p.Alojamiento);
+                .Include(p => p.Alojamiento)
+                .Include(r => r.Reservacion)
+                .ToList();
         }
     }
 }

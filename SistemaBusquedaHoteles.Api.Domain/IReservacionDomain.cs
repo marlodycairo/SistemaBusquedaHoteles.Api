@@ -17,9 +17,8 @@ namespace SistemaBusquedaHoteles.Api.Domain
         ReservacionViewModel UpdateReservacion(ReservacionViewModel reservacion);
         void DeleteReservacion(int id);
 
-
         DateTime ValidarFechasDisponibles(DateTime? fecha);
-        double TarifasDisponibles(DateTime? fecha, string tipoHabitacion);
-        int CalcularHabitacionesDisponibles(string ciudad);
+        double TarifasDisponibles(DateTime? fecha, int tipoHabitacion);
+        int CalcularHabitacionesDisponibles(int ciudad);
     }
 }

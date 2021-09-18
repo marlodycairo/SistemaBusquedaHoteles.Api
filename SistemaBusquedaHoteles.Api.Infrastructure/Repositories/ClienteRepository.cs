@@ -42,7 +42,9 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
 
         public IEnumerable<Clientes> GetClientes()
         {
-            return context.Cliente.ToList();
+            return context.Cliente
+                .Include(p => p.Reservacion)
+                .ToList();
         }
 
         public Clientes UpdateCliente(Clientes cliente)

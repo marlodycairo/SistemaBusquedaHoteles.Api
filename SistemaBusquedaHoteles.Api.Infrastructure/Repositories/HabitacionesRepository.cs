@@ -35,8 +35,9 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
         public IEnumerable<Habitaciones> GetAll()
         {
             return context.Habitaciones
-                        .Include(ti => ti.Tipo)
+                        .Include(t => t.Tipo)
                         .Include(p => p.Sede)
+                        .Include(r => r.Reservacion)
                         .ToList();
         }
 

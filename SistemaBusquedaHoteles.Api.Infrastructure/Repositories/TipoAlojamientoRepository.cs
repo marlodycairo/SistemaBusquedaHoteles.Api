@@ -1,4 +1,5 @@
-﻿using SistemaBusquedaHoteles.Api.Infrastructure.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using SistemaBusquedaHoteles.Api.Infrastructure.Context;
 using SistemaBusquedaHoteles.Api.Infrastructure.Entities;
 using SistemaBusquedaHoteles.Api.Infrastructure.Repositories.IRepository;
 using System;
@@ -25,7 +26,10 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
 
         public IEnumerable<TipoAlojamiento> GetAlojamientos()
         {
-            return context.TipoAlojamiento.ToList();
+            return context.TipoAlojamiento
+                .Include(p => p.Habitaciones)
+                .Include(r => r.Reservacion)
+                .ToList();
         }
     }
 }

@@ -26,7 +26,10 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
 
         public IEnumerable<Sedes> GetSedes()
         {
-            return context.Sedes.ToList();
+            return context.Sedes
+                .Include(p => p.Habitacion)
+                .Include(r => r.Reservaciones)
+                .ToList();
         }
     }
 }
