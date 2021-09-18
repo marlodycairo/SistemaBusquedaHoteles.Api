@@ -23,9 +23,9 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
             this.mapper = mapper;
         }
 
-        public HabitacionesViewModel Create(HabitacionesViewModel habitaciones)
+        public Domain.Models.Rooms Create(Domain.Models.Rooms habitaciones)
         {
-            var obHabitaction = mapper.Map<Rooms>(habitaciones);
+            var obHabitaction = mapper.Map<Infrastructure.Entities.Rooms>(habitaciones);
 
             var result = habitacionesDomain.Create(obHabitaction);
 
@@ -37,17 +37,17 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
             habitacionesDomain.Delete(id);
         }
 
-        public IEnumerable<HabitacionesViewModel> GetAll()
+        public IEnumerable<Domain.Models.Rooms> GetAll()
         {
             return habitacionesDomain.GetAll();
         }
 
-        public HabitacionesViewModel GetById(int id)
+        public Domain.Models.Rooms GetById(int id)
         {
             return habitacionesDomain.GetById(id);
         }
 
-        public HabitacionesViewModel Update(HabitacionesViewModel model)
+        public Domain.Models.Rooms Update(Domain.Models.Rooms model)
         {
             return habitacionesDomain.Update(model);
         }

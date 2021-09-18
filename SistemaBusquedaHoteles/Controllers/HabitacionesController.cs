@@ -18,25 +18,25 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<HabitacionesViewModel> GetHabitaciones()
+        public IEnumerable<Rooms> GetHabitaciones()
         {
             return habitacionesApplication.GetAll();
         }
 
         [HttpGet("{id}")]
-        public HabitacionesViewModel GetHabitacionById(int id)
+        public Rooms GetHabitacionById(int id)
         {
             return habitacionesApplication.GetById(id);
         }
 
         [HttpPost]
-        public ActionResult<HabitacionesViewModel> CreateHabitacion(HabitacionesViewModel model)
+        public ActionResult<Rooms> CreateHabitacion(Rooms model)
         {
             return habitacionesApplication.Create(model);
         }
 
         [HttpPut("{id}")]
-        public HabitacionesViewModel UpdateHabitacion(HabitacionesViewModel model)
+        public Rooms UpdateHabitacion(Rooms model)
         {
             return habitacionesApplication.Update(model);
         }

@@ -21,13 +21,13 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<TipoAlojamientoViewModel> GetHabitaciones()
+        public IEnumerable<RoomType> GetHabitaciones()
         {
             return tipoAlojamientoApplication.GetAlojamientos();
         }
 
         [HttpGet("{id}")]
-        public TipoAlojamientoViewModel GetHabitacionById(int id)
+        public RoomType GetHabitacionById(int id)
         {
             return tipoAlojamientoApplication.GetAlojamientoById(id);
         }

@@ -2,7 +2,7 @@
 
 namespace SistemaBusquedaHoteles.Api.Domain.Models
 {
-    public class HabitacionesViewModel
+    public class Rooms
     {
         public int Id { get; set; }
         public DateTime Fecha { get; set; }
@@ -10,8 +10,8 @@ namespace SistemaBusquedaHoteles.Api.Domain.Models
         public int TipoId { get; set; }
         public int SedeId { get; set; }
 
-        public TipoAlojamientoViewModel TipoAlojamientos { get; set; }
-        public SedesViewModel SedesView { get; set; }
-        public Reservation ReservacionView { get; set; }
+        public RoomType RoomType { get; set; }
+        public Locations Locations { get; set; }
+        public Reservation Reservation { get; set; }
     }
 }

@@ -21,13 +21,13 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<SedesViewModel> GetHabitaciones()
+        public IEnumerable<Locations> GetHabitaciones()
         {
             return sedesApplication.GetSedes();
         }
 
         [HttpGet("{id}")]
-        public SedesViewModel GetHabitacionById(int id)
+        public Locations GetHabitacionById(int id)
         {
             return sedesApplication.GetSedeById(id);
         }

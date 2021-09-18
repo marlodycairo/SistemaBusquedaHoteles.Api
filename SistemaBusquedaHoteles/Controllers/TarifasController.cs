@@ -22,13 +22,13 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<TarifasViewModel> GetTarifas(TarifasQueryFilter filter)
+        public IEnumerable<Rates> GetTarifas(TarifasQueryFilter filter)
         {
             return tarifasApplication.GetTarifas(filter);
         }
 
         [HttpGet("{id}")]
-        public TarifasViewModel GetTarifaById(int id)
+        public Rates GetTarifaById(int id)
         {
             return tarifasApplication.GetTarifaById(id);
         }

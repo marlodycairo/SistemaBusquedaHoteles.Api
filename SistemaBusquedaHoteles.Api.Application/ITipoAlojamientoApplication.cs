@@ -9,7 +9,7 @@ namespace SistemaBusquedaHoteles.Api.Application
 {
     public interface ITipoAlojamientoApplication
     {
-        IEnumerable<TipoAlojamientoViewModel> GetAlojamientos();
-        TipoAlojamientoViewModel GetAlojamientoById(int id);
+        IEnumerable<RoomType> GetAlojamientos();
+        RoomType GetAlojamientoById(int id);
     }
 }

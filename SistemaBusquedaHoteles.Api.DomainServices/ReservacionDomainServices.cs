@@ -65,17 +65,17 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
             //listado de habitaciones
             var habitaciones = habitacionesRepository.GetAll();
-            var listaHabitaciones = mapper.Map<IEnumerable<HabitacionesViewModel>>(habitaciones);
+            var listaHabitaciones = mapper.Map<IEnumerable<Domain.Models.Rooms>>(habitaciones);
 
             var listHabitaciones = habitacionesRepository.GetAll();
-            var lista = mapper.Map<IEnumerable<HabitacionesViewModel>>(habitaciones);
+            var lista = mapper.Map<IEnumerable<Domain.Models.Rooms>>(habitaciones);
 
             var sedes = sedesRepository.GetSedes();
-            var lstSedes = mapper.Map<IEnumerable<SedesViewModel>>(sedes);
+            var lstSedes = mapper.Map<IEnumerable<Domain.Models.Locations>>(sedes);
 
             var reservaciones = new List<Domain.Models.Reservation>();
 
-            var habitacion = new List<HabitacionesViewModel>();
+            var habitacion = new List<Domain.Models.Rooms>();
 
             var realizarReserva = new List<Domain.Models.Reservation>();
 
@@ -112,7 +112,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             {
                 foreach (var item in result)
                 {
-                    if (filter.TotalPersonas > item.SedesModel.CupoMax)
+                    if (filter.TotalPersonas > item.Locations.CupoMax)
                     {
                         //Envia un mensaje si supera la cantidad de huespedes por habitación
                         reservaciones.Add(new Domain.Models.Reservation
@@ -143,9 +143,9 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
                 var query = from p in lista
                             join r in result
-                            on p.TipoAlojamientos.Id equals r.TipoAlojamientoModel.Id
-                            where p.TipoAlojamientos.Id == filter.SeleccionarTipoHabitacion
-                            where r.SedesModel.Id == filter.Ciudad
+                            on p.RoomType.Id equals r.RoomType.Id
+                            where p.RoomType.Id == filter.SeleccionarTipoHabitacion
+                            where r.Locations.Id == filter.Ciudad
                             where p.Estado == Constants.message
                             select r;
 
@@ -182,16 +182,16 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             var result = mapper.Map<IEnumerable<Domain.Models.Reservation>>(reservaciones);
 
             var habitaciones = habitacionesRepository.GetAll();
-            var listaHabitaciones = mapper.Map<IEnumerable<HabitacionesViewModel>>(habitaciones);
+            var listaHabitaciones = mapper.Map<IEnumerable<Domain.Models.Rooms>>(habitaciones);
 
             var tarifas = tarifasRepository.GetTarifas();
-            var listaTarifas = mapper.Map<IEnumerable<TarifasViewModel>>(tarifas);
+            var listaTarifas = mapper.Map<IEnumerable<Domain.Models.Rates>>(tarifas);
 
             var tipos = alojamientoRepository.GetAlojamientos();
-            var alojamientos = mapper.Map<IEnumerable<TipoAlojamientoViewModel>>(tipos);
+            var alojamientos = mapper.Map<IEnumerable<Domain.Models.RoomType>>(tipos);
 
             var sedes = sedesRepository.GetSedes();
-            var lstSedes = mapper.Map<IEnumerable<SedesViewModel>>(sedes);
+            var lstSedes = mapper.Map<IEnumerable<Domain.Models.Locations>>(sedes);
 
 
             //Fecha inicio temporada baja meses Septiembre 1 hasta Octubre 30
@@ -207,7 +207,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             DateTime tBaja1 = new DateTime(2022, 4, 22).AddMonths(2);
 
             var query = (from p in listaHabitaciones
-                        join reservas in result on p.TipoAlojamientos.Nombre equals reservas.TipoAlojamientoModel.Nombre
+                        join reservas in result on p.RoomType.Nombre equals reservas.RoomType.Nombre
                         where p.TipoId == tipoHabitacion
                         select reservas);
 
@@ -215,11 +215,11 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             {
                 if (fecha >= fInicioBaj2 && fecha <= tBaja2 || fecha >= fInicioBaj1 && fecha <= tBaja1)
                 {
-                    valorHabitacion = item.TarifasModel.Valor;
+                    valorHabitacion = item.Rates.Valor;
                 }
                 else
                 {
-                    item.TarifasModel.Temporada = Constants.confirmartemporada;
+                    item.Rates.Temporada = Constants.confirmartemporada;
                 }
             }
             return valorHabitacion;
@@ -231,10 +231,10 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             var result = mapper.Map<IEnumerable<Domain.Models.Reservation>>(reservaciones);
 
             var habitaciones = habitacionesRepository.GetAll();
-            var listaHabitaciones = mapper.Map<IEnumerable<HabitacionesViewModel>>(habitaciones);
+            var listaHabitaciones = mapper.Map<IEnumerable<Domain.Models.Rooms>>(habitaciones);
 
             var sedes = sedesRepository.GetSedes();
-            var listadoSedes = mapper.Map<IEnumerable<SedesViewModel>>(sedes);
+            var listadoSedes = mapper.Map<IEnumerable<Domain.Models.Locations>>(sedes);
 
             int totalHabitacionesDisponibles = Constants.totalHabitacionesDisponibles;
             int totalOcupadas = Constants.totalOcupadas;
@@ -242,7 +242,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
             foreach (var item in result)
             {
-                if (item.SedesModel.Id == ciudad)
+                if (item.Locations.Id == ciudad)
                 {
                     totalOcupadas++;
                 }
@@ -250,12 +250,12 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
             var tipos = from p in listaHabitaciones
                         join s in result
-                        on p.TipoAlojamientos.Nombre equals s.TipoAlojamientoModel.Nombre
+                        on p.RoomType.Nombre equals s.RoomType.Nombre
                         select s;
 
             foreach (var item in tipos)
             {
-                if (item.SedesModel.Id == ciudad && item.HabitacionesModel.Estado == Constants.message)
+                if (item.Locations.Id == ciudad && item.HabitacionesModel.Estado == Constants.message)
                 {
                     totalDisponibles++;
                 }
@@ -263,8 +263,8 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
             //cantidad de habitaciones ocupadas por sede
             var totalPorSede = (from p in result
-                                where p.SedesModel.Id == ciudad
-                                select p.SedesModel.TotalHabitaciones);
+                                where p.Locations.Id == ciudad
+                                select p.Locations.TotalHabitaciones);
 
             totalHabitacionesDisponibles = totalPorSede.Count() - totalOcupadas;
 

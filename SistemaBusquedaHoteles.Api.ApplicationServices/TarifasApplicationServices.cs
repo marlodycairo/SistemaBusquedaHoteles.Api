@@ -19,12 +19,12 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
             this.tarifasDomain = tarifasDomain;
         }
 
-        public TarifasViewModel GetTarifaById(int id)
+        public Rates GetTarifaById(int id)
         {
             return tarifasDomain.GetTarifaById(id);
         }
 
-        public IEnumerable<TarifasViewModel> GetTarifas(TarifasQueryFilter filter)
+        public IEnumerable<Rates> GetTarifas(TarifasQueryFilter filter)
         {
             return tarifasDomain.GetTarifas(filter);
         }

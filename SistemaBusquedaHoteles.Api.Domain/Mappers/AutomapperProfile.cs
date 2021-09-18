@@ -8,23 +8,23 @@ namespace SistemaBusquedaHoteles.Api.Domain.Mappers
     {
         public AutomapperProfile()
         {
-            CreateMap<Rooms, HabitacionesViewModel>()
+            CreateMap<Rooms, Rooms>()
                 .ForMember(dest => dest.TipoAlojamientos, opt => opt.MapFrom(src => src.RoomType))
                 .ForMember(dest => dest.SedesView, opt => opt.MapFrom(src => src.Sede));
 
-            CreateMap<HabitacionesViewModel, Rooms>();
+            CreateMap<Rooms, Rooms>();
 
-            CreateMap<Locations, SedesViewModel>();
+            CreateMap<Locations, Locations>();
 
-            CreateMap<SedesViewModel, Locations>();
+            CreateMap<Locations, Locations>();
 
-            CreateMap<RoomType, TipoAlojamientoViewModel>();
-            CreateMap<TipoAlojamientoViewModel, RoomType>();
+            CreateMap<RoomType, RoomType>();
+            CreateMap<RoomType, RoomType>();
 
-            CreateMap<Rates, TarifasViewModel>()
+            CreateMap<Rates, Rates>()
                 .ForMember(dest => dest.AlojamientoModel, opt => opt.MapFrom(src => src.RoomType));
 
-            CreateMap<TarifasViewModel, Rates>();
+            CreateMap<Rates, Rates>();
 
             CreateMap<Reservation, Reservation>()
                 .ForMember(dest => dest.SedesModel, opt => opt.MapFrom(src => src.Sede))

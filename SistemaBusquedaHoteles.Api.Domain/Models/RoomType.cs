@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace SistemaBusquedaHoteles.Api.Domain.Models
 {
-    public class TipoAlojamientoViewModel
+    public class RoomType
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
 
-        public Reservation ReservacionView { get; set; }
-        public HabitacionesViewModel HabitacionesView { get; set; }
+        public Reservation Reservation { get; set; }
+        public Rooms Rooms { get; set; }
     }
 }

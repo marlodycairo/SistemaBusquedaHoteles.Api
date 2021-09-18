@@ -22,20 +22,20 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             this.mapper = mapper;
         }
 
-        public TarifasViewModel GetTarifaById(int id)
+        public Rates GetTarifaById(int id)
         {
             var tarifa = tarifasRepository.GetTarifaById(id);
 
-            var result = mapper.Map<TarifasViewModel>(tarifa);
+            var result = mapper.Map<Rates>(tarifa);
 
             return result;
         }
 
-        public IEnumerable<TarifasViewModel> GetTarifas(TarifasQueryFilter filter)
+        public IEnumerable<Rates> GetTarifas(TarifasQueryFilter filter)
         {
             var tarifas = tarifasRepository.GetTarifas();
 
-            var result = mapper.Map<IEnumerable<TarifasViewModel>>(tarifas);
+            var result = mapper.Map<IEnumerable<Rates>>(tarifas);
 
             if (filter.Temporada != null)
             {

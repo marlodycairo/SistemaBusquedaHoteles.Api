@@ -21,12 +21,12 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
             this.mapper = mapper;
         }
 
-        public TipoAlojamientoViewModel GetAlojamientoById(int id)
+        public RoomType GetAlojamientoById(int id)
         {
             return tipoAlojamientoDomain.GetAlojamientoById(id);
         }
 
-        public IEnumerable<TipoAlojamientoViewModel> GetAlojamientos()
+        public IEnumerable<RoomType> GetAlojamientos()
         {
             return tipoAlojamientoDomain.GetAlojamientos();
         }

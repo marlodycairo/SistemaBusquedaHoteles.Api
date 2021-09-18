@@ -10,7 +10,7 @@ namespace SistemaBusquedaHoteles.Api.Application
 {
     public interface ITarifasApplication
     {
-        IEnumerable<TarifasViewModel> GetTarifas(TarifasQueryFilter filter);
-        TarifasViewModel GetTarifaById(int id);
+        IEnumerable<Rates> GetTarifas(TarifasQueryFilter filter);
+        Rates GetTarifaById(int id);
     }
 }
