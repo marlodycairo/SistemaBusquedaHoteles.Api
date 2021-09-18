@@ -59,10 +59,6 @@ namespace SistemaBusquedaHoteles
             services.AddScoped<ISedesApplication, SedesApplicationService>();
             services.AddScoped<ITipoAlojamientoApplication, TipoAlojamientoApplicationService>();
 
-            services.AddScoped<IBuscadorRepository, BuscadorRepository>();
-            services.AddScoped<IBuscadorDomain, BuscadorDomainService>();
-            services.AddScoped<IBuscadorApplication, BuscadorApplicationServices>();
-
             services.AddScoped<ITarifasRepository, TarifasRepository>();
             services.AddScoped<ITarifasDomain, TarifasDomainServices>();
             services.AddScoped<ITarifasApplication, TarifasApplicationServices>();

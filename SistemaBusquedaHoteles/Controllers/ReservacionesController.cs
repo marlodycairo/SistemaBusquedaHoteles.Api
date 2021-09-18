@@ -22,33 +22,64 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<ReservacionViewModel> GetReservaciones([FromQuery] ReservacionQueryFilter filter)
+        public async Task<IActionResult>  GetReservaciones([FromQuery] ReservacionQueryFilter filter)
         {
-            return reservacionApplication.GetReservaciones(filter);
+            if (filter == null)
+            {
+                return BadRequest();
+            }
+            var reservaciones = reservacionApplication.GetReservaciones(filter);
+
+            return Ok(reservaciones);
         }
 
         [HttpGet("{id}")]
-        public ReservacionViewModel GetReservacionById(int id)
+        public async Task<ActionResult<ReservacionViewModel>> GetReservacionById(int id)
         {
-            return reservacionApplication.GetReservaById(id);
+            var reservacion = reservacionApplication.GetReservaById(id);
+
+            if (reservacion == null)
+            {
+                return NotFound();
+            }
+
+            return reservacion;
         }
 
         [HttpPost]
-        public ReservacionViewModel CreateReservacion(ReservacionViewModel reservacion)
+        public async Task<ActionResult<ReservacionViewModel>> CreateReservacion(ReservacionViewModel reservacion)
         {
-            return reservacionApplication.CreateReservacion(reservacion);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            var nuevaReservacion = reservacionApplication.CreateReservacion(reservacion);
+
+            return Ok(nuevaReservacion);
         }
 
-        [HttpPut]
-        public ReservacionViewModel UpdateReservacion(ReservacionViewModel reservacion)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateReservacion(int id, ReservacionViewModel reservacion)
         {
-            return reservacionApplication.UpdateReservacion(reservacion);
+            if (id != reservacion.Id)
+            {
+                return BadRequest();
+            }
+            var reservacionActualizada = reservacionApplication.UpdateReservacion(reservacion);
+
+            return Ok(reservacionActualizada);
         }
 
         [HttpDelete("{id}")]
-        public void DeleteReservacion(int id)
+        public async Task<IActionResult> DeleteReservacion(int id)
         {
-            reservacionApplication.DeleteReservacion(id);
+            var reservacion = await reservacionApplication.DeleteReservacion(id);
+
+            if (reservacion == null)
+            {
+                return NotFound();
+            }
+            return Ok();
         }
     }
 }
