@@ -22,7 +22,7 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult>  GetReservaciones([FromQuery] ReservacionQueryFilter filter)
+        public async Task<IActionResult> GetReservaciones([FromQuery] ReservacionQueryFilter filter)
         {
             if (filter == null)
             {
@@ -71,9 +71,9 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteReservacion(int id)
+        public async Task DeleteReservacion(int id)
         {
-            var reservacion = await reservacionApplication.DeleteReservacion(id);
+            var reservacion = reservacionApplication.DeleteReservacion(id);
 
             if (reservacion == null)
             {

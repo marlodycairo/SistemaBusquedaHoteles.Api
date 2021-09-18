@@ -37,7 +37,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
         public Domain.Models.Reservation CreateReservacion(Infrastructure.Entities.Reservation reservacion)
         {
-            reservacionRepository.CreateReservacion(reservacion);
+            reservacionRepository.CreateReservation(reservacion);
 
             var reserva = mapper.Map<Domain.Models.Reservation>(reservacion);
             return reserva;
@@ -45,7 +45,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
         public void DeleteReservacion(int id)
         {
-            reservacionRepository.DeleteReservacion(id);
+            reservacionRepository.DeleteReservation(id);
         }
 
         public Domain.Models.Reservation GetReservaById(int id)

@@ -12,59 +12,60 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
 {
     public class ReservacionRepository : IReservacionRepository
     {
-        private readonly ApplicationDbContext context;
+        private readonly ApplicationDbContext _context;
 
-        public ReservacionRepository(ApplicationDbContext context)
+        public ReservacionRepository(ApplicationDbContext _context)
         {
-            this.context = context;
+            _context = _context;
         }
 
-        public async Task<Reservation> CreateReservacion(Reservation reservacion)
+        public async Task<Reservation> CreateReservation(Reservation reservacion)
         {
 
 
-            context.Reservations.Add(reservacion);
-            context.SaveChanges();
+            _context.Reservations.Add(reservacion);
+            _context.SaveChanges();
 
             return reservacion;
         }
 
-        public async Task DeleteReservacion(int id)
+        public async Task DeleteReservation(int id)
         {
-            var reserva = context.Reservations.FirstOrDefault(p => p.Id == id);
+            var reserva = _context.Reservations.FirstOrDefault(p => p.Id == id);
 
-            context.Remove(reserva);
-            context.SaveChanges();
+            _context.Remove(reserva);
+            _context.SaveChanges();
         }
 
-        public Reservation GetReservaById(int id)
+        public async Task<Reservation> GetReservationById(int id)
         {
-            return context.Reservations.FirstOrDefault(p => p.Id == id);
+            return _context.Reservations.FirstOrDefault(p => p.Id == id);
         }
 
-        public IEnumerable<Reservation> GetReservaciones()
+        public async Task<IEnumerable<Reservation>> GetAllReservations()
         {
-            return context.Reservations
-                .Include(p => p.Sede)
-                .Include(p => p.TAlojamiento)
-                .Include(p => p.Tarifa)
-                .Include(p => p.Cliente)
-                .Include(p => p.Habitacion)
+            return _context.Reservations
+                .Include(p => p.Locations)
+                .Include(p => p.RoomType)
+                .Include(p => p.Rates)
+                .Include(p => p.Customer)
+                .Include(p => p.Rooms)
                 .ToList();
         }
 
-        public Reservation UpdateReservacion(Reservation reservacion)
+        public Task UpdateReservation(Reservation reservation)
         {
+            _context.Update(reservation);
+            _context.SaveChanges();
 
-            context.Update(reservacion);
-            context.SaveChanges();
-
-            return reservacion;
+            return reservation;
         }
 
-        private bool ReservationExists(int id)
+        public bool ReservationExists(int id)
         {
-            return context.Reservations.Any(p => p.Id == id);
+            return _context.Reservations.Any(p => p.Id == id);
         }
+
+
     }
 }
