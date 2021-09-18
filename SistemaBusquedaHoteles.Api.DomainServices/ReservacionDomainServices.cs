@@ -35,11 +35,11 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             this.sedesRepository = sedesRepository;
         }
 
-        public ReservacionViewModel CreateReservacion(Reservation reservacion)
+        public Domain.Models.Reservation CreateReservacion(Infrastructure.Entities.Reservation reservacion)
         {
             reservacionRepository.CreateReservacion(reservacion);
 
-            var reserva = mapper.Map<ReservacionViewModel>(reservacion);
+            var reserva = mapper.Map<Domain.Models.Reservation>(reservacion);
             return reserva;
         }
 
@@ -48,20 +48,20 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             reservacionRepository.DeleteReservacion(id);
         }
 
-        public ReservacionViewModel GetReservaById(int id)
+        public Domain.Models.Reservation GetReservaById(int id)
         {
             var reservas = reservacionRepository.GetReservaById(id);
 
-            var result = mapper.Map<ReservacionViewModel>(reservas);
+            var result = mapper.Map<Domain.Models.Reservation>(reservas);
 
             return result;
         }
 
-        public IEnumerable<ReservacionViewModel> GetReservaciones(ReservacionQueryFilter filter)
+        public IEnumerable<Domain.Models.Reservation> GetReservaciones(ReservacionQueryFilter filter)
         {
             //listado de reservaciones
             var reservas = reservacionRepository.GetReservaciones();
-            var result = mapper.Map<IEnumerable<ReservacionViewModel>>(reservas);
+            var result = mapper.Map<IEnumerable<Domain.Models.Reservation>>(reservas);
 
             //listado de habitaciones
             var habitaciones = habitacionesRepository.GetAll();
@@ -73,11 +73,11 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             var sedes = sedesRepository.GetSedes();
             var lstSedes = mapper.Map<IEnumerable<SedesViewModel>>(sedes);
 
-            var reservaciones = new List<ReservacionViewModel>();
+            var reservaciones = new List<Domain.Models.Reservation>();
 
             var habitacion = new List<HabitacionesViewModel>();
 
-            var realizarReserva = new List<ReservacionViewModel>();
+            var realizarReserva = new List<Domain.Models.Reservation>();
 
             if (filter.Ciudad != 0)
             {
@@ -96,7 +96,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                     if (filter.Fecha == item.Fecha || filter.Fecha < item.Fecha)
                     {
                         //Envia un mensaje si la fecha no está disponible.
-                        reservaciones.Add(new ReservacionViewModel
+                        reservaciones.Add(new Domain.Models.Reservation
                         {
                             Fecha = item.Fecha,
                             Respuesta = message
@@ -115,7 +115,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                     if (filter.TotalPersonas > item.SedesModel.CupoMax)
                     {
                         //Envia un mensaje si supera la cantidad de huespedes por habitación
-                        reservaciones.Add(new ReservacionViewModel
+                        reservaciones.Add(new Domain.Models.Reservation
                         {
                             Respuesta = Constants.superaCapacidadMax
                         });
@@ -126,7 +126,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
             if (filter.TotalHabitaciones != 0)
             {
-                var reservacio = new ReservacionViewModel();
+                var reservacio = new Domain.Models.Reservation();
 
                 var reserva = new ReservacionDomainServices(reservacionRepository, mapper, habitacionesRepository, tarifasRepository, alojamientoRepository, sedesRepository);
 
@@ -151,7 +151,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
                 foreach (var item in query)
                 {
-                    reservaciones.Add(new ReservacionViewModel()
+                    reservaciones.Add(new Domain.Models.Reservation()
                     {
                         Fecha = item.Fecha,
                         SedeId = item.SedeId,
@@ -165,9 +165,9 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             return result;
         }
 
-        public ReservacionViewModel UpdateReservacion(ReservacionViewModel reservacion)
+        public Domain.Models.Reservation UpdateReservacion(Domain.Models.Reservation reservacion)
         {
-            var reservas = mapper.Map<Reservation>(reservacion);
+            var reservas = mapper.Map<Infrastructure.Entities.Reservation>(reservacion);
 
             reservacionRepository.UpdateReservacion(reservas);
 
@@ -179,7 +179,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             double valorHabitacion = 0;
 
             var reservaciones = reservacionRepository.GetReservaciones();
-            var result = mapper.Map<IEnumerable<ReservacionViewModel>>(reservaciones);
+            var result = mapper.Map<IEnumerable<Domain.Models.Reservation>>(reservaciones);
 
             var habitaciones = habitacionesRepository.GetAll();
             var listaHabitaciones = mapper.Map<IEnumerable<HabitacionesViewModel>>(habitaciones);
@@ -228,7 +228,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
         public int CalcularHabitacionesDisponibles(int ciudad)
         {
             var reservaciones = reservacionRepository.GetReservaciones();
-            var result = mapper.Map<IEnumerable<ReservacionViewModel>>(reservaciones);
+            var result = mapper.Map<IEnumerable<Domain.Models.Reservation>>(reservaciones);
 
             var habitaciones = habitacionesRepository.GetAll();
             var listaHabitaciones = mapper.Map<IEnumerable<HabitacionesViewModel>>(habitaciones);
@@ -274,7 +274,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
         public DateTime ValidarFechasDisponibles(DateTime? fecha)
         {
             var reservaciones = reservacionRepository.GetReservaciones();
-            var result = mapper.Map<IEnumerable<ReservacionViewModel>>(reservaciones);
+            var result = mapper.Map<IEnumerable<Domain.Models.Reservation>>(reservaciones);
 
             var message = Constants.superaCapacidadMax + $"{ fecha }";
 

@@ -22,25 +22,25 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<ClienteViewModel> GetClientes()
+        public IEnumerable<Customer> GetClientes()
         {
             return clienteApplication.GetClientes();
         }
 
         [HttpGet("{id}")]
-        public ClienteViewModel GetClienteById(int id)
+        public Customer GetClienteById(int id)
         {
             return clienteApplication.GetClienteById(id);
         }
 
         [HttpPost]
-        public ClienteViewModel CreateClientes(ClienteViewModel model)
+        public Customer CreateClientes(Customer model)
         {
             return clienteApplication.CreateCliente(model);
         }
 
         [HttpPut]
-        public ClienteViewModel UpdateCliente(ClienteViewModel cliente)
+        public Customer UpdateCliente(Customer cliente)
         {
             return clienteApplication.UpdateCliente(cliente);
         }

@@ -13,6 +13,6 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Entities
         public string IDCliente { get; set; }
         public string Email { get; set; }
 
-        public Reservation Reservacion { get; set; }
+        public Reservation Reservation { get; set; }
     }
 }

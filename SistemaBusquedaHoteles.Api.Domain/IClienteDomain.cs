@@ -10,10 +10,10 @@ namespace SistemaBusquedaHoteles.Api.Domain
 {
     public interface IClienteDomain
     {
-        IEnumerable<ClienteViewModel> GetClientes();
-        ClienteViewModel GetClienteById(int id);
-        ClienteViewModel CreateCliente(Customer clientes);
-        ClienteViewModel UpdateCliente(ClienteViewModel clientes);
+        IEnumerable<Models.Customer> GetClientes();
+        Models.Customer GetClienteById(int id);
+        Models.Customer CreateCliente(Infrastructure.Entities.Customer clientes);
+        Models.Customer UpdateCliente(Models.Customer clientes);
         void DeleteCliente(int id);
     }
 }

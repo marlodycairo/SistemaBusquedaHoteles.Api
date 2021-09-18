@@ -18,7 +18,7 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Context
         public DbSet<Locations> Locations { get; set; }
         public DbSet<RoomType> RoomType { get; set; }
         public DbSet<Rates> Rates { get; set; }
-        public DbSet<Reservation> Reservation { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Customer> Customer { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

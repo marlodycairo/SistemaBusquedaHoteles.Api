@@ -12,6 +12,6 @@ namespace SistemaBusquedaHoteles.Api.Domain.Models
 
         public TipoAlojamientoViewModel TipoAlojamientos { get; set; }
         public SedesViewModel SedesView { get; set; }
-        public ReservacionViewModel ReservacionView { get; set; }
+        public Reservation ReservacionView { get; set; }
     }
 }

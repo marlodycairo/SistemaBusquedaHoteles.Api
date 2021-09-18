@@ -15,7 +15,7 @@ namespace SistemaBusquedaHoteles.Api.Domain.Models
         public int CupoMax { get; set; }
         public int TotalHabitaciones { get; set; }
 
-        public ReservacionViewModel ReservacionView { get; set; }
+        public Reservation ReservacionView { get; set; }
         public HabitacionesViewModel HabitacionesView { get; set; }
     }
 }

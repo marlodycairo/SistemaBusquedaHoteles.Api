@@ -22,11 +22,11 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             this.mapper = mapper;
         }
 
-        public ClienteViewModel CreateCliente(Customer clientes)
+        public Domain.Models.Customer CreateCliente(Infrastructure.Entities.Customer clientes)
         {
             clienteRepository.CreateCliente(clientes);
 
-            var obclientes = mapper.Map<ClienteViewModel>(clientes);
+            var obclientes = mapper.Map<Domain.Models.Customer>(clientes);
 
             return obclientes;
         }
@@ -36,27 +36,27 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             clienteRepository.DeleteCliente(id);
         }
 
-        public ClienteViewModel GetClienteById(int id)
+        public Domain.Models.Customer GetClienteById(int id)
         {
             var obCliente = clienteRepository.GetClienteById(id);
 
-            var cliente = mapper.Map<ClienteViewModel>(obCliente);
+            var cliente = mapper.Map<Domain.Models.Customer>(obCliente);
 
             return cliente;
         }
 
-        public IEnumerable<ClienteViewModel> GetClientes()
+        public IEnumerable<Domain.Models.Customer> GetClientes()
         {
             var obClientes = clienteRepository.GetClientes();
 
-            var clientes = mapper.Map<IEnumerable<ClienteViewModel>>(obClientes);
+            var clientes = mapper.Map<IEnumerable<Domain.Models.Customer>>(obClientes);
 
             return clientes;
         }
 
-        public ClienteViewModel UpdateCliente(ClienteViewModel cliente)
+        public Domain.Models.Customer UpdateCliente(Domain.Models.Customer cliente)
         {
-            var obCliente = mapper.Map<Customer>(cliente);
+            var obCliente = mapper.Map<Infrastructure.Entities.Customer>(cliente);
 
             clienteRepository.UpdateCliente(obCliente);
 

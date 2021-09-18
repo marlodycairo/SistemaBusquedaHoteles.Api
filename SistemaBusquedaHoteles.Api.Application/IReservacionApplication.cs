@@ -10,10 +10,10 @@ namespace SistemaBusquedaHoteles.Api.Application
 {
     public interface IReservacionApplication
     {
-        IEnumerable<ReservacionViewModel> GetReservaciones(ReservacionQueryFilter filter);
-        ReservacionViewModel GetReservaById(int id);
-        ReservacionViewModel CreateReservacion(ReservacionViewModel reservacion);
-        ReservacionViewModel UpdateReservacion(ReservacionViewModel reservacion);
+        IEnumerable<Reservation> GetReservaciones(ReservacionQueryFilter filter);
+        Reservation GetReservaById(int id);
+        Reservation CreateReservacion(Reservation reservacion);
+        Reservation UpdateReservacion(Reservation reservacion);
         void DeleteReservacion(int id);
     }
 }

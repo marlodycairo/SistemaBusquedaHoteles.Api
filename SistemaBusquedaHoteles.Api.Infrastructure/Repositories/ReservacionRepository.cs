@@ -23,7 +23,7 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
         {
 
 
-            context.Reservation.Add(reservacion);
+            context.Reservations.Add(reservacion);
             context.SaveChanges();
 
             return reservacion;
@@ -31,7 +31,7 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
 
         public async Task DeleteReservacion(int id)
         {
-            var reserva = context.Reservation.FirstOrDefault(p => p.Id == id);
+            var reserva = context.Reservations.FirstOrDefault(p => p.Id == id);
 
             context.Remove(reserva);
             context.SaveChanges();
@@ -39,12 +39,12 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
 
         public Reservation GetReservaById(int id)
         {
-            return context.Reservation.FirstOrDefault(p => p.Id == id);
+            return context.Reservations.FirstOrDefault(p => p.Id == id);
         }
 
         public IEnumerable<Reservation> GetReservaciones()
         {
-            return context.Reservation
+            return context.Reservations
                 .Include(p => p.Sede)
                 .Include(p => p.TAlojamiento)
                 .Include(p => p.Tarifa)
@@ -64,7 +64,7 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
 
         private bool ReservationExists(int id)
         {
-            return context.Reservation.Any(p => p.Id == id);
+            return context.Reservations.Any(p => p.Id == id);
         }
     }
 }

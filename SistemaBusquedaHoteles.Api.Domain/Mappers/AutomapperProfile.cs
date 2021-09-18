@@ -9,7 +9,7 @@ namespace SistemaBusquedaHoteles.Api.Domain.Mappers
         public AutomapperProfile()
         {
             CreateMap<Rooms, HabitacionesViewModel>()
-                .ForMember(dest => dest.TipoAlojamientos, opt => opt.MapFrom(src => src.Tipo))
+                .ForMember(dest => dest.TipoAlojamientos, opt => opt.MapFrom(src => src.RoomType))
                 .ForMember(dest => dest.SedesView, opt => opt.MapFrom(src => src.Sede));
 
             CreateMap<HabitacionesViewModel, Rooms>();
@@ -22,21 +22,21 @@ namespace SistemaBusquedaHoteles.Api.Domain.Mappers
             CreateMap<TipoAlojamientoViewModel, RoomType>();
 
             CreateMap<Rates, TarifasViewModel>()
-                .ForMember(dest => dest.AlojamientoModel, opt => opt.MapFrom(src => src.Alojamiento));
+                .ForMember(dest => dest.AlojamientoModel, opt => opt.MapFrom(src => src.RoomType));
 
             CreateMap<TarifasViewModel, Rates>();
 
-            CreateMap<Reservation, ReservacionViewModel>()
+            CreateMap<Reservation, Reservation>()
                 .ForMember(dest => dest.SedesModel, opt => opt.MapFrom(src => src.Sede))
                 .ForMember(dest => dest.TarifasModel, opt => opt.MapFrom(src => src.Tarifa))
-                .ForMember(dest => dest.TipoAlojamientoModel, opt => opt.MapFrom(src => src.TAlojamiento))
+                .ForMember(dest => dest.TipoAlojamientoModel, opt => opt.MapFrom(src => src.RoomType))
                 .ForMember(dest => dest.ClienteModel, opt => opt.MapFrom(src => src.Cliente))
-                .ForMember(dest => dest.HabitacionesModel, opt => opt.MapFrom(src => src.Habitacion));
+                .ForMember(dest => dest.HabitacionesModel, opt => opt.MapFrom(src => src.Rooms));
 
-            CreateMap<ReservacionViewModel, Reservation>();
+            CreateMap<Reservation, Reservation>();
 
-            CreateMap<Customer, ClienteViewModel>();
-            CreateMap<ClienteViewModel, Customer>();
+            CreateMap<Customer, Customer>();
+            CreateMap<Customer, Customer>();
         }
     }
 }

@@ -11,10 +11,10 @@ namespace SistemaBusquedaHoteles.Api.Domain
 {
     public interface IReservacionDomain
     {
-        IEnumerable<ReservacionViewModel> GetReservaciones(ReservacionQueryFilter filter);
-        ReservacionViewModel GetReservaById(int id);
-        ReservacionViewModel CreateReservacion(Reservation reservacion);
-        ReservacionViewModel UpdateReservacion(ReservacionViewModel reservacion);
+        IEnumerable<Models.Reservation> GetReservaciones(ReservacionQueryFilter filter);
+        Models.Reservation GetReservaById(int id);
+        Models.Reservation CreateReservacion(Infrastructure.Entities.Reservation reservacion);
+        Models.Reservation UpdateReservacion(Models.Reservation reservacion);
         void DeleteReservacion(int id);
 
         DateTime ValidarFechasDisponibles(DateTime? fecha);

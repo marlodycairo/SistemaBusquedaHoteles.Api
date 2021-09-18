@@ -27,8 +27,8 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
         public IEnumerable<RoomType> GetAlojamientos()
         {
             return context.RoomType
-                .Include(p => p.Habitaciones)
-                .Include(r => r.Reservacion)
+                .Include(p => p.Rooms)
+                .Include(r => r.Reservation)
                 .ToList();
         }
     }

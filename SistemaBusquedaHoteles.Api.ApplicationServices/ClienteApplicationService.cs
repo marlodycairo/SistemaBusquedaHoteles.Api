@@ -22,9 +22,9 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
             this.mapper = mapper;
         }
 
-        public ClienteViewModel CreateCliente(ClienteViewModel clientes)
+        public Domain.Models.Customer CreateCliente(Domain.Models.Customer clientes)
         {
-            var obClientes = mapper.Map<Customer>(clientes);
+            var obClientes = mapper.Map<Infrastructure.Entities.Customer>(clientes);
             var cliente = clienteDomain.CreateCliente(obClientes);
             return cliente;
         }
@@ -34,17 +34,17 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
             clienteDomain.DeleteCliente(id);
         }
 
-        public ClienteViewModel GetClienteById(int id)
+        public Domain.Models.Customer GetClienteById(int id)
         {
             return clienteDomain.GetClienteById(id);
         }
 
-        public IEnumerable<ClienteViewModel> GetClientes()
+        public IEnumerable<Domain.Models.Customer> GetClientes()
         {
             return clienteDomain.GetClientes();
         }
 
-        public ClienteViewModel UpdateCliente(ClienteViewModel clientes)
+        public Domain.Models.Customer UpdateCliente(Domain.Models.Customer clientes)
         {
             return clienteDomain.UpdateCliente(clientes);
         }

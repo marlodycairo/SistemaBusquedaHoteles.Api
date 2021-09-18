@@ -34,7 +34,7 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ReservacionViewModel>> GetReservacionById(int id)
+        public async Task<ActionResult<Reservation>> GetReservacionById(int id)
         {
             var reservacion = reservacionApplication.GetReservaById(id);
 
@@ -47,7 +47,7 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ReservacionViewModel>> CreateReservacion(ReservacionViewModel reservacion)
+        public async Task<ActionResult<Reservation>> CreateReservacion(Reservation reservacion)
         {
             if (!ModelState.IsValid)
             {
@@ -59,7 +59,7 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateReservacion(int id, ReservacionViewModel reservacion)
+        public async Task<IActionResult> UpdateReservacion(int id, Reservation reservacion)
         {
             if (id != reservacion.Id)
             {

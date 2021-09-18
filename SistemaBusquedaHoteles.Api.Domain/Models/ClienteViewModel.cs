@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SistemaBusquedaHoteles.Api.Domain.Models
 {
-    public class ClienteViewModel
+    public class Customer
     {
         public int Id { get; set; }
         public string NombreCliente { get; set; }
@@ -14,6 +14,6 @@ namespace SistemaBusquedaHoteles.Api.Domain.Models
         public string Email { get; set; }
 
 
-        public ReservacionViewModel ReservacionView { get; set; }
+        public Reservation Reservation { get; set; }
     }
 }

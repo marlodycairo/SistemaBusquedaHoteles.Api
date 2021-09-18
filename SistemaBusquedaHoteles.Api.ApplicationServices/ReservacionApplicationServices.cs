@@ -23,9 +23,9 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
             this.mapper = mapper;
         }
 
-        public ReservacionViewModel CreateReservacion(ReservacionViewModel reservacion)
+        public Domain.Models.Reservation CreateReservacion(Domain.Models.Reservation reservacion)
         {
-            var objReservacion = mapper.Map<Reservation>(reservacion);
+            var objReservacion = mapper.Map<Infrastructure.Entities.Reservation>(reservacion);
             var reservaciones = reservacionDomain.CreateReservacion(objReservacion);
 
             return reservaciones;
@@ -36,17 +36,17 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
             reservacionDomain.DeleteReservacion(id);
         }
 
-        public ReservacionViewModel GetReservaById(int id)
+        public Domain.Models.Reservation GetReservaById(int id)
         {
             return reservacionDomain.GetReservaById(id);
         }
 
-        public IEnumerable<ReservacionViewModel> GetReservaciones(ReservacionQueryFilter filter)
+        public IEnumerable<Domain.Models.Reservation> GetReservaciones(ReservacionQueryFilter filter)
         {
             return reservacionDomain.GetReservaciones(filter);
         }
 
-        public ReservacionViewModel UpdateReservacion(ReservacionViewModel reservacion)
+        public Domain.Models.Reservation UpdateReservacion(Domain.Models.Reservation reservacion)
         {
             return reservacionDomain.UpdateReservacion(reservacion);
         }
