@@ -29,8 +29,7 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
         public async Task<IEnumerable<Rate>> GetTarifas()
         {
             return await context.Rate
-                .Include(p => p.RoomType)
-                .Include(r => r.Reservations)
+                //.Include(r => r.Reservations)
                 .ToListAsync();
         }
     }

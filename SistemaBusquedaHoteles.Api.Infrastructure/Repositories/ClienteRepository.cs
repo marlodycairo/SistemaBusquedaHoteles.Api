@@ -41,7 +41,7 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
         public async Task<IEnumerable<Customer>> GetClientes()
         {
             return await context.Customer
-                .Include(p => p.Reservations)
+                //.Include(p => p.Reservations)
                 .ToListAsync();
         }
 

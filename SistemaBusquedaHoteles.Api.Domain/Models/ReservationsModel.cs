@@ -22,10 +22,10 @@ namespace SistemaBusquedaHoteles.Api.Domain.Models
 
         public string Responses { get; set; }
 
-        public LocationsModel Locations { get; set; }
-        public RoomTypeModel RoomType { get; set; }
-        public RatesModel Rates { get; set; }
+        public LocationsModel LocationModel { get; set; }
+        public RoomTypeModel RoomTypesModel { get; set; }
+        public RatesModel RateModel { get; set; }
         public CustomersModel CustomerModel { get; set; }
-        public RoomModel Rooms { get; set; }
+        public RoomModel RoomsModel { get; set; }
     }
 }
