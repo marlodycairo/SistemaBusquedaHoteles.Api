@@ -4,6 +4,7 @@ using SistemaBusquedaHoteles.Api.Infrastructure.Entities;
 using SistemaBusquedaHoteles.Api.Infrastructure.Repositories.IRepository;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
 {
@@ -16,42 +17,42 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
             this.context = context;
         }
 
-        public Rooms Create(Rooms habitaciones)
+        public async Task<Rooms> Create(Rooms rooms)
         {
-            context.Habitaciones.Add(habitaciones);
-            context.SaveChanges();
+            await context.Rooms.AddAsync(rooms);
+            await context.SaveChangesAsync();
 
-            return habitaciones;
+            return rooms;
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            Rooms habitacion = context.Habitaciones.FirstOrDefault(p => p.Id == id);
+            var habitacion = context.Rooms.FirstOrDefaultAsync(p => p.Id == id);
 
-            context.Remove(habitacion).State = EntityState.Deleted;
-            context.SaveChanges();
+            context.Remove(habitacion);
+            await context.SaveChangesAsync();
         }
 
-        public IEnumerable<Rooms> GetAll()
+        public async Task<IEnumerable<Rooms>> GetAll()
         {
-            return context.Habitaciones
-                        .Include(t => t.Tipo)
-                        .Include(p => p.Sede)
-                        .Include(r => r.Reservacion)
-                        .ToList();
+            return await context.Rooms
+                        .Include(t => t.RoomType)
+                        .Include(p => p.Locations)
+                        .Include(r => r.Reservations)
+                        .ToListAsync();
         }
 
-        public Rooms GetById(int id)
+        public async Task<Rooms> GetById(int id)
         {
-            return context.Habitaciones.FirstOrDefault(p => p.Id == id);
+            return await context.Rooms.FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public Rooms Update(Rooms habitaciones)
+        public async Task<Rooms> Update(Rooms room)
         {
-            context.Entry(habitaciones).State = EntityState.Modified;
-            context.SaveChanges();
+            context.Entry(room);
+            await context.SaveChangesAsync();
 
-            return habitaciones;
+            return room;
         }
     }
 }

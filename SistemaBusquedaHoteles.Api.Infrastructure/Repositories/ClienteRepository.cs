@@ -19,38 +19,38 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
             this.context = context;
         }
 
-        public Customer CreateCliente(Customer cliente)
+        public async Task<Customer> CreateCliente(Customer cliente)
         {
             context.Customer.Add(cliente);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
 
             return cliente;
         }
 
-        public void DeleteCliente(int id)
+        public async Task DeleteCliente(int id)
         {
-            var cliente = context.Customer.FirstOrDefault(p => p.Id == id);
+            var cliente = context.Customer.FirstOrDefaultAsync(p => p.Id == id);
 
-            context.Remove(cliente).State = EntityState.Deleted;
-            context.SaveChanges();
+            context.Remove(cliente);
+            await context.SaveChangesAsync();
         }
 
-        public Customer GetClienteById(int id)
+        public async Task<Customer> GetClienteById(int id)
         {
-            return context.Customer.FirstOrDefault(p => p.Id == id);
+            return await context.Customer.FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public IEnumerable<Customer> GetClientes()
+        public async Task<IEnumerable<Customer>> GetClientes()
         {
-            return context.Customer
+            return await context.Customer
                 .Include(p => p.Reservation)
-                .ToList();
+                .ToListAsync();
         }
 
-        public Customer UpdateCliente(Customer cliente)
+        public async Task<Customer> UpdateCliente(Customer cliente)
         {
-            context.Entry(cliente).State = EntityState.Modified;
-            context.SaveChanges();
+            context.Entry(cliente);
+            await context.SaveChangesAsync();
 
             return cliente;
         }

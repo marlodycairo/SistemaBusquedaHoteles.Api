@@ -47,7 +47,7 @@ namespace SistemaBusquedaHoteles.Controllers
         [HttpPost]
         public async Task<ActionResult<Reservations>> CreateReservation(Reservations reservacion)
         {
-            if (!ModelState.IsValid)
+            if (reservacion == null)
             {
                 return BadRequest();
             }

@@ -19,17 +19,17 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
             this.context = context;
         }
 
-        public Locations GetSedeById(int id)
+        public async Task<Locations> GetSedeById(int id)
         {
-            return context.Locations.FirstOrDefault(p => p.Id == id);
+            return await context.Locations.FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public IEnumerable<Locations> GetSedes()
+        public async Task<IEnumerable<Locations>> GetSedes()
         {
-            return context.Locations
+            return await context.Locations
                 .Include(p => p.Rooms)
-                .Include(r => r.Reservaciones)
-                .ToList();
+                .Include(r => r.Reservations)
+                .ToListAsync();
         }
     }
 }

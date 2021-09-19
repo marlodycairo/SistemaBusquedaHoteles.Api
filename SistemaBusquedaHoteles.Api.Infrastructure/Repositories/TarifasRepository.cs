@@ -19,19 +19,19 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
             this.context = context;
         }
 
-        public Rates GetTarifaById(int id)
+        public Task<Rates> GetTarifaById(int id)
         {
-            var tarifa = context.Tarifas.FirstOrDefault(p => p.Id == id);
+            var rate = context.Rates.FirstOrDefaultAsync(p => p.Id == id);
 
-            return tarifa;
+            return rate;
         }
 
-        public IEnumerable<Rates> GetTarifas()
+        public async Task<IEnumerable<Rates>> GetTarifas()
         {
-            return context.Tarifas
-                .Include(p => p.Alojamiento)
-                .Include(r => r.Reservacion)
-                .ToList();
+            return await context.Rates
+                .Include(p => p.RoomType)
+                .Include(r => r.Reservation)
+                .ToListAsync();
         }
     }
 }

@@ -59,13 +59,13 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             IEnumerable<Reservation> reservas = await reservacionRepository.GetAllReservations();
             IEnumerable<Reservations> result = mapper.Map<IEnumerable<Domain.Models.Reservations>>(reservas);
 
-            IEnumerable<Infrastructure.Entities.Rooms> habitaciones = habitacionesRepository.GetAll();
+            IEnumerable<Infrastructure.Entities.Rooms> habitaciones = await habitacionesRepository.GetAll();
             IEnumerable<Domain.Models.Room> listaHabitaciones = mapper.Map<IEnumerable<Domain.Models.Room>>(habitaciones);
 
-            IEnumerable<Infrastructure.Entities.Rooms> listHabitaciones = habitacionesRepository.GetAll();
+            IEnumerable<Infrastructure.Entities.Rooms> listHabitaciones = await habitacionesRepository.GetAll();
             IEnumerable<Domain.Models.Room> lista = mapper.Map<IEnumerable<Domain.Models.Room>>(habitaciones);
 
-            IEnumerable<Infrastructure.Entities.Locations> sedes = sedesRepository.GetSedes();
+            IEnumerable<Infrastructure.Entities.Locations> sedes = await sedesRepository.GetSedes();
             IEnumerable<Domain.Models.Locations> lstSedes = mapper.Map<IEnumerable<Domain.Models.Locations>>(sedes);
 
             List<Reservations> reservaciones = new List<Domain.Models.Reservations>();
@@ -177,7 +177,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             IEnumerable<Reservations> result = mapper.Map<IEnumerable<Domain.Models.Reservations>>(reservaciones);
 
             IEnumerable<Infrastructure.Entities.Rooms> habitaciones = habitacionesRepository.GetAll();
-            IEnumerable<Domain.Models.Room> listaHabitaciones = mapper.Map<IEnumerable<Domain.Models.Room>>(habitaciones);
+            IEnumerable<Domain.Models.Room> listaHabitaciones =  mapper.Map<IEnumerable<Domain.Models.Room>>(habitaciones);
 
             IEnumerable<Infrastructure.Entities.Rates> tarifas = tarifasRepository.GetTarifas();
             IEnumerable<Domain.Models.Rates> listaTarifas = mapper.Map<IEnumerable<Domain.Models.Rates>>(tarifas);

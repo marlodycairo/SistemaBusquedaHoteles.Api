@@ -9,7 +9,7 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories.IRepository
 {
     public interface ITarifasRepository
     {
-        IEnumerable<Rates> GetTarifas();
-        Rates GetTarifaById(int id);
+        Task<IEnumerable<Rates>> GetTarifas();
+        Task<Rates> GetTarifaById(int id);
     }
 }

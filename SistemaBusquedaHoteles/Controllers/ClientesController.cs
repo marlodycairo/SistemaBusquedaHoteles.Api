@@ -29,21 +29,21 @@ namespace SistemaBusquedaHoteles.Controllers
                 return BadRequest();
             }
 
-            var customers = clienteApplication.GetClientes();
+            var customers = await clienteApplication.GetClientes();
             return Ok(customers);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult> GetClienteById(int id)
         {
-            var customer = clienteApplication.GetClienteById(id);
+            var customer = await clienteApplication.GetClienteById(id);
             return Ok(customer);
         }
 
         [HttpPost]
         public async Task<ActionResult<Customers>> CreateClientes(Customers customer)
         {
-            var customerCreate = clienteApplication.CreateCliente(customer);
+            var customerCreate = await clienteApplication.CreateCliente(customer);
             if (customerCreate == null)
             {
                 return BadRequest();
@@ -58,7 +58,7 @@ namespace SistemaBusquedaHoteles.Controllers
             {
                 return BadRequest();
             }
-            var customerUpdate = clienteApplication.UpdateCliente(customer);
+            var customerUpdate = await clienteApplication.UpdateCliente(customer);
             if (customerUpdate == null)
             {
                 return NotFound();
@@ -69,11 +69,7 @@ namespace SistemaBusquedaHoteles.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCliente(int id)
         {
-            clienteApplication.DeleteCliente(id);
-            //if (custom == null)
-            //{
-            //    return NotFound();
-            //}
+            await clienteApplication.DeleteCliente(id);
             return Ok();
         }
     }

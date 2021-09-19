@@ -9,10 +9,10 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories.IRepository
 {
     public interface IHabitacionesRepository
     {
-        IEnumerable<Rooms> GetAll();
-        Rooms GetById(int id);
-        Rooms Create(Rooms habitaciones);
-        Rooms Update(Rooms habitaciones);
-        void Delete(int id);
+        Task<IEnumerable<Rooms>> GetAll();
+        Task<Rooms> GetById(int id);
+        Task<Rooms> Create(Rooms habitaciones);
+        Task<Rooms> Update(Rooms habitaciones);
+        Task Delete(int id);
     }
 }

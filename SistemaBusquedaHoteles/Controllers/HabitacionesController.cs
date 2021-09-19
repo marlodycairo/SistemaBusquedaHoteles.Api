@@ -21,7 +21,7 @@ namespace SistemaBusquedaHoteles.Controllers
         [HttpGet]
         public async Task<ActionResult<Room>> GetHabitaciones()
         {
-            var rooms = habitacionesApplication.GetAll();
+            var rooms = await habitacionesApplication.GetAll();
             if (rooms == null)
             {
                 return NotFound();
@@ -32,7 +32,7 @@ namespace SistemaBusquedaHoteles.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Room>> GetHabitacionById(int id)
         {
-            var room = habitacionesApplication.GetById(id);
+            var room = await habitacionesApplication.GetById(id);
             if (room == null)
             {
                 return NotFound();
@@ -41,9 +41,14 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpPost]
-        public  ActionResult<Room> CreateHabitacion(Room model)
+        public async Task<ActionResult<Room>> CreateHabitacion(Room model)
         {
-            return habitacionesApplication.Create(model);
+            if (model == null)
+            {
+                return BadRequest();
+            }
+            var roomCreate = await habitacionesApplication.Create(model);
+            return Ok(roomCreate);
         }
 
         [HttpPut("{id}")]
@@ -53,14 +58,14 @@ namespace SistemaBusquedaHoteles.Controllers
             {
                 return BadRequest();
             }
-            var roomUpdate = habitacionesApplication.Update(room);
+            var roomUpdate = await habitacionesApplication.Update(room);
             return Ok(roomUpdate);
         }
 
         [HttpDelete("{id}")]
         public async Task DeleteHabitacion(int id)
         {
-            habitacionesApplication.Delete(id);
+            await habitacionesApplication.Delete(id);
         }
     }
 }
