@@ -21,15 +21,25 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<RoomType> GetHabitaciones()
+        public async Task<ActionResult<RoomType>> GetHabitaciones()
         {
-            return tipoAlojamientoApplication.GetAlojamientos();
+            var roomTypes = tipoAlojamientoApplication.GetAlojamientos();
+            if (roomTypes == null)
+            {
+                return NotFound();
+            }
+            return Ok(roomTypes);
         }
 
         [HttpGet("{id}")]
-        public RoomType GetHabitacionById(int id)
+        public async Task<ActionResult<RoomType>> GetHabitacionById(int id)
         {
-            return tipoAlojamientoApplication.GetAlojamientoById(id);
+            var roomType = tipoAlojamientoApplication.GetAlojamientoById(id);
+            if (roomType == null)
+            {
+                return NotFound();
+            }
+            return roomType;
         }
     }
 }

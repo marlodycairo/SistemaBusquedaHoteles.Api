@@ -34,29 +34,47 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetClienteById(int id)
+        public async Task<ActionResult> GetClienteById(int id)
         {
             var customer = clienteApplication.GetClienteById(id);
             return Ok(customer);
         }
 
         [HttpPost]
-        public async Task<ActionResult<Customer>> CreateClientes(Customer model)
+        public async Task<ActionResult<Customers>> CreateClientes(Customers customer)
         {
-            return clienteApplication.CreateCliente(model);
+            var customerCreate = clienteApplication.CreateCliente(customer);
+            if (customerCreate == null)
+            {
+                return BadRequest();
+            }
+            return Ok(customerCreate);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCliente(Customer customer)
+        public async Task<IActionResult> UpdateCliente(int id, Customers customer)
         {
+            if (id != customer.Id)
+            {
+                return BadRequest();
+            }
             var customerUpdate = clienteApplication.UpdateCliente(customer);
+            if (customerUpdate == null)
+            {
+                return NotFound();
+            }
             return Ok(customerUpdate);
         }
 
         [HttpDelete("{id}")]
-        public async Task DeleteCliente(int id)
+        public async Task<IActionResult> DeleteCliente(int id)
         {
             clienteApplication.DeleteCliente(id);
+            //if (custom == null)
+            //{
+            //    return NotFound();
+            //}
+            return Ok();
         }
     }
 }

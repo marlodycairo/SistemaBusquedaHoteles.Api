@@ -22,15 +22,21 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Rates> GetTarifas(TarifasQueryFilter filter)
+        public async Task<ActionResult> GetTarifas(TarifasQueryFilter filter)
         {
-            return tarifasApplication.GetTarifas(filter);
+            var rates = tarifasApplication.GetTarifas(filter);
+            return Ok(rates);
         }
 
         [HttpGet("{id}")]
-        public Rates GetTarifaById(int id)
+        public async Task<ActionResult<Rates>> GetTarifaById(int id)
         {
-            return tarifasApplication.GetTarifaById(id);
+            var rate = tarifasApplication.GetTarifaById(id);
+            if (rate == null)
+            {
+                return NotFound();
+            }
+            return rate;
         }
     }
 }

@@ -3,6 +3,7 @@ using SistemaBusquedaHoteles.Api.Application;
 using SistemaBusquedaHoteles.Api.Domain.Models;
 using SistemaBusquedaHoteles.Api.Domain.QueryFilters;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SistemaBusquedaHoteles.Controllers
 {
@@ -18,31 +19,46 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Rooms> GetHabitaciones()
+        public async Task<ActionResult<Rooms>> GetHabitaciones()
         {
-            return habitacionesApplication.GetAll();
+            var rooms = habitacionesApplication.GetAll();
+            if (rooms == null)
+            {
+                return NotFound();
+            }
+            return Ok(rooms);
         }
 
         [HttpGet("{id}")]
-        public Rooms GetHabitacionById(int id)
+        public async Task<ActionResult<Rooms>> GetHabitacionById(int id)
         {
-            return habitacionesApplication.GetById(id);
+            var room = habitacionesApplication.GetById(id);
+            if (room == null)
+            {
+                return NotFound();
+            }
+            return room;
         }
 
         [HttpPost]
-        public ActionResult<Rooms> CreateHabitacion(Rooms model)
+        public  ActionResult<Rooms> CreateHabitacion(Rooms model)
         {
             return habitacionesApplication.Create(model);
         }
 
         [HttpPut("{id}")]
-        public Rooms UpdateHabitacion(Rooms model)
+        public async Task<IActionResult> UpdateHabitacion(int id, Rooms room)
         {
-            return habitacionesApplication.Update(model);
+            if (id != room.Id)
+            {
+                return BadRequest();
+            }
+            var roomUpdate = habitacionesApplication.Update(room);
+            return Ok(roomUpdate);
         }
 
         [HttpDelete("{id}")]
-        public void DeleteHabitacion(int id)
+        public async Task DeleteHabitacion(int id)
         {
             habitacionesApplication.Delete(id);
         }

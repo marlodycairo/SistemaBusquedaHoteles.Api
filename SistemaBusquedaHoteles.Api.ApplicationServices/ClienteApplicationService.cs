@@ -22,29 +22,29 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
             this.mapper = mapper;
         }
 
-        public Domain.Models.Customer CreateCliente(Domain.Models.Customer clientes)
+        public async Task<Customers> CreateCliente(Customers customer)
         {
-            var obClientes = mapper.Map<Infrastructure.Entities.Customer>(clientes);
-            var cliente = clienteDomain.CreateCliente(obClientes);
-            return cliente;
+            var allCustomers = mapper.Map<Customer>(customer);
+            var customerCreate = clienteDomain.CreateCliente(allCustomers);
+            return customerCreate;
         }
 
-        public void DeleteCliente(int id)
+        public async Task DeleteCliente(int id)
         {
             clienteDomain.DeleteCliente(id);
         }
 
-        public Domain.Models.Customer GetClienteById(int id)
+        public async Task<Customers> GetClienteById(int id)
         {
             return clienteDomain.GetClienteById(id);
         }
 
-        public IEnumerable<Domain.Models.Customer> GetClientes()
+        public async Task<IEnumerable<Customers>> GetClientes()
         {
             return clienteDomain.GetClientes();
         }
 
-        public Domain.Models.Customer UpdateCliente(Domain.Models.Customer clientes)
+        public async Task<Customers> UpdateCliente(Customers clientes)
         {
             return clienteDomain.UpdateCliente(clientes);
         }
