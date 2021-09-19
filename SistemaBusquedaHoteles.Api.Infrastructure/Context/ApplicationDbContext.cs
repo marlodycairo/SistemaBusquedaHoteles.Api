@@ -14,16 +14,21 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Context
         {
         }
 
-        public DbSet<Rooms> Rooms { get; set; }
+        public DbSet<Rooms> Room { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<RoomTypes> RoomType { get; set; }
         public DbSet<Rate> Rates { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
-        public DbSet<Customer> Customer { get; set; }
+        public DbSet<Customer> Customers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             ////Configuración de relaciones uno a uno y uno a muchos
+            modelBuilder.Entity<Customer>()
+                .HasOne(r => r.Reservation)
+                .WithOne(i => i.Customer)
+                .HasForeignKey<Reservation>(r => r.Id);
+
             //modelBuilder.Entity<Habitaciones>()
             //    .HasOne(h => h.Reservacion)
             //    .WithOne(i => i.Habitaciones)
