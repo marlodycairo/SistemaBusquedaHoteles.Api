@@ -12,8 +12,8 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories.IRepository
         Task<IEnumerable<Reservation>> GetAllReservations();
         Task<Reservation> GetReservationById(int id);
         Task<Reservation> CreateReservation(Reservation reservacion);
-        Reservation UpdateReservation(Reservation reservacion);
-        void DeleteReservation(int id);
+        Task<Reservation> UpdateReservation(Reservation reservacion);
+        Task DeleteReservation(int id);
         bool ReservationExists(int id);
     }
 }
