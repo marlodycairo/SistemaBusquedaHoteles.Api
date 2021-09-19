@@ -23,7 +23,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
         public async Task<Locations> GetSedeById(int id)
         {
-            var location = sedesRepository.GetSedeById(id);
+            var location = await sedesRepository.GetSedeById(id);
 
             var locationMapper = mapper.Map<Locations>(location);
 
@@ -32,7 +32,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
         public async Task<IEnumerable<Locations>> GetSedes()
         {
-            var locations = sedesRepository.GetSedes();
+            var locations = await sedesRepository.GetSedes();
 
             var locationMapper = mapper.Map<IEnumerable<Locations>>(locations);
 

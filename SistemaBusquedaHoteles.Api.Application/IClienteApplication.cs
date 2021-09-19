@@ -13,7 +13,7 @@ namespace SistemaBusquedaHoteles.Api.Application
         Task<IEnumerable<Customers>> GetClientes();
         Task<Customers> GetClienteById(int id);
         Task<Customers> CreateCliente(Customers customers);
-        Task<Customers> UpdateCliente(Customers customers);
+        Task<Customer> UpdateCliente(Customers customers);
         Task DeleteCliente(int id);
     }
 }

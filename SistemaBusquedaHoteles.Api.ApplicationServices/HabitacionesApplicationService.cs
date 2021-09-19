@@ -27,29 +27,29 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
         {
             var roomMapper = mapper.Map<Rooms>(room);
 
-            var roomCreate = habitacionesDomain.Create(roomMapper);
+            var roomCreate = await habitacionesDomain.Create(roomMapper);
 
             return roomCreate;
         }
 
         public async Task Delete(int id)
         {
-            habitacionesDomain.Delete(id);
+            await habitacionesDomain.Delete(id);
         }
 
         public async Task<IEnumerable<Room>> GetAll()
         {
-            return habitacionesDomain.GetAll();
+            return await habitacionesDomain.GetAll();
         }
 
         public async Task<Room> GetById(int id)
         {
-            return habitacionesDomain.GetById(id);
+            return await habitacionesDomain.GetById(id);
         }
 
-        public async Task<Room> Update(Domain.Models.Room model)
+        public async Task<Rooms> Update(Room model)
         {
-            return habitacionesDomain.Update(model);
+            return await habitacionesDomain.Update(model);
         }
     }
 }

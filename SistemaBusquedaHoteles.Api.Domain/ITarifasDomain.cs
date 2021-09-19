@@ -10,7 +10,7 @@ namespace SistemaBusquedaHoteles.Api.Domain
 {
     public interface ITarifasDomain
     {
-        Task<IEnumerable<Rates>> GetTarifas(TarifasQueryFilter filter);
+        Task<IEnumerable<Rates>> GetTarifas();
         Task<Rates> GetTarifaById(int id);
     }
 }

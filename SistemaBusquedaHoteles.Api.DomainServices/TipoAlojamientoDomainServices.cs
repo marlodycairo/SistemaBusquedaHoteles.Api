@@ -23,7 +23,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
         public async Task<RoomType> GetAlojamientoById(int id)
         {
-            var roomTypeById = tipoAlojamientoRepository.GetAlojamientoById(id);
+            var roomTypeById = await tipoAlojamientoRepository.GetAlojamientoById(id);
 
             var roomType = mapper.Map<RoomType>(roomTypeById);
 
@@ -32,7 +32,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
         public async Task<IEnumerable<RoomType>> GetAlojamientos()
         {
-            var allRoomTypes = tipoAlojamientoRepository.GetAlojamientos();
+            var allRoomTypes = await tipoAlojamientoRepository.GetAlojamientos();
 
             var roomTypes = mapper.Map<IEnumerable<RoomType>>(allRoomTypes);
 

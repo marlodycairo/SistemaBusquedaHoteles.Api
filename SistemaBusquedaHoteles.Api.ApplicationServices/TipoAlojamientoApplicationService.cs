@@ -23,12 +23,12 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
 
         public async Task<RoomType> GetAlojamientoById(int id)
         {
-            return tipoAlojamientoDomain.GetAlojamientoById(id);
+            return await tipoAlojamientoDomain.GetAlojamientoById(id);
         }
 
         public async Task<IEnumerable<RoomType>> GetAlojamientos()
         {
-            return tipoAlojamientoDomain.GetAlojamientos();
+            return await tipoAlojamientoDomain.GetAlojamientos();
         }
     }
 }

@@ -25,28 +25,28 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
         public async Task<Customers> CreateCliente(Customers customer)
         {
             var allCustomers = mapper.Map<Customer>(customer);
-            var customerCreate = clienteDomain.CreateCliente(allCustomers);
+            var customerCreate = await clienteDomain.CreateCliente(allCustomers);
             return customerCreate;
         }
 
         public async Task DeleteCliente(int id)
         {
-            clienteDomain.DeleteCliente(id);
+            await clienteDomain.DeleteCliente(id);
         }
 
         public async Task<Customers> GetClienteById(int id)
         {
-            return clienteDomain.GetClienteById(id);
+            return await clienteDomain.GetClienteById(id);
         }
 
         public async Task<IEnumerable<Customers>> GetClientes()
         {
-            return clienteDomain.GetClientes();
+            return await clienteDomain.GetClientes();
         }
 
-        public async Task<Customers> UpdateCliente(Customers clientes)
+        public async Task<Customer> UpdateCliente(Customers clientes)
         {
-            return clienteDomain.UpdateCliente(clientes);
+            return await clienteDomain.UpdateCliente(clientes);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories.IRepository
 {
     public interface ITipoAlojamientoRepository
     {
-        Task<IEnumerable<RoomType>> GetAlojamientos();
-        Task<RoomType> GetAlojamientoById(int id);
+        Task<IEnumerable<RoomTypes>> GetAlojamientos();
+        Task<RoomTypes> GetAlojamientoById(int id);
     }
 }

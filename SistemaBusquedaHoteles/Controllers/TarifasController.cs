@@ -22,9 +22,9 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetTarifas(TarifasQueryFilter filter)
+        public async Task<ActionResult<Rates>> GetTarifas()
         {
-            var rates = await tarifasApplication.GetTarifas(filter);
+            var rates = await tarifasApplication.GetTarifas();
             return Ok(rates);
         }
 

@@ -24,29 +24,17 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
         public async Task<Rates> GetTarifaById(int id)
         {
-            var rate = tarifasRepository.GetTarifaById(id);
+            var rate = await tarifasRepository.GetTarifaById(id);
 
             var rateById = mapper.Map<Rates>(rate);
 
             return rateById;
         }
 
-        public async Task<IEnumerable<Rates>> GetTarifas(TarifasQueryFilter filter)
+        public async Task<IEnumerable<Rates>> GetTarifas()
         {
-            var allRates = tarifasRepository.GetTarifas();
-
+            var allRates = await tarifasRepository.GetTarifas();
             var rates = mapper.Map<IEnumerable<Rates>>(allRates);
-
-            if (filter.Temporada != null)
-            {
-                rates = rates.Where(p => p.Temporada == filter.Temporada);
-            }
-
-            if (filter.Valor == 0)
-            {
-                rates = rates.Where(p => p.Valor == filter.Valor);
-            }
-
             return rates;
         }
     }

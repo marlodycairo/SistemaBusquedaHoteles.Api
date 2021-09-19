@@ -25,7 +25,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
         public async Task<Room> Create(Rooms room)
         {
-            habitacionesRepository.Create(room);
+            await habitacionesRepository.Create(room);
 
             var roomCreate = mapper.Map<Room>(room);
 
@@ -34,12 +34,12 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
         public async Task Delete(int id)
         {
-            habitacionesRepository.Delete(id);
+            await habitacionesRepository.Delete(id);
         }
 
         public async Task<IEnumerable<Room>> GetAll()
         {
-            var rooms = habitacionesRepository.GetAll();
+            var rooms = await habitacionesRepository.GetAll();
 
             var allRooms = mapper.Map<IEnumerable<Room>>(rooms);
 
@@ -48,7 +48,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
         public async Task<Room> GetById(int id)
         {
-            var room = habitacionesRepository.GetById(id);
+            var room = await habitacionesRepository.GetById(id);
 
             var roomById = mapper.Map<Domain.Models.Room>(room);
 
@@ -59,7 +59,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
         {
             var roomMapper = mapper.Map<Infrastructure.Entities.Rooms>(room);
 
-            var roomUpdate = habitacionesRepository.Update(roomMapper);
+            var roomUpdate = await habitacionesRepository.Update(roomMapper);
 
             return roomUpdate;
         }

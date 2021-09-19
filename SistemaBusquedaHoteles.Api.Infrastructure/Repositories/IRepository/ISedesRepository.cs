@@ -9,7 +9,7 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories.IRepository
 {
     public interface ISedesRepository
     {
-        Task<IEnumerable<Locations>> GetSedes();
-        Task<Locations> GetSedeById(int id);
+        Task<IEnumerable<Location>> GetSedes();
+        Task<Location> GetSedeById(int id);
     }
 }

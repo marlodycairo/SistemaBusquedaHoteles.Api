@@ -50,9 +50,9 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
         public async Task<IEnumerable<Reservation>> GetAllReservations()
         {
             return await _context.Reservations
-                .Include(p => p.Locations)
-                .Include(p => p.RoomType)
-                .Include(p => p.Rates)
+                .Include(p => p.Location)
+                .Include(p => p.RoomTypes)
+                .Include(p => p.Rate)
                 .Include(p => p.Customer)
                 .Include(p => p.Rooms)
                 .ToListAsync();

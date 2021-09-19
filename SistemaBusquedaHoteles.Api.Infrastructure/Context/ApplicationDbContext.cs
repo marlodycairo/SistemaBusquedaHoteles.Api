@@ -15,9 +15,9 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Context
         }
 
         public DbSet<Rooms> Rooms { get; set; }
-        public DbSet<Locations> Locations { get; set; }
-        public DbSet<RoomType> RoomType { get; set; }
-        public DbSet<Rates> Rates { get; set; }
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<RoomTypes> RoomType { get; set; }
+        public DbSet<Rate> Rates { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Customer> Customer { get; set; }
 

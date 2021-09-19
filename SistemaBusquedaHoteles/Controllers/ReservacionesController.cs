@@ -71,12 +71,7 @@ namespace SistemaBusquedaHoteles.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteReservacion(int id)
         {
-            var reservation = reservacionApplication.DeleteReservacion(id);
-
-            if (reservation == null)
-            {
-                return NotFound();
-            }
+            await reservacionApplication.DeleteReservacion(id);
             return Ok();
         }
     }

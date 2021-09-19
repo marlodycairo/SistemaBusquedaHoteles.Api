@@ -24,7 +24,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
         public async Task<Customers> CreateCliente(Customer customer)
         {
-            clienteRepository.CreateCliente(customer);
+            await clienteRepository.CreateCliente(customer);
 
             var customerMapper = mapper.Map<Customers>(customer);
 
@@ -33,12 +33,12 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
         public async Task DeleteCliente(int id)
         {
-            clienteRepository.DeleteCliente(id);
+            await clienteRepository.DeleteCliente(id);
         }
 
         public async Task<Customers> GetClienteById(int id)
         {
-            var customer = clienteRepository.GetClienteById(id);
+            var customer = await clienteRepository.GetClienteById(id);
 
             var customerMapper = mapper.Map<Customers>(customer);
 
@@ -47,7 +47,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
         public async Task<IEnumerable<Customers>> GetClientes()
         {
-            var allCustomers = clienteRepository.GetClientes();
+            var allCustomers = await clienteRepository.GetClientes();
 
             var customersMapper = mapper.Map<IEnumerable<Domain.Models.Customers>>(allCustomers);
 
@@ -58,7 +58,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
         {
             var customerMapper = mapper.Map<Customer>(customers);
 
-            var customerUpdate = clienteRepository.UpdateCliente(customerMapper);
+            var customerUpdate = await clienteRepository.UpdateCliente(customerMapper);
 
             return customerUpdate;
         }

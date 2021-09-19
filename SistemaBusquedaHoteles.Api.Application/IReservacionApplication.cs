@@ -1,5 +1,6 @@
 ﻿using SistemaBusquedaHoteles.Api.Domain.Models;
 using SistemaBusquedaHoteles.Api.Domain.QueryFilters;
+using SistemaBusquedaHoteles.Api.Infrastructure.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace SistemaBusquedaHoteles.Api.Application
         Task<IEnumerable<Reservations>> GetReservaciones(ReservacionQueryFilter filter);
         Task<Reservations> GetReservationById(int id);
         Task<Reservations> CreateReservation(Reservations reservacion);
-        Task<Reservations> UpdateReservation(Reservations reservacion);
+        Task<Reservation> UpdateReservation(Reservations reservacion);
         Task DeleteReservacion(int id);
     }
 }

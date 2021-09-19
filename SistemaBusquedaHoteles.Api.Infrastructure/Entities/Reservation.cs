@@ -24,9 +24,9 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Entities
 
         public string Response { get; set; }
 
-        public Locations Locations { get; set; }
-        public RoomType RoomType { get; set; }
-        public Rates Rates { get; set; }
+        public Location Location { get; set; }
+        public RoomTypes RoomTypes { get; set; }
+        public Rate Rate { get; set; }
         public Customer Customer { get; set; }
         public Rooms Rooms { get; set; }
     }

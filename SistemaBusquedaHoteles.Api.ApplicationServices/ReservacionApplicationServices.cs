@@ -46,7 +46,7 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
             return await reservacionDomain.GetReservaciones(filter);
         }
 
-        public async Task<Reservations> UpdateReservation(Reservations reservacion)
+        public async Task<Reservation> UpdateReservation(Reservations reservacion)
         {
             return await reservacionDomain.UpdateReservacion(reservacion);
         }

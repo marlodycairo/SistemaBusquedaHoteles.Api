@@ -65,14 +65,14 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             IEnumerable<Infrastructure.Entities.Rooms> listHabitaciones = await habitacionesRepository.GetAll();
             IEnumerable<Domain.Models.Room> lista = mapper.Map<IEnumerable<Domain.Models.Room>>(habitaciones);
 
-            IEnumerable<Infrastructure.Entities.Locations> sedes = await sedesRepository.GetSedes();
+            IEnumerable<Infrastructure.Entities.Location> sedes = await sedesRepository.GetSedes();
             IEnumerable<Domain.Models.Locations> lstSedes = mapper.Map<IEnumerable<Domain.Models.Locations>>(sedes);
 
-            List<Reservations> reservaciones = new List<Domain.Models.Reservations>();
+            List<Reservations> reservaciones = new List<Reservations>();
 
-            List<Domain.Models.Room> habitacion = new List<Domain.Models.Room>();
+            List<Domain.Models.Room> habitacion = new List<Room>();
 
-            List<Reservations> realizarReserva = new List<Domain.Models.Reservations>();
+            List<Reservations> realizarReserva = new List<Reservations>();
 
             if (filter.Ciudad != 0)
             {
@@ -121,9 +121,9 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
             if (filter.TotalHabitaciones != 0)
             {
-                Reservations reservacio = new Domain.Models.Reservations();
+                var reservacio = new Reservations();
 
-                ReservacionDomainServices reserva = new ReservacionDomainServices(reservacionRepository, mapper, habitacionesRepository, tarifasRepository, alojamientoRepository, sedesRepository);
+                var reserva = new ReservacionDomainServices(reservacionRepository, mapper, habitacionesRepository, tarifasRepository, alojamientoRepository, sedesRepository);
 
                 //var test = reserva.CalcularHabitacionesDisponibles(filter.Ciudad.ToLower());
 
@@ -133,10 +133,10 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             if (filter.SeleccionarTipoHabitacion != 0)
             {
                 //Consultar tarifas segun tipo de habitacion elegido
-                ReservacionDomainServices reserva = new ReservacionDomainServices(reservacionRepository, mapper, habitacionesRepository,
+                var reserva = new ReservacionDomainServices(reservacionRepository, mapper, habitacionesRepository,
                     tarifasRepository, alojamientoRepository, sedesRepository);
 
-                IEnumerable<Reservations> query = from p in lista
+                var query = from p in lista
                                                   join r in result
                                                   on p.RoomType.Id equals r.RoomType.Id
                                                   where p.RoomType.Id == filter.SeleccionarTipoHabitacion
@@ -173,20 +173,20 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
         {
             double valorHabitacion = 0;
 
-            Task<IEnumerable<Reservation>> reservaciones = reservacionRepository.GetAllReservations();
-            IEnumerable<Reservations> result = mapper.Map<IEnumerable<Domain.Models.Reservations>>(reservaciones);
+            var reservaciones = reservacionRepository.GetAllReservations();
+            var result = mapper.Map<IEnumerable<Domain.Models.Reservations>>(reservaciones);
 
-            IEnumerable<Infrastructure.Entities.Rooms> habitaciones = habitacionesRepository.GetAll();
-            IEnumerable<Domain.Models.Room> listaHabitaciones =  mapper.Map<IEnumerable<Domain.Models.Room>>(habitaciones);
+            var habitaciones = habitacionesRepository.GetAll();
+            var listaHabitaciones =  mapper.Map<IEnumerable<Domain.Models.Room>>(habitaciones);
 
-            IEnumerable<Infrastructure.Entities.Rates> tarifas = tarifasRepository.GetTarifas();
-            IEnumerable<Domain.Models.Rates> listaTarifas = mapper.Map<IEnumerable<Domain.Models.Rates>>(tarifas);
+            var tarifas = tarifasRepository.GetTarifas();
+            var listaTarifas = mapper.Map<IEnumerable<Domain.Models.Rates>>(tarifas);
 
-            IEnumerable<Infrastructure.Entities.RoomType> tipos = alojamientoRepository.GetAlojamientos();
-            IEnumerable<Domain.Models.RoomType> alojamientos = mapper.Map<IEnumerable<Domain.Models.RoomType>>(tipos);
+            var tipos = alojamientoRepository.GetAlojamientos();
+            var alojamientos = mapper.Map<IEnumerable<Domain.Models.RoomType>>(tipos);
 
-            IEnumerable<Infrastructure.Entities.Locations> sedes = sedesRepository.GetSedes();
-            IEnumerable<Domain.Models.Locations> lstSedes = mapper.Map<IEnumerable<Domain.Models.Locations>>(sedes);
+            var sedes = sedesRepository.GetSedes();
+            var lstSedes = mapper.Map<IEnumerable<Domain.Models.Locations>>(sedes);
 
 
             //Fecha inicio temporada baja meses Septiembre 1 hasta Octubre 30
@@ -222,14 +222,14 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
         public int CalcularHabitacionesDisponibles(int ciudad)
         {
-            Task<IEnumerable<Reservation>> reservaciones = reservacionRepository.GetAllReservations();
-            IEnumerable<Reservations> result = mapper.Map<IEnumerable<Domain.Models.Reservations>>(reservaciones);
+            var reservaciones = reservacionRepository.GetAllReservations();
+            var result = mapper.Map<IEnumerable<Domain.Models.Reservations>>(reservaciones);
 
-            IEnumerable<Infrastructure.Entities.Rooms> habitaciones = habitacionesRepository.GetAll();
-            IEnumerable<Domain.Models.Room> listaHabitaciones = mapper.Map<IEnumerable<Domain.Models.Room>>(habitaciones);
+            var habitaciones = habitacionesRepository.GetAll();
+            var listaHabitaciones = mapper.Map<IEnumerable<Domain.Models.Room>>(habitaciones);
 
-            IEnumerable<Infrastructure.Entities.Locations> sedes = sedesRepository.GetSedes();
-            IEnumerable<Domain.Models.Locations> listadoSedes = mapper.Map<IEnumerable<Domain.Models.Locations>>(sedes);
+            var sedes = sedesRepository.GetSedes();
+            var listadoSedes = mapper.Map<IEnumerable<Domain.Models.Locations>>(sedes);
 
             int totalHabitacionesDisponibles = Constants.totalHabitacionesDisponibles;
             int totalOcupadas = Constants.totalOcupadas;
@@ -250,7 +250,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
             foreach (Reservations item in tipos)
             {
-                if (item.Locations.Id == ciudad && item.Rooms.Estado == Constants.message)
+                if (item.Locations.Id == ciudad && item.Room.Estado == Constants.message)
                 {
                     totalDisponibles++;
                 }

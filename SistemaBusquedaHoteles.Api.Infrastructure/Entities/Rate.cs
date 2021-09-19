@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SistemaBusquedaHoteles.Api.Infrastructure.Entities
 {
-    public class Rates
+    public class Rate
     {
         [Key]
         public int Id { get; set; }
@@ -15,7 +15,7 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Entities
         public string Temporada { get; set; }
 
         public int TipoAlojamientoId { get; set; }
-        public RoomType RoomType { get; set; }
+        public RoomTypes RoomTypes { get; set; }
 
         public Reservation Reservation { get; set; }
     }
