@@ -160,13 +160,13 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             return result;
         }
 
-        public async Task<Reservations> UpdateReservacion(Domain.Models.Reservations reservacion)
+        public async Task<Reservation> UpdateReservacion(Reservations reservacion)
         {
-            Reservation reservas = mapper.Map<Infrastructure.Entities.Reservation>(reservacion);
+            var reservas = mapper.Map<Reservation>(reservacion);
 
-            await reservacionRepository.UpdateReservation(reservas);
+            var reservationUpdate = await reservacionRepository.UpdateReservation(reservas);
 
-            return reservacion;
+            return reservationUpdate;
         }
 
         public double TarifasDisponibles(DateTime? fecha, int tipoHabitacion)

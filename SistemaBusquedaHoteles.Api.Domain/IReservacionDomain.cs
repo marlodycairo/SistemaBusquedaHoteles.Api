@@ -12,7 +12,7 @@ namespace SistemaBusquedaHoteles.Api.Domain
         Task<IEnumerable<Reservations>> GetReservaciones(ReservacionQueryFilter filter);
         Task<Reservations> GetReservationById(int id);
         Task<Reservations> CreateReservacion(Reservation reservacion);
-        Task<Reservations> UpdateReservacion(Reservations reservacion);
+        Task<Reservation> UpdateReservacion(Reservations reservacion);
         Task DeleteReservacion(int id);
 
         DateTime ValidarFechasDisponibles(DateTime? fecha);

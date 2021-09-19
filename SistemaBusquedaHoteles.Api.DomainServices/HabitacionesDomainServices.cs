@@ -8,6 +8,7 @@ using SistemaBusquedaHoteles.Api.Infrastructure.Repositories.IRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SistemaBusquedaHoteles.Api.DomainServices
 {
@@ -22,45 +23,45 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             this.mapper = mapper;
         }
 
-        public Domain.Models.Room Create(Infrastructure.Entities.Rooms habitaciones)
+        public async Task<Room> Create(Rooms room)
         {
-            habitacionesRepository.Create(habitaciones);
+            habitacionesRepository.Create(room);
 
-            var result = mapper.Map<Domain.Models.Room>(habitaciones);
+            var roomCreate = mapper.Map<Room>(room);
 
-            return result;
+            return roomCreate;
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
             habitacionesRepository.Delete(id);
         }
 
-        public IEnumerable<Domain.Models.Room> GetAll()
+        public async Task<IEnumerable<Room>> GetAll()
         {
-            var habitaciones = habitacionesRepository.GetAll();
+            var rooms = habitacionesRepository.GetAll();
 
-            var result = mapper.Map<IEnumerable<Domain.Models.Room>>(habitaciones);
+            var allRooms = mapper.Map<IEnumerable<Room>>(rooms);
 
-            return result;
+            return allRooms;
         }
 
-        public Domain.Models.Room GetById(int id)
+        public async Task<Room> GetById(int id)
         {
-            var habitacion = habitacionesRepository.GetById(id);
+            var room = habitacionesRepository.GetById(id);
 
-            var result = mapper.Map<Domain.Models.Room>(habitacion);
+            var roomById = mapper.Map<Domain.Models.Room>(room);
 
-            return result;
+            return roomById;
         }
 
-        public Domain.Models.Room Update(Domain.Models.Room model)
+        public async Task<Rooms> Update(Room room)
         {
-            var consulta = mapper.Map<Infrastructure.Entities.Rooms>(model);
+            var roomMapper = mapper.Map<Infrastructure.Entities.Rooms>(room);
 
-            habitacionesRepository.Update(consulta);
+            var roomUpdate = habitacionesRepository.Update(roomMapper);
 
-            return model;
+            return roomUpdate;
         }
     }
 }

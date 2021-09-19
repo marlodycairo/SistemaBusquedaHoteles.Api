@@ -21,12 +21,12 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
             this.mapper = mapper;
         }
 
-        public Locations GetSedeById(int id)
+        public async Task<Locations> GetSedeById(int id)
         {
             return sedesDomain.GetSedeById(id);
         }
 
-        public IEnumerable<Locations> GetSedes()
+        public async Task<IEnumerable<Locations>> GetSedes()
         {
             return sedesDomain.GetSedes();
         }

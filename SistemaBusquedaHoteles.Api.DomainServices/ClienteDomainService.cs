@@ -22,45 +22,45 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             this.mapper = mapper;
         }
 
-        public Domain.Models.Customers CreateCliente(Infrastructure.Entities.Customer clientes)
+        public async Task<Customers> CreateCliente(Customer customer)
         {
-            clienteRepository.CreateCliente(clientes);
+            clienteRepository.CreateCliente(customer);
 
-            var obclientes = mapper.Map<Domain.Models.Customers>(clientes);
+            var customerMapper = mapper.Map<Customers>(customer);
 
-            return obclientes;
+            return customerMapper;
         }
 
-        public void DeleteCliente(int id)
+        public async Task DeleteCliente(int id)
         {
             clienteRepository.DeleteCliente(id);
         }
 
-        public Domain.Models.Customers GetClienteById(int id)
+        public async Task<Customers> GetClienteById(int id)
         {
-            var obCliente = clienteRepository.GetClienteById(id);
+            var customer = clienteRepository.GetClienteById(id);
 
-            var cliente = mapper.Map<Domain.Models.Customers>(obCliente);
+            var customerMapper = mapper.Map<Customers>(customer);
 
-            return cliente;
+            return customerMapper;
         }
 
-        public IEnumerable<Domain.Models.Customers> GetClientes()
+        public async Task<IEnumerable<Customers>> GetClientes()
         {
-            var obClientes = clienteRepository.GetClientes();
+            var allCustomers = clienteRepository.GetClientes();
 
-            var clientes = mapper.Map<IEnumerable<Domain.Models.Customers>>(obClientes);
+            var customersMapper = mapper.Map<IEnumerable<Domain.Models.Customers>>(allCustomers);
 
-            return clientes;
+            return customersMapper;
         }
 
-        public Domain.Models.Customers UpdateCliente(Domain.Models.Customers cliente)
+        public async Task<Customer> UpdateCliente(Customers customers)
         {
-            var obCliente = mapper.Map<Infrastructure.Entities.Customer>(cliente);
+            var customerMapper = mapper.Map<Customer>(customers);
 
-            clienteRepository.UpdateCliente(obCliente);
+            var customerUpdate = clienteRepository.UpdateCliente(customerMapper);
 
-            return cliente;
+            return customerUpdate;
         }
     }
 }

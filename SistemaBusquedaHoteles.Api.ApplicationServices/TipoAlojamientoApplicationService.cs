@@ -21,12 +21,12 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
             this.mapper = mapper;
         }
 
-        public RoomType GetAlojamientoById(int id)
+        public async Task<RoomType> GetAlojamientoById(int id)
         {
             return tipoAlojamientoDomain.GetAlojamientoById(id);
         }
 
-        public IEnumerable<RoomType> GetAlojamientos()
+        public async Task<IEnumerable<RoomType>> GetAlojamientos()
         {
             return tipoAlojamientoDomain.GetAlojamientos();
         }

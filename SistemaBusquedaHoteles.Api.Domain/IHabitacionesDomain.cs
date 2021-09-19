@@ -11,10 +11,10 @@ namespace SistemaBusquedaHoteles.Api.Domain
 {
     public interface IHabitacionesDomain
     {
-        IEnumerable<Models.Room> GetAll();
-        Models.Room GetById(int id);
-        Models.Room Create(Infrastructure.Entities.Rooms habitaciones);
-        Models.Room Update(Models.Room habitaciones);
-        void Delete(int id);
+        Task<IEnumerable<Room>> GetAll();
+        Task<Room> GetById(int id);
+        Task<Room> Create(Infrastructure.Entities.Rooms habitaciones);
+        Task<Rooms> Update(Room habitaciones);
+        Task Delete(int id);
     }
 }
