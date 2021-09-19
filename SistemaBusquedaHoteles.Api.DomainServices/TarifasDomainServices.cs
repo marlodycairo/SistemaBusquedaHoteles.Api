@@ -22,37 +22,32 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             this.mapper = mapper;
         }
 
-        public Rates GetTarifaById(int id)
+        public async Task<Rates> GetTarifaById(int id)
         {
-            var tarifa = tarifasRepository.GetTarifaById(id);
+            var rate = tarifasRepository.GetTarifaById(id);
 
-            var result = mapper.Map<Rates>(tarifa);
+            var rateById = mapper.Map<Rates>(rate);
 
-            return result;
+            return rateById;
         }
 
-        public IEnumerable<Rates> GetTarifas(TarifasQueryFilter filter)
+        public async Task<IEnumerable<Rates>> GetTarifas(TarifasQueryFilter filter)
         {
-            var tarifas = tarifasRepository.GetTarifas();
+            var allRates = tarifasRepository.GetTarifas();
 
-            var result = mapper.Map<IEnumerable<Rates>>(tarifas);
+            var rates = mapper.Map<IEnumerable<Rates>>(allRates);
 
             if (filter.Temporada != null)
             {
-                //rango de fechas
-                //temporada alta/baja
-
-
-                result = result.Where(p => p.Temporada == filter.Temporada);
+                rates = rates.Where(p => p.Temporada == filter.Temporada);
             }
 
             if (filter.Valor == 0)
             {
-                //precio varía segun temporada y tipo alojamiento
-                result = result.Where(p => p.Valor == filter.Valor);
+                rates = rates.Where(p => p.Valor == filter.Valor);
             }
 
-            return result;
+            return rates;
         }
     }
 }

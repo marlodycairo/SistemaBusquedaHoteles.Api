@@ -9,7 +9,7 @@ namespace SistemaBusquedaHoteles.Api.Domain
 {
     public interface ITipoAlojamientoDomain
     {
-        IEnumerable<RoomType> GetAlojamientos();
-        RoomType GetAlojamientoById(int id);
+        Task<IEnumerable<RoomType>> GetAlojamientos();
+        Task<RoomType> GetAlojamientoById(int id);
     }
 }
