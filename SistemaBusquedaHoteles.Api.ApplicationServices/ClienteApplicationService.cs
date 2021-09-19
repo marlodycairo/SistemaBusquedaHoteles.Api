@@ -22,7 +22,7 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
             this.mapper = mapper;
         }
 
-        public async Task<Customers> CreateCliente(Customers customer)
+        public async Task<CustomersModel> CreateCliente(CustomersModel customer)
         {
             var allCustomers = mapper.Map<Customer>(customer);
             var customerCreate = await clienteDomain.CreateCliente(allCustomers);
@@ -34,17 +34,17 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
             await clienteDomain.DeleteCliente(id);
         }
 
-        public async Task<Customers> GetClienteById(int id)
+        public async Task<CustomersModel> GetClienteById(int id)
         {
             return await clienteDomain.GetClienteById(id);
         }
 
-        public async Task<IEnumerable<Customers>> GetClientes()
+        public async Task<IEnumerable<CustomersModel>> GetClientes()
         {
             return await clienteDomain.GetClientes();
         }
 
-        public async Task<Customer> UpdateCliente(Customers clientes)
+        public async Task<Customer> UpdateCliente(CustomersModel clientes)
         {
             return await clienteDomain.UpdateCliente(clientes);
         }

@@ -9,10 +9,10 @@ namespace SistemaBusquedaHoteles.Api.Domain
 {
     public interface IReservacionDomain
     {
-        Task<IEnumerable<Reservations>> GetReservaciones(ReservacionQueryFilter filter);
-        Task<Reservations> GetReservationById(int id);
-        Task<Reservations> CreateReservacion(Reservation reservacion);
-        Task<Reservation> UpdateReservacion(Reservations reservacion);
+        Task<IEnumerable<ReservationsModel>> GetReservaciones(ReservacionQueryFilter filter);
+        Task<ReservationsModel> GetReservationById(int id);
+        Task<ReservationsModel> CreateReservacion(Reservation reservacion);
+        Task<Reservation> UpdateReservacion(ReservationsModel reservacion);
         Task DeleteReservacion(int id);
 
         DateTime ValidarFechasDisponibles(DateTime? fecha);

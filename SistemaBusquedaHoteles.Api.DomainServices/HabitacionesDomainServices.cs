@@ -23,11 +23,11 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             this.mapper = mapper;
         }
 
-        public async Task<Room> Create(Rooms room)
+        public async Task<RoomModel> Create(Rooms room)
         {
             await habitacionesRepository.Create(room);
 
-            var roomCreate = mapper.Map<Room>(room);
+            var roomCreate = mapper.Map<RoomModel>(room);
 
             return roomCreate;
         }
@@ -37,25 +37,25 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             await habitacionesRepository.Delete(id);
         }
 
-        public async Task<IEnumerable<Room>> GetAll()
+        public async Task<IEnumerable<RoomModel>> GetAll()
         {
             var rooms = await habitacionesRepository.GetAll();
 
-            var allRooms = mapper.Map<IEnumerable<Room>>(rooms);
+            var allRooms = mapper.Map<IEnumerable<RoomModel>>(rooms);
 
             return allRooms;
         }
 
-        public async Task<Room> GetById(int id)
+        public async Task<RoomModel> GetById(int id)
         {
             var room = await habitacionesRepository.GetById(id);
 
-            var roomById = mapper.Map<Domain.Models.Room>(room);
+            var roomById = mapper.Map<Domain.Models.RoomModel>(room);
 
             return roomById;
         }
 
-        public async Task<Rooms> Update(Room room)
+        public async Task<Rooms> Update(RoomModel room)
         {
             var roomMapper = mapper.Map<Infrastructure.Entities.Rooms>(room);
 

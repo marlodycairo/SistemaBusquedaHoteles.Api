@@ -22,14 +22,14 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<Rates>> GetTarifas()
+        public async Task<ActionResult<RatesModel>> GetTarifas()
         {
             var rates = await tarifasApplication.GetTarifas();
             return Ok(rates);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Rates>> GetTarifaById(int id)
+        public async Task<ActionResult<RatesModel>> GetTarifaById(int id)
         {
             var rate = await tarifasApplication.GetTarifaById(id);
             if (rate == null)

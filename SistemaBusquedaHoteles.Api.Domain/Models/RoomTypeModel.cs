@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace SistemaBusquedaHoteles.Api.Domain.Models
 {
-    public class Customers
+    public class RoomTypeModel
     {
         public int Id { get; set; }
-        public string NombreCliente { get; set; }
-        public string IDCliente { get; set; }
-        public string Email { get; set; }
+        public string Nombre { get; set; }
 
-
-        public Reservations Reservations { get; set; }
+        public ReservationsModel Reservations { get; set; }
+        public RoomModel Room { get; set; }
     }
 }

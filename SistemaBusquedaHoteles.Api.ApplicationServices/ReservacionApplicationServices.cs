@@ -23,7 +23,7 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
             this.mapper = mapper;
         }
 
-        public async Task<Reservations> CreateReservation(Reservations reservacion)
+        public async Task<ReservationsModel> CreateReservation(ReservationsModel reservacion)
         {
             var objReservacion = mapper.Map<Reservation>(reservacion);
             var reservaciones = await reservacionDomain.CreateReservacion(objReservacion);
@@ -36,17 +36,17 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
             await reservacionDomain.DeleteReservacion(id);
         }
 
-        public async Task<Reservations> GetReservationById(int id)
+        public async Task<ReservationsModel> GetReservationById(int id)
         {
             return await reservacionDomain.GetReservationById(id);
         }
 
-        public async Task<IEnumerable<Reservations>> GetReservaciones(ReservacionQueryFilter filter)
+        public async Task<IEnumerable<ReservationsModel>> GetReservaciones(ReservacionQueryFilter filter)
         {
             return await reservacionDomain.GetReservaciones(filter);
         }
 
-        public async Task<Reservation> UpdateReservation(Reservations reservacion)
+        public async Task<Reservation> UpdateReservation(ReservationsModel reservacion)
         {
             return await reservacionDomain.UpdateReservacion(reservacion);
         }

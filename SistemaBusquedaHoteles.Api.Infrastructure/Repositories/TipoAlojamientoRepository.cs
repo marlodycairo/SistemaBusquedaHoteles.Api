@@ -21,14 +21,14 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
 
         public async Task<RoomTypes> GetAlojamientoById(int id)
         {
-            return await context.RoomType.FirstOrDefaultAsync(p => p.Id == id);
+            return await context.RoomTypes.FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<IEnumerable<RoomTypes>> GetAlojamientos()
         {
-            return await context.RoomType
-                .Include(p => p.Rooms)
-                .Include(r => r.Reservation)
+            return await context.RoomTypes
+                .Include(p => p.Room)
+                .Include(r => r.Reservations)
                 .ToListAsync();
         }
     }

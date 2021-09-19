@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace SistemaBusquedaHoteles.Api.Domain.Models
 {
-    public class Rates
+    public class RatesModel
     {
         public int Id { get; set; }
         public double Valor { get; set; }
         public string Temporada { get; set; }
 
         public int TipoAlojamientoId { get; set; }
-        public RoomType RoomType { get; set; }
+        public RoomTypeModel RoomType { get; set; }
 
-        public Reservations Reservations { get; set; }
+        public ReservationsModel Reservation { get; set; }
     }
 }

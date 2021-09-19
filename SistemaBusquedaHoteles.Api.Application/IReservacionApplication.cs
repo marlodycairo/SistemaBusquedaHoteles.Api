@@ -11,10 +11,10 @@ namespace SistemaBusquedaHoteles.Api.Application
 {
     public interface IReservacionApplication
     {
-        Task<IEnumerable<Reservations>> GetReservaciones(ReservacionQueryFilter filter);
-        Task<Reservations> GetReservationById(int id);
-        Task<Reservations> CreateReservation(Reservations reservacion);
-        Task<Reservation> UpdateReservation(Reservations reservacion);
+        Task<IEnumerable<ReservationsModel>> GetReservaciones(ReservacionQueryFilter filter);
+        Task<ReservationsModel> GetReservationById(int id);
+        Task<ReservationsModel> CreateReservation(ReservationsModel reservacion);
+        Task<Reservation> UpdateReservation(ReservationsModel reservacion);
         Task DeleteReservacion(int id);
     }
 }

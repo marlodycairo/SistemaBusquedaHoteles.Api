@@ -22,11 +22,11 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             this.mapper = mapper;
         }
 
-        public async Task<Customers> CreateCliente(Customer customer)
+        public async Task<CustomersModel> CreateCliente(Customer customer)
         {
             await clienteRepository.CreateCliente(customer);
 
-            var customerMapper = mapper.Map<Customers>(customer);
+            var customerMapper = mapper.Map<CustomersModel>(customer);
 
             return customerMapper;
         }
@@ -36,25 +36,25 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             await clienteRepository.DeleteCliente(id);
         }
 
-        public async Task<Customers> GetClienteById(int id)
+        public async Task<CustomersModel> GetClienteById(int id)
         {
             var customer = await clienteRepository.GetClienteById(id);
 
-            var customerMapper = mapper.Map<Customers>(customer);
+            var customerMapper = mapper.Map<CustomersModel>(customer);
 
             return customerMapper;
         }
 
-        public async Task<IEnumerable<Customers>> GetClientes()
+        public async Task<IEnumerable<CustomersModel>> GetClientes()
         {
             var allCustomers = await clienteRepository.GetClientes();
 
-            var customersMapper = mapper.Map<IEnumerable<Domain.Models.Customers>>(allCustomers);
+            var customersMapper = mapper.Map<IEnumerable<Domain.Models.CustomersModel>>(allCustomers);
 
             return customersMapper;
         }
 
-        public async Task<Customer> UpdateCliente(Customers customers)
+        public async Task<Customer> UpdateCliente(CustomersModel customers)
         {
             var customerMapper = mapper.Map<Customer>(customers);
 

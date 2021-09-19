@@ -23,7 +23,7 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
             this.mapper = mapper;
         }
 
-        public async Task<Room> Create(Room room)
+        public async Task<RoomModel> Create(RoomModel room)
         {
             var roomMapper = mapper.Map<Rooms>(room);
 
@@ -37,17 +37,17 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
             await habitacionesDomain.Delete(id);
         }
 
-        public async Task<IEnumerable<Room>> GetAll()
+        public async Task<IEnumerable<RoomModel>> GetAll()
         {
             return await habitacionesDomain.GetAll();
         }
 
-        public async Task<Room> GetById(int id)
+        public async Task<RoomModel> GetById(int id)
         {
             return await habitacionesDomain.GetById(id);
         }
 
-        public async Task<Rooms> Update(Room model)
+        public async Task<Rooms> Update(RoomModel model)
         {
             return await habitacionesDomain.Update(model);
         }

@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace SistemaBusquedaHoteles.Api.Domain.Models
 {
-    public class Locations
+    public class LocationsModel
     {
         public int Id { get; set; }
         public string Ciudad { get; set; }
         public int CupoMax { get; set; }
         public int TotalHabitaciones { get; set; }
 
-        public Reservations Reservations { get; set; }
-        public Room Room { get; set; }
+        public ReservationsModel Reservations { get; set; }
+        public RoomModel Rooms { get; set; }
     }
 }

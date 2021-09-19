@@ -33,7 +33,7 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Reservations>> GetReservacionById(int id)
+        public async Task<ActionResult<ReservationsModel>> GetReservacionById(int id)
         {
             var reservacion = await reservacionApplication.GetReservationById(id);
 
@@ -45,7 +45,7 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Reservations>> CreateReservation(Reservations reservacion)
+        public async Task<ActionResult<ReservationsModel>> CreateReservation(ReservationsModel reservacion)
         {
             if (reservacion == null)
             {
@@ -57,7 +57,7 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateReservacion(int id, Reservations reservacion)
+        public async Task<IActionResult> UpdateReservacion(int id, ReservationsModel reservacion)
         {
             if (id != reservacion.Id)
             {

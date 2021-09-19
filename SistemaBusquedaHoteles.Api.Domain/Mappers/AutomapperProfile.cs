@@ -8,35 +8,35 @@ namespace SistemaBusquedaHoteles.Api.Domain.Mappers
     {
         public AutomapperProfile()
         {
-            CreateMap<Rooms, Room>()
-                .ForMember(dest => dest.RoomType, opt => opt.MapFrom(src => src.RoomTypes))
-                .ForMember(dest => dest.Locations, opt => opt.MapFrom(src => src.Location));
+            CreateMap<Rooms, RoomModel>()
+                .ForMember(dest => dest.RoomType, opt => opt.MapFrom(src => src.RoomType))
+                .ForMember(dest => dest.Locations, opt => opt.MapFrom(src => src.Locations));
 
-            CreateMap<Room, Rooms>();
+            CreateMap<RoomModel, Rooms>();
 
-            CreateMap<Location, Locations>();
+            CreateMap<Location, LocationsModel>();
 
-            CreateMap<Locations, Location>();
+            CreateMap<LocationsModel, Location>();
 
-            CreateMap<RoomTypes, RoomType>();
-            CreateMap<RoomType, RoomTypes>();
+            CreateMap<RoomTypes, RoomTypeModel>();
+            CreateMap<RoomTypeModel, RoomTypes>();
 
-            CreateMap<Rate, Rates>()
-                .ForMember(dest => dest.RoomType, opt => opt.MapFrom(src => src.RoomTypes));
+            CreateMap<Rate, RatesModel>()
+                .ForMember(dest => dest.RoomType, opt => opt.MapFrom(src => src.RoomType));
 
-            CreateMap<Rates, Rate>();
+            CreateMap<RatesModel, Rate>();
 
-            CreateMap<Reservation, Reservations>()
-                .ForMember(dest => dest.Locations, opt => opt.MapFrom(src => src.Location))
-                .ForMember(dest => dest.Rates, opt => opt.MapFrom(src => src.Rate))
-                .ForMember(dest => dest.RoomType, opt => opt.MapFrom(src => src.RoomTypes))
-                .ForMember(dest => dest.Customers, opt => opt.MapFrom(src => src.Customer))
-                .ForMember(dest => dest.Room, opt => opt.MapFrom(src => src.Rooms));
+            CreateMap<Reservation, ReservationsModel>()
+                .ForMember(dest => dest.Locations, opt => opt.MapFrom(src => src.Locations))
+                .ForMember(dest => dest.Rates, opt => opt.MapFrom(src => src.Rates))
+                .ForMember(dest => dest.RoomType, opt => opt.MapFrom(src => src.RoomType))
+                .ForMember(dest => dest.CustomerModel, opt => opt.MapFrom(src => src.Customers))
+                .ForMember(dest => dest.Rooms, opt => opt.MapFrom(src => src.Room));
 
-            CreateMap<Reservations, Reservation>();
+            CreateMap<ReservationsModel, Reservation>();
 
-            CreateMap<Customer, Customers>();
-            CreateMap<Customers, Customer>();
+            CreateMap<Customer, CustomersModel>();
+            CreateMap<CustomersModel, Customer>();
         }
     }
 }

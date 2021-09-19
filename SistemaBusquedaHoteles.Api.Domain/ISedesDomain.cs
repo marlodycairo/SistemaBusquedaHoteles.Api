@@ -9,7 +9,7 @@ namespace SistemaBusquedaHoteles.Api.Domain
 {
     public interface ISedesDomain
     {
-        Task<IEnumerable<Locations>> GetSedes();
-        Task<Locations> GetSedeById(int id);
+        Task<IEnumerable<LocationsModel>> GetSedes();
+        Task<LocationsModel> GetSedeById(int id);
     }
 }

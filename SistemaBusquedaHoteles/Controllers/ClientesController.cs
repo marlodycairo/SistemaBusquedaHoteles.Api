@@ -41,7 +41,7 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Customers>> CreateClientes(Customers customer)
+        public async Task<ActionResult<CustomersModel>> CreateClientes(CustomersModel customer)
         {
             var customerCreate = await clienteApplication.CreateCliente(customer);
             if (customerCreate == null)
@@ -52,7 +52,7 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCliente(int id, Customers customer)
+        public async Task<IActionResult> UpdateCliente(int id, CustomersModel customer)
         {
             if (id != customer.Id)
             {

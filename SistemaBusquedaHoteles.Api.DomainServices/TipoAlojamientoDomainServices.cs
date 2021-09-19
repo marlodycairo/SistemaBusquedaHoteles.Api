@@ -21,20 +21,20 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             this.mapper = mapper;
         }
 
-        public async Task<RoomType> GetAlojamientoById(int id)
+        public async Task<RoomTypeModel> GetAlojamientoById(int id)
         {
             var roomTypeById = await tipoAlojamientoRepository.GetAlojamientoById(id);
 
-            var roomType = mapper.Map<RoomType>(roomTypeById);
+            var roomType = mapper.Map<RoomTypeModel>(roomTypeById);
 
             return roomType;
         }
 
-        public async Task<IEnumerable<RoomType>> GetAlojamientos()
+        public async Task<IEnumerable<RoomTypeModel>> GetAlojamientos()
         {
             var allRoomTypes = await tipoAlojamientoRepository.GetAlojamientos();
 
-            var roomTypes = mapper.Map<IEnumerable<RoomType>>(allRoomTypes);
+            var roomTypes = mapper.Map<IEnumerable<RoomTypeModel>>(allRoomTypes);
 
             return roomTypes;
         }

@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SistemaBusquedaHoteles.Api.Infrastructure.Entities
+namespace SistemaBusquedaHoteles.Api.Domain.Models
 {
-    public class Customer
+    public class CustomersModel
     {
         public int Id { get; set; }
         public string NombreCliente { get; set; }
         public string IDCliente { get; set; }
         public string Email { get; set; }
 
-        public Reservation Reservations { get; set; }
+
+        public ReservationsModel Reservation { get; set; }
     }
 }

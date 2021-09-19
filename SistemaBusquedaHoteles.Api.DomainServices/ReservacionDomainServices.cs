@@ -33,10 +33,10 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             this.sedesRepository = sedesRepository;
         }
 
-        public async Task<Reservations> CreateReservacion(Reservation reservacion)
+        public async Task<ReservationsModel> CreateReservacion(Reservation reservacion)
         {
             await reservacionRepository.CreateReservation(reservacion);
-            Reservations reserva = mapper.Map<Reservations>(reservacion);
+            ReservationsModel reserva = mapper.Map<ReservationsModel>(reservacion);
             return reserva;
         }
 
@@ -45,34 +45,34 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             await reservacionRepository.DeleteReservation(id);
         }
 
-        public async Task<Reservations> GetReservationById(int id)
+        public async Task<ReservationsModel> GetReservationById(int id)
         {
             Reservation reservas = await reservacionRepository.GetReservationById(id);
 
-            Reservations result = mapper.Map<Reservations>(reservas);
+            ReservationsModel result = mapper.Map<ReservationsModel>(reservas);
 
             return result;
         }
 
-        public async Task<IEnumerable<Reservations>> GetReservaciones(ReservacionQueryFilter filter)
+        public async Task<IEnumerable<ReservationsModel>> GetReservaciones(ReservacionQueryFilter filter)
         {
             IEnumerable<Reservation> reservas = await reservacionRepository.GetAllReservations();
-            IEnumerable<Reservations> result = mapper.Map<IEnumerable<Domain.Models.Reservations>>(reservas);
+            IEnumerable<ReservationsModel> result = mapper.Map<IEnumerable<Domain.Models.ReservationsModel>>(reservas);
 
             IEnumerable<Infrastructure.Entities.Rooms> habitaciones = await habitacionesRepository.GetAll();
-            IEnumerable<Domain.Models.Room> listaHabitaciones = mapper.Map<IEnumerable<Domain.Models.Room>>(habitaciones);
+            IEnumerable<Domain.Models.RoomModel> listaHabitaciones = mapper.Map<IEnumerable<Domain.Models.RoomModel>>(habitaciones);
 
             IEnumerable<Infrastructure.Entities.Rooms> listHabitaciones = await habitacionesRepository.GetAll();
-            IEnumerable<Domain.Models.Room> lista = mapper.Map<IEnumerable<Domain.Models.Room>>(habitaciones);
+            IEnumerable<Domain.Models.RoomModel> lista = mapper.Map<IEnumerable<Domain.Models.RoomModel>>(habitaciones);
 
             IEnumerable<Infrastructure.Entities.Location> sedes = await sedesRepository.GetSedes();
-            IEnumerable<Domain.Models.Locations> lstSedes = mapper.Map<IEnumerable<Domain.Models.Locations>>(sedes);
+            IEnumerable<Domain.Models.LocationsModel> lstSedes = mapper.Map<IEnumerable<Domain.Models.LocationsModel>>(sedes);
 
-            List<Reservations> reservaciones = new List<Reservations>();
+            List<ReservationsModel> reservaciones = new List<ReservationsModel>();
 
-            List<Domain.Models.Room> habitacion = new List<Room>();
+            List<Domain.Models.RoomModel> habitacion = new List<RoomModel>();
 
-            List<Reservations> realizarReserva = new List<Reservations>();
+            List<ReservationsModel> realizarReserva = new List<ReservationsModel>();
 
             if (filter.Ciudad != 0)
             {
@@ -86,15 +86,15 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
                 string message = Constants.fechaNoDisponible;
 
-                foreach (Reservations item in result)
+                foreach (ReservationsModel item in result)
                 {
                     if (filter.Fecha == item.Fecha || filter.Fecha < item.Fecha)
                     {
                         //Envia un mensaje si la fecha no está disponible.
-                        reservaciones.Add(new Domain.Models.Reservations
+                        reservaciones.Add(new Domain.Models.ReservationsModel
                         {
                             Fecha = item.Fecha,
-                            Response = message
+                            Responses = message
                         });
                         //return reservaciones;
                     }
@@ -105,14 +105,14 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
             if (filter.TotalPersonas != 0)
             {
-                foreach (Reservations item in result)
+                foreach (ReservationsModel item in result)
                 {
                     if (filter.TotalPersonas > item.Locations.CupoMax)
                     {
                         //Envia un mensaje si supera la cantidad de huespedes por habitación
-                        reservaciones.Add(new Domain.Models.Reservations
+                        reservaciones.Add(new Domain.Models.ReservationsModel
                         {
-                            Response = Constants.superaCapacidadMax
+                            Responses = Constants.superaCapacidadMax
                         });
                         //return reservaciones;
                     }
@@ -121,7 +121,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
             if (filter.TotalHabitaciones != 0)
             {
-                var reservacio = new Reservations();
+                var reservacio = new ReservationsModel();
 
                 var reserva = new ReservacionDomainServices(reservacionRepository, mapper, habitacionesRepository, tarifasRepository, alojamientoRepository, sedesRepository);
 
@@ -144,9 +144,9 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                                                   where p.Estado == Constants.message
                                                   select r;
 
-                foreach (Reservations item in query)
+                foreach (ReservationsModel item in query)
                 {
-                    reservaciones.Add(new Domain.Models.Reservations()
+                    reservaciones.Add(new Domain.Models.ReservationsModel()
                     {
                         Fecha = item.Fecha,
                         SedeId = item.SedeId,
@@ -160,7 +160,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             return result;
         }
 
-        public async Task<Reservation> UpdateReservacion(Reservations reservacion)
+        public async Task<Reservation> UpdateReservacion(ReservationsModel reservacion)
         {
             var reservas = mapper.Map<Reservation>(reservacion);
 
@@ -174,19 +174,19 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             double valorHabitacion = 0;
 
             var reservaciones = reservacionRepository.GetAllReservations();
-            var result = mapper.Map<IEnumerable<Domain.Models.Reservations>>(reservaciones);
+            var result = mapper.Map<IEnumerable<Domain.Models.ReservationsModel>>(reservaciones);
 
             var habitaciones = habitacionesRepository.GetAll();
-            var listaHabitaciones =  mapper.Map<IEnumerable<Domain.Models.Room>>(habitaciones);
+            var listaHabitaciones =  mapper.Map<IEnumerable<Domain.Models.RoomModel>>(habitaciones);
 
             var tarifas = tarifasRepository.GetTarifas();
-            var listaTarifas = mapper.Map<IEnumerable<Domain.Models.Rates>>(tarifas);
+            var listaTarifas = mapper.Map<IEnumerable<Domain.Models.RatesModel>>(tarifas);
 
             var tipos = alojamientoRepository.GetAlojamientos();
-            var alojamientos = mapper.Map<IEnumerable<Domain.Models.RoomType>>(tipos);
+            var alojamientos = mapper.Map<IEnumerable<Domain.Models.RoomTypeModel>>(tipos);
 
             var sedes = sedesRepository.GetSedes();
-            var lstSedes = mapper.Map<IEnumerable<Domain.Models.Locations>>(sedes);
+            var lstSedes = mapper.Map<IEnumerable<Domain.Models.LocationsModel>>(sedes);
 
 
             //Fecha inicio temporada baja meses Septiembre 1 hasta Octubre 30
@@ -201,12 +201,12 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             //Temporada Baja Abril + Mayo + hasta el 22 de junio +Septiembre a octubre
             DateTime tBaja1 = new DateTime(2022, 4, 22).AddMonths(2);
 
-            IEnumerable<Reservations> query = (from p in listaHabitaciones
+            IEnumerable<ReservationsModel> query = (from p in listaHabitaciones
                                                join reservas in result on p.RoomType.Nombre equals reservas.RoomType.Nombre
                                                where p.TipoId == tipoHabitacion
                                                select reservas);
 
-            foreach (Reservations item in query)
+            foreach (ReservationsModel item in query)
             {
                 if (fecha >= fInicioBaj2 && fecha <= tBaja2 || fecha >= fInicioBaj1 && fecha <= tBaja1)
                 {
@@ -223,19 +223,19 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
         public int CalcularHabitacionesDisponibles(int ciudad)
         {
             var reservaciones = reservacionRepository.GetAllReservations();
-            var result = mapper.Map<IEnumerable<Domain.Models.Reservations>>(reservaciones);
+            var result = mapper.Map<IEnumerable<Domain.Models.ReservationsModel>>(reservaciones);
 
             var habitaciones = habitacionesRepository.GetAll();
-            var listaHabitaciones = mapper.Map<IEnumerable<Domain.Models.Room>>(habitaciones);
+            var listaHabitaciones = mapper.Map<IEnumerable<Domain.Models.RoomModel>>(habitaciones);
 
             var sedes = sedesRepository.GetSedes();
-            var listadoSedes = mapper.Map<IEnumerable<Domain.Models.Locations>>(sedes);
+            var listadoSedes = mapper.Map<IEnumerable<Domain.Models.LocationsModel>>(sedes);
 
             int totalHabitacionesDisponibles = Constants.totalHabitacionesDisponibles;
             int totalOcupadas = Constants.totalOcupadas;
             int totalDisponibles = Constants.totalDisponibles;
 
-            foreach (Reservations item in result)
+            foreach (ReservationsModel item in result)
             {
                 if (item.Locations.Id == ciudad)
                 {
@@ -243,14 +243,14 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                 }
             }
 
-            IEnumerable<Reservations> tipos = from p in listaHabitaciones
+            IEnumerable<ReservationsModel> tipos = from p in listaHabitaciones
                                               join s in result
                                               on p.RoomType.Nombre equals s.RoomType.Nombre
                                               select s;
 
-            foreach (Reservations item in tipos)
+            foreach (ReservationsModel item in tipos)
             {
-                if (item.Locations.Id == ciudad && item.Room.Estado == Constants.message)
+                if (item.Locations.Id == ciudad && item.Rooms.Estado == Constants.message)
                 {
                     totalDisponibles++;
                 }
@@ -269,11 +269,11 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
         public DateTime ValidarFechasDisponibles(DateTime? fecha)
         {
             Task<IEnumerable<Reservation>> reservaciones = reservacionRepository.GetAllReservations();
-            IEnumerable<Reservations> result = mapper.Map<IEnumerable<Domain.Models.Reservations>>(reservaciones);
+            IEnumerable<ReservationsModel> result = mapper.Map<IEnumerable<Domain.Models.ReservationsModel>>(reservaciones);
 
             string message = Constants.superaCapacidadMax + $"{ fecha }";
 
-            foreach (Reservations item in result)
+            foreach (ReservationsModel item in result)
             {
                 if (item.Fecha != fecha)
                 {

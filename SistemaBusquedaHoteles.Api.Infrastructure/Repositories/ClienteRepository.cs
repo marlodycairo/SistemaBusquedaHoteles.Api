@@ -21,27 +21,27 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
 
         public async Task<Customer> CreateCliente(Customer cliente)
         {
-            context.Customers.Add(cliente);
+            context.Customer.Add(cliente);
             await context.SaveChangesAsync();
             return cliente;
         }
 
         public async Task DeleteCliente(int id)
         {
-            var cliente = context.Customers.FirstOrDefaultAsync(p => p.Id == id);
+            var cliente = context.Customer.FirstOrDefaultAsync(p => p.Id == id);
             context.Remove(cliente);
             await context.SaveChangesAsync();
         }
 
         public async Task<Customer> GetClienteById(int id)
         {
-            return await context.Customers.FirstOrDefaultAsync(p => p.Id == id);
+            return await context.Customer.FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<IEnumerable<Customer>> GetClientes()
         {
-            return await context.Customers
-                .Include(p => p.Reservation)
+            return await context.Customer
+                .Include(p => p.Reservations)
                 .ToListAsync();
         }
 

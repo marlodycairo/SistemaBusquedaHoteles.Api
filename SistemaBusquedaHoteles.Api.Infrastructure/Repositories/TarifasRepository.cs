@@ -21,16 +21,16 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
 
         public Task<Rate> GetTarifaById(int id)
         {
-            var rate = context.Rates.FirstOrDefaultAsync(p => p.Id == id);
+            var rate = context.Rate.FirstOrDefaultAsync(p => p.Id == id);
 
             return rate;
         }
 
         public async Task<IEnumerable<Rate>> GetTarifas()
         {
-            return await context.Rates
-                .Include(p => p.RoomTypes)
-                .Include(r => r.Reservation)
+            return await context.Rate
+                .Include(p => p.RoomType)
+                .Include(r => r.Reservations)
                 .ToListAsync();
         }
     }

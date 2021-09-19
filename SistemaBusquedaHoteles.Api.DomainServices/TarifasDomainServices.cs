@@ -22,19 +22,19 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             this.mapper = mapper;
         }
 
-        public async Task<Rates> GetTarifaById(int id)
+        public async Task<RatesModel> GetTarifaById(int id)
         {
             var rate = await tarifasRepository.GetTarifaById(id);
 
-            var rateById = mapper.Map<Rates>(rate);
+            var rateById = mapper.Map<RatesModel>(rate);
 
             return rateById;
         }
 
-        public async Task<IEnumerable<Rates>> GetTarifas()
+        public async Task<IEnumerable<RatesModel>> GetTarifas()
         {
             var allRates = await tarifasRepository.GetTarifas();
-            var rates = mapper.Map<IEnumerable<Rates>>(allRates);
+            var rates = mapper.Map<IEnumerable<RatesModel>>(allRates);
             return rates;
         }
     }

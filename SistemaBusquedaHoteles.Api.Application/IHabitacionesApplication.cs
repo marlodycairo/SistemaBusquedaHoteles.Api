@@ -11,10 +11,10 @@ namespace SistemaBusquedaHoteles.Api.Application
 {
     public interface IHabitacionesApplication
     {
-        Task<IEnumerable<Room>> GetAll();
-        Task<Room> GetById(int id);
-        Task<Room> Create(Room room);
-        Task<Rooms> Update(Room room);
+        Task<IEnumerable<RoomModel>> GetAll();
+        Task<RoomModel> GetById(int id);
+        Task<RoomModel> Create(RoomModel room);
+        Task<Rooms> Update(RoomModel room);
         Task Delete(int id);
     }
 }

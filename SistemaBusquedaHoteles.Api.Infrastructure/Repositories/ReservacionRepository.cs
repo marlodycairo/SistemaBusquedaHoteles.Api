@@ -2,6 +2,7 @@
 using SistemaBusquedaHoteles.Api.Infrastructure.Context;
 using SistemaBusquedaHoteles.Api.Infrastructure.Entities;
 using SistemaBusquedaHoteles.Api.Infrastructure.Repositories.IRepository;
+using SistemaBusquedaHoteles.Api.Infrastructure.Tasks.Constants;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,10 +22,9 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
         {
             if (ReservationExists(reservacion.Id))
             {
-                return new Reservation { Response = "El registro ya existe. Verifique e intente de nuevo." };
             }
 
-            await _context.Reservations.AddAsync(reservacion);
+            await _context.Reservation.AddAsync(reservacion);
             await _context.SaveChangesAsync();
 
             return reservacion;
@@ -32,11 +32,10 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
 
         public async Task DeleteReservation(int id)
         {
-            Reservation reserva = _context.Reservations.FirstOrDefault(p => p.Id == id);
+            Reservation reserva = _context.Reservation.FirstOrDefault(p => p.Id == id);
 
             if (ReservationExists(id))
             {
-                new Reservation { Response = "Hubo un error. El registro no existe en la base de datos." };
             }
             _context.Remove(reserva);
             await _context.SaveChangesAsync();
@@ -44,17 +43,17 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
 
         public async Task<Reservation> GetReservationById(int id)
         {
-            return await _context.Reservations.FirstOrDefaultAsync(p => p.Id == id);
+            return await _context.Reservation.FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<IEnumerable<Reservation>> GetAllReservations()
         {
-            return await _context.Reservations
-                .Include(p => p.Location)
-                .Include(p => p.RoomTypes)
-                .Include(p => p.Rate)
-                .Include(p => p.Customer)
-                .Include(p => p.Rooms)
+            return await _context.Reservation
+                .Include(p => p.Locations)
+                .Include(p => p.RoomType)
+                .Include(p => p.Rates)
+                .Include(p => p.Customers)
+                .Include(p => p.Room)
                 .ToListAsync();
         }
 
@@ -67,7 +66,7 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
 
         public bool ReservationExists(int id)
         {
-            return _context.Reservations.Any(p => p.Id == id);
+            return _context.Reservation.Any(p => p.Id == id);
         }
     }
 }

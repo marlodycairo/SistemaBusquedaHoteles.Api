@@ -21,7 +21,7 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<Locations>> GetHabitaciones()
+        public async Task<ActionResult<LocationsModel>> GetHabitaciones()
         {
             var locations = await sedesApplication.GetSedes();
             if (locations == null)
@@ -32,7 +32,7 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Locations>> GetHabitacionById(int id)
+        public async Task<ActionResult<LocationsModel>> GetHabitacionById(int id)
         {
             var location = await sedesApplication.GetSedeById(id);
             if (location == null)

@@ -21,7 +21,7 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<RoomType>> GetHabitaciones()
+        public async Task<ActionResult<RoomTypeModel>> GetHabitaciones()
         {
             var roomTypes = await tipoAlojamientoApplication.GetAlojamientos();
             if (roomTypes == null)
@@ -32,7 +32,7 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<RoomType>> GetHabitacionById(int id)
+        public async Task<ActionResult<RoomTypeModel>> GetHabitacionById(int id)
         {
             var roomType = await tipoAlojamientoApplication.GetAlojamientoById(id);
             if (roomType == null)

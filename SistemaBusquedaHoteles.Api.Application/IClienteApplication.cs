@@ -10,10 +10,10 @@ namespace SistemaBusquedaHoteles.Api.Application
 {
     public interface IClienteApplication
     {
-        Task<IEnumerable<Customers>> GetClientes();
-        Task<Customers> GetClienteById(int id);
-        Task<Customers> CreateCliente(Customers customers);
-        Task<Customer> UpdateCliente(Customers customers);
+        Task<IEnumerable<CustomersModel>> GetClientes();
+        Task<CustomersModel> GetClienteById(int id);
+        Task<CustomersModel> CreateCliente(CustomersModel customers);
+        Task<Customer> UpdateCliente(CustomersModel customers);
         Task DeleteCliente(int id);
     }
 }

@@ -19,12 +19,12 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
             this.tarifasDomain = tarifasDomain;
         }
 
-        public async Task<Rates> GetTarifaById(int id)
+        public async Task<RatesModel> GetTarifaById(int id)
         {
             return await tarifasDomain.GetTarifaById(id);
         }
 
-        public async Task<IEnumerable<Rates>> GetTarifas()
+        public async Task<IEnumerable<RatesModel>> GetTarifas()
         {
             return await tarifasDomain.GetTarifas();
         }
