@@ -26,6 +26,6 @@ namespace SistemaBusquedaHoteles.Api.Domain.Models
         public RoomType RoomType { get; set; }
         public Rates Rates { get; set; }
         public Customers Customer { get; set; }
-        public Rooms Rooms { get; set; }
+        public Room Rooms { get; set; }
     }
 }

@@ -10,10 +10,10 @@ namespace SistemaBusquedaHoteles.Api.Application
 {
     public interface IHabitacionesApplication
     {
-        IEnumerable<Rooms> GetAll();
-        Rooms GetById(int id);
-        Rooms Create(Rooms habitaciones);
-        Rooms Update(Rooms habitaciones);
-        void Delete(int id);
+        Task<IEnumerable<Room>> GetAll();
+        Task<Room> GetById(int id);
+        Task<Room> Create(Room room);
+        Task<Room> Update(Room room);
+        Task Delete(int id);
     }
 }

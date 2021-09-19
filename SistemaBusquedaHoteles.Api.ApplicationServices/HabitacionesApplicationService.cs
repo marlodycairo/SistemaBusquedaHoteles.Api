@@ -23,31 +23,31 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
             this.mapper = mapper;
         }
 
-        public Domain.Models.Rooms Create(Domain.Models.Rooms habitaciones)
+        public async Task<Room> Create(Room room)
         {
-            var obHabitaction = mapper.Map<Infrastructure.Entities.Rooms>(habitaciones);
+            var roomMapper = mapper.Map<Rooms>(room);
 
-            var result = habitacionesDomain.Create(obHabitaction);
+            var roomCreate = habitacionesDomain.Create(roomMapper);
 
-            return result;
+            return roomCreate;
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
             habitacionesDomain.Delete(id);
         }
 
-        public IEnumerable<Domain.Models.Rooms> GetAll()
+        public async Task<IEnumerable<Room>> GetAll()
         {
             return habitacionesDomain.GetAll();
         }
 
-        public Domain.Models.Rooms GetById(int id)
+        public async Task<Room> GetById(int id)
         {
             return habitacionesDomain.GetById(id);
         }
 
-        public Domain.Models.Rooms Update(Domain.Models.Rooms model)
+        public async Task<Room> Update(Domain.Models.Room model)
         {
             return habitacionesDomain.Update(model);
         }

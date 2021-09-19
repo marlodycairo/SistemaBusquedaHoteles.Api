@@ -60,17 +60,17 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             IEnumerable<Reservations> result = mapper.Map<IEnumerable<Domain.Models.Reservations>>(reservas);
 
             IEnumerable<Infrastructure.Entities.Rooms> habitaciones = habitacionesRepository.GetAll();
-            IEnumerable<Domain.Models.Rooms> listaHabitaciones = mapper.Map<IEnumerable<Domain.Models.Rooms>>(habitaciones);
+            IEnumerable<Domain.Models.Room> listaHabitaciones = mapper.Map<IEnumerable<Domain.Models.Room>>(habitaciones);
 
             IEnumerable<Infrastructure.Entities.Rooms> listHabitaciones = habitacionesRepository.GetAll();
-            IEnumerable<Domain.Models.Rooms> lista = mapper.Map<IEnumerable<Domain.Models.Rooms>>(habitaciones);
+            IEnumerable<Domain.Models.Room> lista = mapper.Map<IEnumerable<Domain.Models.Room>>(habitaciones);
 
             IEnumerable<Infrastructure.Entities.Locations> sedes = sedesRepository.GetSedes();
             IEnumerable<Domain.Models.Locations> lstSedes = mapper.Map<IEnumerable<Domain.Models.Locations>>(sedes);
 
             List<Reservations> reservaciones = new List<Domain.Models.Reservations>();
 
-            List<Domain.Models.Rooms> habitacion = new List<Domain.Models.Rooms>();
+            List<Domain.Models.Room> habitacion = new List<Domain.Models.Room>();
 
             List<Reservations> realizarReserva = new List<Domain.Models.Reservations>();
 
@@ -177,7 +177,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             IEnumerable<Reservations> result = mapper.Map<IEnumerable<Domain.Models.Reservations>>(reservaciones);
 
             IEnumerable<Infrastructure.Entities.Rooms> habitaciones = habitacionesRepository.GetAll();
-            IEnumerable<Domain.Models.Rooms> listaHabitaciones = mapper.Map<IEnumerable<Domain.Models.Rooms>>(habitaciones);
+            IEnumerable<Domain.Models.Room> listaHabitaciones = mapper.Map<IEnumerable<Domain.Models.Room>>(habitaciones);
 
             IEnumerable<Infrastructure.Entities.Rates> tarifas = tarifasRepository.GetTarifas();
             IEnumerable<Domain.Models.Rates> listaTarifas = mapper.Map<IEnumerable<Domain.Models.Rates>>(tarifas);
@@ -226,7 +226,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             IEnumerable<Reservations> result = mapper.Map<IEnumerable<Domain.Models.Reservations>>(reservaciones);
 
             IEnumerable<Infrastructure.Entities.Rooms> habitaciones = habitacionesRepository.GetAll();
-            IEnumerable<Domain.Models.Rooms> listaHabitaciones = mapper.Map<IEnumerable<Domain.Models.Rooms>>(habitaciones);
+            IEnumerable<Domain.Models.Room> listaHabitaciones = mapper.Map<IEnumerable<Domain.Models.Room>>(habitaciones);
 
             IEnumerable<Infrastructure.Entities.Locations> sedes = sedesRepository.GetSedes();
             IEnumerable<Domain.Models.Locations> listadoSedes = mapper.Map<IEnumerable<Domain.Models.Locations>>(sedes);

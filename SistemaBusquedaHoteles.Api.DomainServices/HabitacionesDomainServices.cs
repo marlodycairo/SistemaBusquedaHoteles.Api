@@ -22,11 +22,11 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             this.mapper = mapper;
         }
 
-        public Domain.Models.Rooms Create(Infrastructure.Entities.Rooms habitaciones)
+        public Domain.Models.Room Create(Infrastructure.Entities.Rooms habitaciones)
         {
             habitacionesRepository.Create(habitaciones);
 
-            var result = mapper.Map<Domain.Models.Rooms>(habitaciones);
+            var result = mapper.Map<Domain.Models.Room>(habitaciones);
 
             return result;
         }
@@ -36,25 +36,25 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             habitacionesRepository.Delete(id);
         }
 
-        public IEnumerable<Domain.Models.Rooms> GetAll()
+        public IEnumerable<Domain.Models.Room> GetAll()
         {
             var habitaciones = habitacionesRepository.GetAll();
 
-            var result = mapper.Map<IEnumerable<Domain.Models.Rooms>>(habitaciones);
+            var result = mapper.Map<IEnumerable<Domain.Models.Room>>(habitaciones);
 
             return result;
         }
 
-        public Domain.Models.Rooms GetById(int id)
+        public Domain.Models.Room GetById(int id)
         {
             var habitacion = habitacionesRepository.GetById(id);
 
-            var result = mapper.Map<Domain.Models.Rooms>(habitacion);
+            var result = mapper.Map<Domain.Models.Room>(habitacion);
 
             return result;
         }
 
-        public Domain.Models.Rooms Update(Domain.Models.Rooms model)
+        public Domain.Models.Room Update(Domain.Models.Room model)
         {
             var consulta = mapper.Map<Infrastructure.Entities.Rooms>(model);
 

@@ -2,7 +2,7 @@
 
 namespace SistemaBusquedaHoteles.Api.Domain.Models
 {
-    public class Rooms
+    public class Room
     {
         public int Id { get; set; }
         public DateTime Fecha { get; set; }
