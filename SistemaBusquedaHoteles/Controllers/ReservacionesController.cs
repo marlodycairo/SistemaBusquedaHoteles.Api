@@ -41,7 +41,7 @@ namespace SistemaBusquedaHoteles.Controllers
             {
                 return NotFound();
             }
-            return Ok(reservacion);
+            return reservacion;
         }
 
         [HttpPost]
@@ -63,15 +63,21 @@ namespace SistemaBusquedaHoteles.Controllers
             {
                 return BadRequest();
             }
-            var reservacionActualizada = await reservacionApplication.UpdateReservation(reservacion);
+            await reservacionApplication.UpdateReservation(reservacion);
 
-            return Ok(reservacionActualizada);
+            return Ok();
         }
 
         [HttpDelete("{id}")]
-        public async Task DeleteReservacion(int id)
+        public async Task<IActionResult> DeleteReservacion(int id)
         {
-            await reservacionApplication.DeleteReservacion(id);
+            var reservation = reservacionApplication.DeleteReservacion(id);
+
+            if (reservation == null)
+            {
+                return NotFound();
+            }
+            return Ok();
         }
     }
 }
