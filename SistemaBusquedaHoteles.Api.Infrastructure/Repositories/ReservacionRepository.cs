@@ -21,10 +21,13 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
 
         public async Task<Reservation> CreateReservation(Reservation reservacion)
         {
+            if (ReservationExists(reservacion.Id))
+            {
+                return new Reservation { Response = "El registro ya existe. Verifique e intente de nuevo." };
+            }
 
-
-            _context.Reservations.Add(reservacion);
-            _context.SaveChanges();
+            await _context.Reservations.AddAsync(reservacion);
+            await _context.SaveChangesAsync();
 
             return reservacion;
         }
@@ -33,8 +36,12 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
         {
             var reserva = _context.Reservations.FirstOrDefault(p => p.Id == id);
 
+            if (!ReservationExists(id))
+            {
+                new Reservation { Response = "Hubo un error. El registro no existe en la base de datos." };
+            }
             _context.Remove(reserva);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         public async Task<Reservation> GetReservationById(int id)
@@ -53,7 +60,7 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
                 .ToList();
         }
 
-        public Task UpdateReservation(Reservation reservation)
+        public Reservation UpdateReservation(Reservation reservation)
         {
             _context.Update(reservation);
             _context.SaveChanges();

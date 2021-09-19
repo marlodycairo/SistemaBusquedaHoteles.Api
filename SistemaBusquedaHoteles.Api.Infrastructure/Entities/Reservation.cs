@@ -22,6 +22,8 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Entities
         public int ClienteId { get; set; }
         public int HabitacionId { get; set; }
 
+        public string Response { get; set; }
+
         public Locations Locations { get; set; }
         public RoomType RoomType { get; set; }
         public Rates Rates { get; set; }
