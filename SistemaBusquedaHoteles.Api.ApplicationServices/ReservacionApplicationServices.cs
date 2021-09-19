@@ -23,32 +23,32 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
             this.mapper = mapper;
         }
 
-        public Domain.Models.Reservation CreateReservacion(Domain.Models.Reservation reservacion)
+        public async Task<Reservations> CreateReservation(Reservations reservacion)
         {
-            var objReservacion = mapper.Map<Infrastructure.Entities.Reservation>(reservacion);
-            var reservaciones = reservacionDomain.CreateReservacion(objReservacion);
+            var objReservacion = mapper.Map<Reservation>(reservacion);
+            var reservaciones = await reservacionDomain.CreateReservacion(objReservacion);
 
             return reservaciones;
         }
 
-        public void DeleteReservacion(int id)
+        public async Task DeleteReservacion(int id)
         {
-            reservacionDomain.DeleteReservacion(id);
+            await reservacionDomain.DeleteReservacion(id);
         }
 
-        public Domain.Models.Reservation GetReservaById(int id)
+        public async Task<Reservations> GetReservationById(int id)
         {
-            return reservacionDomain.GetReservaById(id);
+            return await reservacionDomain.GetReservationById(id);
         }
 
-        public IEnumerable<Domain.Models.Reservation> GetReservaciones(ReservacionQueryFilter filter)
+        public async Task<IEnumerable<Reservations>> GetReservaciones(ReservacionQueryFilter filter)
         {
-            return reservacionDomain.GetReservaciones(filter);
+            return await reservacionDomain.GetReservaciones(filter);
         }
 
-        public Domain.Models.Reservation UpdateReservacion(Domain.Models.Reservation reservacion)
+        public async Task<Reservations> UpdateReservation(Reservations reservacion)
         {
-            return reservacionDomain.UpdateReservacion(reservacion);
+            return await reservacionDomain.UpdateReservacion(reservacion);
         }
     }
 }

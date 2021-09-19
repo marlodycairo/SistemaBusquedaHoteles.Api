@@ -16,6 +16,6 @@ namespace SistemaBusquedaHoteles.Api.Domain.Models
         public int TipoAlojamientoId { get; set; }
         public RoomType RoomType { get; set; }
 
-        public Reservation Reservation { get; set; }
+        public Reservations Reservation { get; set; }
     }
 }

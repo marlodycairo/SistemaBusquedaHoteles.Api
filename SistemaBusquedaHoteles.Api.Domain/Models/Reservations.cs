@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SistemaBusquedaHoteles.Api.Domain.Models
 {
-    public class Reservation
+    public class Reservations
     {
         public int Id { get; set; }
         public string IDReservacion { get; set; }

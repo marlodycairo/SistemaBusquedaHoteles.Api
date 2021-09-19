@@ -21,13 +21,14 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Locations> GetHabitaciones()
+        public async Task<IActionResult> GetHabitaciones()
         {
-            return sedesApplication.GetSedes();
+            var locations = sedesApplication.GetSedes();
+            return Ok(locations);
         }
 
         [HttpGet("{id}")]
-        public Locations GetHabitacionById(int id)
+        public async Task<Locations> GetHabitacionById(int id)
         {
             return sedesApplication.GetSedeById(id);
         }
