@@ -59,15 +59,16 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                 });
             }
 
+            if (filter.TotalHabitaciones != 0)
+            {
+                rooms = rooms.Where(p => p.Locations.TotalHabitaciones == filter.TotalHabitaciones);
+            }
+
             if (filter.SeleccionarTipoHabitacion != 0)
             {
 
             }
 
-            if (filter.TotalHabitaciones != 0)
-            {
-
-            }
             return allRegistersReservesRooms;
         }
     }
