@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace SistemaBusquedaHoteles.Api.Infrastructure.Entities
@@ -16,5 +17,7 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Entities
         public Location Locations { get; set; }
         
         public Reservation Reservations { get; set; }
+
+        public List<ReservationsRooms> ListReservationsRooms { get; set; }
     }
 }

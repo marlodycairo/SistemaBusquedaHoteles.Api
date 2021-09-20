@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SistemaBusquedaHoteles.Api.Domain
+namespace SistemaBusquedaHoteles.Api.Application
 {
-    public interface IReservationRoomDomain
+    public interface IReservationRoomApplication
     {
         Task<IEnumerable<ReservationRoomModel>> GetAllReservesRooms(ReservacionQueryFilter filter);
     }

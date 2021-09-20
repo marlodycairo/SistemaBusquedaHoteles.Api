@@ -11,7 +11,9 @@ namespace SistemaBusquedaHoteles.Api.Domain.Models
         public int ReservationsId { get; set; }
         public int RoomsId { get; set; }
 
-        public ReservationsModel Reservation { get; set; }
-        public RoomModel Rooms { get; set; }
+        public string Response { get; set; }
+
+        public ReservationsModel ReservationModel { get; set; }
+        public RoomModel RoomsModel { get; set; }
     }
 }

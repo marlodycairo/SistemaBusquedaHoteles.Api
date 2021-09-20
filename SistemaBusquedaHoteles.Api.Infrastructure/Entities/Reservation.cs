@@ -28,5 +28,7 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Entities
         public Rate Rates { get; set; }
         public Customer Customers { get; set; }
         public Rooms Room { get; set; }
+
+        public List<ReservationsRooms> ListReservationsRooms { get; set; }
     }
 }

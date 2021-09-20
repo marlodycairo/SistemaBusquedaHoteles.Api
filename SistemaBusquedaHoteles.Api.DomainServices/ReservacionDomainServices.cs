@@ -91,7 +91,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                     if (filter.Fecha == item.Fecha || filter.Fecha < item.Fecha)
                     {
                         //Envia un mensaje si la fecha no está disponible.
-                        reservationsList.Add(new Domain.Models.ReservationsModel
+                        reservationsList.Add(new ReservationsModel
                         {
                             Fecha = item.Fecha,
                             Responses = message
@@ -110,7 +110,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                     if (filter.TotalPersonas > item.LocationModel.CupoMax)
                     {
                         //Envia un mensaje si supera la cantidad de huespedes por habitación
-                        reservationsList.Add(new Domain.Models.ReservationsModel
+                        reservationsList.Add(new ReservationsModel
                         {
                             Responses = Constants.superaCapacidadMax
                         });

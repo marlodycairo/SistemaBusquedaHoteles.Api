@@ -21,9 +21,11 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
 
         public async Task<IEnumerable<ReservationsRooms>> GetAllReservationRoom()
         {
-            return await context.ReservationsRooms
+            return await context.ConsultaReservas
                 .Include(p => p.Reservations)
+                .ThenInclude(r => r.ListReservationsRooms)
                 .Include(r => r.Room)
+                .ThenInclude(r => r.ListReservationsRooms)
                 .ToListAsync();
         }
     }

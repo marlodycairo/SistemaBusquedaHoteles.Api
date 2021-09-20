@@ -37,6 +37,14 @@ namespace SistemaBusquedaHoteles.Api.Domain.Mappers
 
             CreateMap<Customer, CustomersModel>();
             CreateMap<CustomersModel, Customer>();
+
+            CreateMap<ReservationsRooms, ReservationRoomModel>()
+                .ForMember(dest => dest.ReservationModel, opt => opt.MapFrom(src => src.Reservations))
+                .ForMember(dest => dest.RoomsModel, opt => opt.MapFrom(src => src.Room))
+                .ForPath(dest => dest.ReservationModel.RoomsModel, member => member.MapFrom(src => src.Reservations.Room))
+                .ForPath(dest => dest.RoomsModel.Reservations, member => member.MapFrom(src => src.Room.Reservations));
+
+            CreateMap<ReservationRoomModel, ReservationsRooms>();
         }
     }
 }

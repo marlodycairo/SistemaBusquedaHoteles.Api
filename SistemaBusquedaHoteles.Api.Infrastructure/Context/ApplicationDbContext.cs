@@ -21,7 +21,7 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Context
         public DbSet<Reservation> Reservation { get; set; }
         public DbSet<Customer> Customer { get; set; }
 
-        public DbSet<ReservationsRooms> ReservationsRooms { get; set; }
+        public DbSet<ReservationsRooms> ConsultaReservas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
