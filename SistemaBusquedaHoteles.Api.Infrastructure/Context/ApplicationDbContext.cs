@@ -21,6 +21,8 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Context
         public DbSet<Reservation> Reservation { get; set; }
         public DbSet<Customer> Customer { get; set; }
 
+        public DbSet<ReservationsRooms> ReservationsRooms { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             ////Configuración de relaciones uno a uno y uno a muchos
@@ -58,6 +60,9 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Context
                .HasOne(s => s.Room)
                .WithOne(i => i.RoomType)
                .HasForeignKey<Rooms>(s => s.TipoId);
+
+            modelBuilder.Entity<ReservationsRooms>()
+                .HasKey(p => new { p.ReservationsId, p.RoomsId });
 
             ////Configuracion propiedades de navegacion consultar: (https://docs.microsoft.com/en-us/ef/core/modeling/relationships?tabs=fluent-api%2Cfluent-api-simple-key%2Csimple-key)
             //modelBuilder.Entity<Sedes>()

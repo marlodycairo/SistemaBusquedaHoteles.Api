@@ -74,18 +74,9 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
             if (filter.Ciudad != 0)
             {
-                //var reservesLocations = allReservations.Join(rooms, res => res.SedeId,
-                //    ro => ro.SedeId, (res, ro) => new { res, ro }).ToList();
-
-
-                
-                allReservations = from p in allReservations
-                                  where p.SedeId == filter.Ciudad
-                                  join r in allRooms
-                                  on p.SedeId equals r.SedeId
-                                  select p;
-                                  
-                //allReservations = allReservations.Where(p => p.SedeId == filter.Ciudad).Join(allRooms.Where(p => p.SedeId == filter.Ciudad).);
+                //allReservations.Join(rooms, res => res.SedeId,
+                //    ro => ro.SedeId, (res, ro) => new { res, ro }).Where(p => p.ro.SedeId == filter.Ciudad);
+                allReservations = allReservations.Where(p => p.SedeId == filter.Ciudad);
             }
 
             if (filter.Fecha != null)
@@ -166,8 +157,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
                 double totalAPagar = filter.TotalHabitaciones * pruebas;
             }
-            return reservesLocations;
-                //allReservations;
+            return allReservations;
         }
 
         public async Task<Reservation> UpdateReservacion(ReservationsModel reservacion)

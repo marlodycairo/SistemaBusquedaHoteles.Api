@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace SistemaBusquedaHoteles.Api.Domain.Models
 {
@@ -13,5 +14,7 @@ namespace SistemaBusquedaHoteles.Api.Domain.Models
         public RoomTypeModel RoomType { get; set; }
         public LocationsModel Locations { get; set; }
         public ReservationsModel Reservations { get; set; }
+
+        public List<ReservationRoomModel> ReservationRooms { get; set; }
     }
 }
