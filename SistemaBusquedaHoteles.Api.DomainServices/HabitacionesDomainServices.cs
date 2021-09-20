@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using SistemaBusquedaHoteles.Api.Domain;
 using SistemaBusquedaHoteles.Api.Domain.Helpers;
+using SistemaBusquedaHoteles.Api.Domain.Helpers.Constants;
 using SistemaBusquedaHoteles.Api.Domain.Models;
 using SistemaBusquedaHoteles.Api.Domain.QueryFilters;
 using SistemaBusquedaHoteles.Api.Infrastructure.Entities;
@@ -45,7 +46,27 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
             if (filter.Ciudad != 0)
             {
-                
+                allRooms = allRooms.Where(p => p.SedeId == filter.Ciudad);
+            }
+
+            if (filter.Fecha != null)
+            {
+                allRooms = allRooms.Where(p => p.Fecha >= filter.Fecha).Where(p => p.Estado == Constants.message);
+            }
+
+            if (filter.TotalPersonas != 0)
+            {
+                //allRooms = allRooms.Where();
+            }
+
+            if (filter.SeleccionarTipoHabitacion != 0)
+            {
+
+            }
+
+            if (filter.TotalHabitaciones != 0)
+            {
+
             }
 
             return allRooms;
