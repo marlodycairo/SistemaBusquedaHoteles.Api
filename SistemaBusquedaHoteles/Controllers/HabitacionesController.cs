@@ -19,9 +19,9 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<RoomModel>> GetHabitaciones()
+        public async Task<ActionResult<RoomModel>> GetHabitaciones([FromQuery] ReservacionQueryFilter filter)
         {
-            var rooms = await habitacionesApplication.GetAll();
+            var rooms = await habitacionesApplication.GetAll(filter);
             if (rooms == null)
             {
                 return NotFound();

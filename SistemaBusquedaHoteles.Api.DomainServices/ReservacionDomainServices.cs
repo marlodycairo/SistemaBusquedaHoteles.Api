@@ -20,7 +20,6 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
         private readonly ITarifasRepository tarifasRepository;
         private readonly ITipoAlojamientoRepository alojamientoRepository;
         private readonly ISedesRepository sedesRepository;
-        private readonly IEnumerable<ReservationsModel> reservesLocations;
 
         public ReservacionDomainServices(IReservacionRepository reservacionRepository, IMapper mapper,
             IHabitacionesRepository habitacionesRepository, ITarifasRepository tarifasRepository,
@@ -63,14 +62,12 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             var rooms = await habitacionesRepository.GetAll();
             var allRooms = mapper.Map<IEnumerable<Domain.Models.RoomModel>>(rooms);
 
-            var locations = await sedesRepository.GetSedes();
-            var allLocations = mapper.Map<IEnumerable<Domain.Models.LocationsModel>>(locations);
+            //var locations = await sedesRepository.GetSedes();
+            //var allLocations = mapper.Map<IEnumerable<Domain.Models.LocationsModel>>(locations);
+            //List<RoomModel> roomsList = new List<RoomModel>();
+            //var reserve = new List<ReservationsModel>();
 
-            List<ReservationsModel> reservationsList = new List<ReservationsModel>();
-
-            List<RoomModel> roomsList = new List<RoomModel>();
-
-            List<ReservationsModel> reserve = new List<ReservationsModel>();
+            var reservationsList = new List<ReservationsModel>();
 
             if (filter.Ciudad != 0)
             {
@@ -107,15 +104,15 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             {
                 foreach (ReservationsModel item in allReservations)
                 {
-                    if (filter.TotalPersonas > item.LocationModel.CupoMax)
-                    {
-                        //Envia un mensaje si supera la cantidad de huespedes por habitación
-                        reservationsList.Add(new ReservationsModel
-                        {
-                            Responses = Constants.superaCapacidadMax
-                        });
-                        //return reservaciones;
-                    }
+                    //if (filter.TotalPersonas > item.LocationModel.CupoMax)
+                    //{
+                    //    //Envia un mensaje si supera la cantidad de huespedes por habitación
+                    //    reservationsList.Add(new ReservationsModel
+                    //    {
+                    //        Responses = Constants.superaCapacidadMax
+                    //    });
+                    //    //return reservaciones;
+                    //}
                 }
             }
 
@@ -136,26 +133,26 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                 var reserva = new ReservacionDomainServices(reservacionRepository, mapper, habitacionesRepository,
                     tarifasRepository, alojamientoRepository, sedesRepository);
 
-                var query = from p in rooms
-                                                  join r in allReservations
-                                                  on p.RoomType.Id equals r.RoomTypesModel.Id
-                                                  where p.RoomType.Id == filter.SeleccionarTipoHabitacion
-                                                  where r.LocationModel.Id == filter.Ciudad
-                                                  where p.Estado == Constants.message
-                                                  select r;
+                //var query = from p in rooms
+                //                                  join r in allReservations
+                //                                  on p.RoomType.Id equals r.RoomTypesModel.Id
+                //                                  where p.RoomType.Id == filter.SeleccionarTipoHabitacion
+                //                                  where r.LocationModel.Id == filter.Ciudad
+                //                                  where p.Estado == Constants.message
+                //                                  select r;
 
-                foreach (ReservationsModel item in query)
-                {
-                    reservationsList.Add(new Domain.Models.ReservationsModel()
-                    {
-                        Fecha = item.Fecha,
-                        SedeId = item.SedeId,
-                        TipoAlojamientoId = item.TipoAlojamientoId
-                    });
-                }
-                double pruebas = reserva.TarifasDisponibles(filter.Fecha, filter.SeleccionarTipoHabitacion);
+                //foreach (ReservationsModel item in query)
+                //{
+                //    reservationsList.Add(new Domain.Models.ReservationsModel()
+                //    {
+                //        Fecha = item.Fecha,
+                //        SedeId = item.SedeId,
+                //        TipoAlojamientoId = item.TipoAlojamientoId
+                //    });
+                //}
+                //double pruebas = reserva.TarifasDisponibles(filter.Fecha, filter.SeleccionarTipoHabitacion);
 
-                double totalAPagar = filter.TotalHabitaciones * pruebas;
+                //double totalAPagar = filter.TotalHabitaciones * pruebas;
             }
             return allReservations;
         }
@@ -202,7 +199,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             DateTime tBaja1 = new DateTime(2022, 4, 22).AddMonths(2);
 
             IEnumerable<ReservationsModel> query = (from p in listaHabitaciones
-                                               join reservas in result on p.RoomType.Nombre equals reservas.RoomTypesModel.Nombre
+                                               join reservas in result on p.RoomTypeModel.Nombre equals reservas.RoomTypesModel.Nombre
                                                where p.TipoId == tipoHabitacion
                                                select reservas);
 
@@ -231,39 +228,40 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             var sedes = sedesRepository.GetSedes();
             var listadoSedes = mapper.Map<IEnumerable<Domain.Models.LocationsModel>>(sedes);
 
-            int totalHabitacionesDisponibles = Constants.totalHabitacionesDisponibles;
-            int totalOcupadas = Constants.totalOcupadas;
-            int totalDisponibles = Constants.totalDisponibles;
+            //int totalHabitacionesDisponibles = Constants.totalHabitacionesDisponibles;
+            //int totalOcupadas = Constants.totalOcupadas;
+            //int totalDisponibles = Constants.totalDisponibles;
 
             foreach (ReservationsModel item in result)
             {
-                if (item.LocationModel.Id == ciudad)
-                {
-                    totalOcupadas++;
-                }
+                //if (item.LocationModel.Id == ciudad)
+                //{
+                //    totalOcupadas++;
+                //}
             }
 
             IEnumerable<ReservationsModel> tipos = from p in listaHabitaciones
                                               join s in result
-                                              on p.RoomType.Nombre equals s.RoomTypesModel.Nombre
+                                              on p.RoomTypeModel.Nombre equals s.RoomTypesModel.Nombre
                                               select s;
 
-            foreach (ReservationsModel item in tipos)
-            {
-                if (item.LocationModel.Id == ciudad && item.RoomsModel.Estado == Constants.message)
-                {
-                    totalDisponibles++;
-                }
-            }
+            //foreach (ReservationsModel item in tipos)
+            //{
+            //    if (item.LocationModel.Id == ciudad && item.RoomsModel.Estado == Constants.message)
+            //    {
+            //        totalDisponibles++;
+            //    }
+            //}
 
-            //cantidad de habitaciones ocupadas por sede
-            IEnumerable<int> totalPorSede = (from p in result
-                                             where p.LocationModel.Id == ciudad
-                                             select p.LocationModel.TotalHabitaciones);
+            ////cantidad de habitaciones ocupadas por sede
+            //IEnumerable<int> totalPorSede = (from p in result
+            //                                 where p.LocationModel.Id == ciudad
+            ////                                 select p.LocationModel.TotalHabitaciones);
 
-            totalHabitacionesDisponibles = totalPorSede.Count() - totalOcupadas;
+            //totalHabitacionesDisponibles = totalPorSede.Count() - totalOcupadas;
 
-            return totalHabitacionesDisponibles;
+            //return totalHabitacionesDisponibles;
+            return 0;
         }
 
         public DateTime ValidarFechasDisponibles(DateTime? fecha)

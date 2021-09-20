@@ -23,12 +23,10 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Entities
         public int HabitacionId { get; set; }
 
 
-        public Location Locations { get; set; }
+        //public Location Locations { get; set; }
         public RoomTypes RoomType { get; set; }
         public Rate Rates { get; set; }
         public Customer Customers { get; set; }
-        public Rooms Room { get; set; }
-
-        public List<ReservationsRooms> ListReservationsRooms { get; set; }
+        //public Rooms Room { get; set; }
     }
 }

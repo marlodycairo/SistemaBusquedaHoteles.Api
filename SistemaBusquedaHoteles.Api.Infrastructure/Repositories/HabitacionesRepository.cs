@@ -37,8 +37,8 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
         {
             return await context.Rooms
                         .Include(t => t.RoomType)
-                        .Include(p => p.Locations)
-                        .Include(r => r.Reservations)
+                        //.Include(p => p.Locationes)
+                        //.Include(r => r.Reservations)
                         .ToListAsync();
         }
 

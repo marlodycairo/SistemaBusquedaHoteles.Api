@@ -37,9 +37,9 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
             await habitacionesDomain.Delete(id);
         }
 
-        public async Task<IEnumerable<RoomModel>> GetAll()
+        public async Task<IEnumerable<RoomModel>> GetAll(ReservacionQueryFilter filter)
         {
-            return await habitacionesDomain.GetAll();
+            return await habitacionesDomain.GetAll(filter);
         }
 
         public async Task<RoomModel> GetById(int id)

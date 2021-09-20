@@ -11,7 +11,7 @@ namespace SistemaBusquedaHoteles.Api.Application
 {
     public interface IHabitacionesApplication
     {
-        Task<IEnumerable<RoomModel>> GetAll();
+        Task<IEnumerable<RoomModel>> GetAll(ReservacionQueryFilter filter);
         Task<RoomModel> GetById(int id);
         Task<RoomModel> Create(RoomModel room);
         Task<Rooms> Update(RoomModel room);

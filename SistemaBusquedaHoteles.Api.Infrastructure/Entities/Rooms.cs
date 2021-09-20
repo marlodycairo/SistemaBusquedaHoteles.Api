@@ -14,10 +14,8 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Entities
         public int SedeId { get; set; }
 
         public RoomTypes RoomType { get; set; }
-        public Location Locations { get; set; }
-        
-        public Reservation Reservations { get; set; }
+        //public Location Locationes { get; set; }
 
-        public List<ReservationsRooms> ListReservationsRooms { get; set; }
+        //public Reservation Reservations { get; set; }
     }
 }
