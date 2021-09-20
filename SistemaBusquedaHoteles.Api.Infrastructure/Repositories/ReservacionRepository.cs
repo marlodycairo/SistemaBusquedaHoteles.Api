@@ -32,7 +32,7 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
 
         public async Task DeleteReservation(int id)
         {
-            Reservation reserva = _context.Reservation.FirstOrDefault(p => p.Id == id);
+            Reservation reserva = await _context.Reservation.FirstOrDefaultAsync(p => p.Id == id);
 
             if (ReservationExists(id))
             {
