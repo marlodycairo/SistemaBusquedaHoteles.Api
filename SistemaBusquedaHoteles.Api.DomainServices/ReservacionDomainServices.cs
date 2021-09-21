@@ -62,10 +62,6 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             var rooms = await habitacionesRepository.GetAll();
             var allRooms = mapper.Map<IEnumerable<Domain.Models.RoomModel>>(rooms);
 
-            //var locations = await sedesRepository.GetSedes();
-            //var allLocations = mapper.Map<IEnumerable<Domain.Models.LocationsModel>>(locations);
-            //List<RoomModel> roomsList = new List<RoomModel>();
-            //var reserve = new List<ReservationsModel>();
 
             var reservationsList = new List<ReservationsModel>();
 

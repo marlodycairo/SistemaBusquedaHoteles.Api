@@ -22,7 +22,7 @@ namespace SistemaBusquedaHoteles.Api.Domain.Models
 
         public string Responses { get; set; }
 
-        public LocationsModel LocationModel { get; set; }
+        //public LocationsModel LocationModel { get; set; }
         //public RoomTypeModel RoomTypesModel { get; set; }
         //public RatesModel RateModel { get; set; }
         public CustomersModel CustomerModel { get; set; }

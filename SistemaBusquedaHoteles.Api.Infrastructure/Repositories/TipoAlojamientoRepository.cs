@@ -27,8 +27,6 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
         public async Task<IEnumerable<RoomTypes>> GetAlojamientos()
         {
             return await context.RoomTypes
-                .Include(p => p.Rates)
-                .Include(r => r.Reservation)
                 .ToListAsync();
         }
     }

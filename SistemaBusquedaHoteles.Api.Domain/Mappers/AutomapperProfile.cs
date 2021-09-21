@@ -16,14 +16,14 @@ namespace SistemaBusquedaHoteles.Api.Domain.Mappers
 
             CreateMap<LocationsModel, Location>();
 
-            CreateMap<RoomTypes, RoomTypeModel>()
-                .ForMember(dest => dest.RatesModels, opt => opt.MapFrom(src => src.Rates))
-                .ForMember(dest => dest.ReservationsModels, opt => opt.MapFrom(src => src.Reservation));
+            CreateMap<RoomTypes, RoomTypeModel>();
+                //.ForMember(dest => dest.RatesModels, opt => opt.MapFrom(src => src.Rates));
+                //.ForMember(dest => dest.ReservationsModels, opt => opt.MapFrom(src => src.Reservation));
 
             CreateMap<RoomTypeModel, RoomTypes>();
 
-            CreateMap<Rate, RatesModel>()
-                .ForMember(dest => dest.RoomTypesModel, opt => opt.MapFrom(src => src.RoomType));
+            CreateMap<Rate, RatesModel>();
+                //.ForMember(dest => dest.RoomTypesModel, opt => opt.MapFrom(src => src.RoomType));
 
             CreateMap<RatesModel, Rate>();
 
