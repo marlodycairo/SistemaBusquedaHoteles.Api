@@ -16,7 +16,6 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Entities
 
         public int TipoAlojamientoId { get; set; }
         public RoomTypes RoomType { get; set; }
-
-        public Reservation Reservations { get; set; }
+        public Reservation Reservation { get; set; }
     }
 }

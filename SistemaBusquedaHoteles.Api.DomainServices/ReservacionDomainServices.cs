@@ -198,22 +198,22 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             //Temporada Baja Abril + Mayo + hasta el 22 de junio +Septiembre a octubre
             DateTime tBaja1 = new DateTime(2022, 4, 22).AddMonths(2);
 
-            IEnumerable<ReservationsModel> query = (from p in listaHabitaciones
-                                               join reservas in result on p.RoomTypeModel.Nombre equals reservas.RoomTypesModel.Nombre
-                                               where p.TipoId == tipoHabitacion
-                                               select reservas);
+            //IEnumerable<ReservationsModel> query = (from p in listaHabitaciones
+            //                                   join reservas in result on p.RoomTypeModel.Nombre equals reservas.RoomTypesModel.Nombre
+            //                                   where p.TipoId == tipoHabitacion
+            //                                   select reservas);
 
-            foreach (ReservationsModel item in query)
-            {
-                if (fecha >= fInicioBaj2 && fecha <= tBaja2 || fecha >= fInicioBaj1 && fecha <= tBaja1)
-                {
-                    valorHabitacion = item.RateModel.Valor;
-                }
-                else
-                {
-                    item.RateModel.Temporada = Constants.confirmartemporada;
-                }
-            }
+            //foreach (ReservationsModel item in query)
+            //{
+            //    if (fecha >= fInicioBaj2 && fecha <= tBaja2 || fecha >= fInicioBaj1 && fecha <= tBaja1)
+            //    {
+            //        valorHabitacion = item.RateModel.Valor;
+            //    }
+            //    else
+            //    {
+            //        item.RateModel.Temporada = Constants.confirmartemporada;
+            //    }
+            //}
             return valorHabitacion;
         }
 
@@ -240,10 +240,10 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                 //}
             }
 
-            IEnumerable<ReservationsModel> tipos = from p in listaHabitaciones
-                                              join s in result
-                                              on p.RoomTypeModel.Nombre equals s.RoomTypesModel.Nombre
-                                              select s;
+            //IEnumerable<ReservationsModel> tipos = from p in listaHabitaciones
+            //                                  join s in result
+            //                                  on p.RoomTypeModel.Nombre equals s.RoomTypesModel.Nombre
+            //                                  select s;
 
             //foreach (ReservationsModel item in tipos)
             //{

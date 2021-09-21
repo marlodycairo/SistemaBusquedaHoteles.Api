@@ -14,8 +14,6 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Entities
         public string Ciudad { get; set; }
         public int CupoMax { get; set; }
         public int TotalHabitaciones { get; set; }
-
-        //public Reservation Reservations { get; set; }
-        //public Rooms Room { get; set; }
+        public Reservation Reservations { get; set; }
     }
 }

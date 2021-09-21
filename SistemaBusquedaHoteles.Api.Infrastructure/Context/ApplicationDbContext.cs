@@ -24,40 +24,35 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             ////Configuración de relaciones uno a uno y uno a muchos
-            //modelBuilder.Entity<Location>()
-            //    .HasOne(r => r.Reservations)
-            //    .WithOne(i => i.Locations)
-            //    .HasForeignKey<Reservation>(r => r.SedeId);
+            modelBuilder.Entity<Reservation>()
+                .HasOne(r => r.Locations)
+                .WithOne(i => i.Reservations)
+                .HasForeignKey<Location>(r => r.Id);
 
             modelBuilder.Entity<Customer>()
                 .HasOne(h => h.Reservations)
                 .WithOne(i => i.Customers)
                 .HasForeignKey<Reservation>(h => h.ClienteId);
 
-            //modelBuilder.Entity<Location>()
-            //    .HasOne(s => s.Room)
-            //    .WithOne(i => i.Location)
-            //    .HasForeignKey<Rooms>(s => s.SedeId);
+            modelBuilder.Entity<Reservation>()
+               .HasOne(s => s.Rates)
+               .WithOne(i => i.Reservation)
+               .HasForeignKey<Rate>(p => p.Id);
+
+            modelBuilder.Entity<Reservation>()
+               .HasOne(s => s.RoomType)
+               .WithOne(i => i.Reservations)
+               .HasForeignKey<RoomTypes>(p => p.Id);
+
+            modelBuilder.Entity<Reservation>()
+               .HasOne(s => s.Room)
+               .WithOne(i => i.Reservations)
+               .HasForeignKey<Rooms>(s => s.Id);
 
             modelBuilder.Entity<Rate>()
-               .HasOne(s => s.Reservations)
+               .HasOne(s => s.RoomType)
                .WithOne(i => i.Rates)
-               .HasForeignKey<Reservation>(s => s.TarifaId);
-
-            modelBuilder.Entity<RoomTypes>()
-               .HasOne(s => s.Reservations)
-               .WithOne(i => i.RoomType)
-               .HasForeignKey<Reservation>(s => s.TipoAlojamientoId);
-
-            //modelBuilder.Entity<Rooms>()
-            //   .HasOne(s => s.Reservations)
-            //   .WithOne(i => i.Room)
-            //   .HasForeignKey<Reservation>(s => s.HabitacionId);
-
-            modelBuilder.Entity<RoomTypes>()
-               .HasOne(s => s.Room)
-               .WithOne(i => i.RoomType)
-               .HasForeignKey<Rooms>(s => s.TipoId);
+               .HasForeignKey<RoomTypes>(s => s.Id);
 
             ////Configuracion propiedades de navegacion consultar: (https://docs.microsoft.com/en-us/ef/core/modeling/relationships?tabs=fluent-api%2Cfluent-api-simple-key%2Csimple-key)
             //modelBuilder.Entity<Sedes>()
