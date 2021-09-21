@@ -18,13 +18,18 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
         private readonly IHabitacionesRepository habitacionesRepository;
         private readonly IMapper mapper;
         private readonly ISedesRepository sedesRepository;
+        private readonly ITipoAlojamientoRepository alojamientoRepository;
+        private readonly IReservacionRepository reservacionRepository;
 
         public HabitacionesDomainServices(IHabitacionesRepository habitacionesRepository, IMapper mapper, 
-            ISedesRepository sedesRepository)
+            ISedesRepository sedesRepository, ITipoAlojamientoRepository alojamientoRepository,
+            IReservacionRepository reservacionRepository)
         {
             this.habitacionesRepository = habitacionesRepository;
             this.mapper = mapper;
             this.sedesRepository = sedesRepository;
+            this.alojamientoRepository = alojamientoRepository;
+            this.reservacionRepository = reservacionRepository;
         }
 
         public async Task<RoomModel> Create(Rooms room)
@@ -48,6 +53,12 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
             var locations = await sedesRepository.GetSedes();
             var allLocation = mapper.Map<IEnumerable<LocationsModel>>(locations);
+
+            var roomType = await alojamientoRepository.GetAlojamientos();
+            var allTypes = mapper.Map<IEnumerable<RoomTypeModel>>(roomType);
+
+            var reservation = await reservacionRepository.GetAllReservations();
+            var allReserves = mapper.Map<IEnumerable<ReservationsModel>>(reservation);
 
             var roomList = new List<RoomModel>();
 
@@ -78,20 +89,44 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                         });
                         return roomList.ToList();
                     }
-                    return allRooms;
+                    allRooms = allRooms.Select(p => new RoomModel 
+                    {
+                        Id = p.Id,
+                        Fecha = p.Fecha,
+                        Estado = p.Estado,
+                        SedeId = p.SedeId,
+                        TipoId = p.TipoId
+                    }).ToList();
                 }
-            }
-
-            if (filter.SeleccionarTipoHabitacion != 0)
-            {
-
             }
 
             if (filter.TotalHabitaciones != 0)
             {
+                var countRooms = allRooms.Where(p => p.Fecha >= filter.Fecha).Where(p => p.Estado == Constants.message).Count();
 
+                if (filter.TotalHabitaciones > countRooms)
+                {
+                    roomList.Add(new RoomModel 
+                    {
+                        Response = Constants.valorNoValido
+                    });
+                    return roomList.ToList();
+                }
+                allRooms = allRooms.Select(p => new RoomModel
+                {
+                    Id = p.Id,
+                    Fecha = p.Fecha,
+                    Estado = p.Estado,
+                    SedeId = p.SedeId,
+                    TipoId = p.TipoId
+                }).ToList();
             }
 
+            if (filter.SeleccionarTipoHabitacion != 0)
+            {
+                allRooms = allRooms.Where(p => p.TipoId == filter.SeleccionarTipoHabitacion);
+            }
+            
             return allRooms;
         }
 

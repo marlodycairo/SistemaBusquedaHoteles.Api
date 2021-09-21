@@ -17,5 +17,6 @@ namespace SistemaBusquedaHoteles.Api.Domain.Helpers.Constants
         public const int totalHabitacionesDisponibles = 0;
         public const int totalOcupadas = 0;
         public const int totalDisponibles = 0;
+        public const string valorNoValido = "El valor ingresado supera la cantidad de habitaciones disponibles. Ingrese un número valido.";
     }
 }
