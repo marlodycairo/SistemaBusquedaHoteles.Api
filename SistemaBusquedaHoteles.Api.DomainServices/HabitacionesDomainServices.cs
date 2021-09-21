@@ -100,6 +100,11 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                 }
             }
 
+            if (filter.SeleccionarTipoHabitacion != 0)
+            {
+                allRooms = allRooms.Where(p => p.TipoId == filter.SeleccionarTipoHabitacion);
+            }
+
             if (filter.TotalHabitaciones != 0)
             {
                 var countRooms = allRooms.Where(p => p.Fecha >= filter.Fecha).Where(p => p.Estado == Constants.message).Count();
@@ -111,23 +116,25 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                     });
                     return roomList.ToList();
                 }
+                int count = Constants.variableEnCero;
 
-                allRooms = allRooms.Where();
-
-
-                //allRooms = allRooms.Select(p => new RoomModel
-                //{
-                //    Id = p.Id,
-                //    Fecha = p.Fecha,
-                //    Estado = p.Estado,
-                //    SedeId = p.SedeId,
-                //    TipoId = p.TipoId
-                //}).ToList();
-            }
-
-            if (filter.SeleccionarTipoHabitacion != 0)
-            {
-                allRooms = allRooms.Where(p => p.TipoId == filter.SeleccionarTipoHabitacion);
+                foreach (var item in allRooms)
+                {
+                    roomList.Add(new RoomModel
+                    {
+                        Fecha = item.Fecha,
+                        Estado = item.Estado,
+                        SedeId = item.SedeId,
+                        TipoId = item.TipoId
+                    });
+                    count++;
+                    if (count == filter.TotalHabitaciones)
+                    {
+                        allRooms = roomList;
+                        count = 0;
+                        return allRooms;
+                    }
+                }
             }
 
             return allRooms;
