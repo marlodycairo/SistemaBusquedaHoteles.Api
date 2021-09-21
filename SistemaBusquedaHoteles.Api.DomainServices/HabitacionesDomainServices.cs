@@ -17,11 +17,14 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
     {
         private readonly IHabitacionesRepository habitacionesRepository;
         private readonly IMapper mapper;
+        private readonly ISedesRepository sedesRepository;
 
-        public HabitacionesDomainServices(IHabitacionesRepository habitacionesRepository, IMapper mapper)
+        public HabitacionesDomainServices(IHabitacionesRepository habitacionesRepository, IMapper mapper, 
+            ISedesRepository sedesRepository)
         {
             this.habitacionesRepository = habitacionesRepository;
             this.mapper = mapper;
+            this.sedesRepository = sedesRepository;
         }
 
         public async Task<RoomModel> Create(Rooms room)
@@ -41,8 +44,12 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
         public async Task<IEnumerable<RoomModel>> GetAll(ReservacionQueryFilter filter)
         {
             var rooms = await habitacionesRepository.GetAll();
-
             var allRooms = mapper.Map<IEnumerable<RoomModel>>(rooms);
+
+            var locations = await sedesRepository.GetSedes();
+            var allLocation = mapper.Map<IEnumerable<LocationsModel>>(locations);
+
+            var roomList = new List<RoomModel>();
 
             if (filter.Ciudad != 0)
             {
@@ -56,7 +63,23 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
             if (filter.TotalPersonas != 0)
             {
-                //allRooms = allRooms.Where();
+                var roomLocation = from p in allRooms
+                                   join loc in allLocation
+                                   on p.SedeId equals loc.Id
+                                   select loc;
+
+                foreach (var item in roomLocation)
+                {
+                    if (filter.TotalPersonas > item.CupoMax)
+                    {
+                        roomList.Add(new RoomModel
+                        {
+                            Response = Constants.superaCapacidadMax
+                        });
+                        return roomList.ToList();
+                    }
+                    return allRooms;
+                }
             }
 
             if (filter.SeleccionarTipoHabitacion != 0)

@@ -10,6 +10,6 @@ namespace SistemaBusquedaHoteles.Api.Domain.Models
         public string Estado { get; set; }
         public int TipoId { get; set; }
         public int SedeId { get; set; }
-        //public ReservationsModel ReservationsModels { get; set; }
+        public string Response { get; set; }
     }
 }
