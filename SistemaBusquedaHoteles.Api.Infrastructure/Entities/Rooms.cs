@@ -12,6 +12,6 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Entities
         public string Estado { get; set; }
         public int TipoId { get; set; }
         public int SedeId { get; set; }
-        public Reservation Reservations { get; set; }
+        //public Reservation Reservations { get; set; }
     }
 }

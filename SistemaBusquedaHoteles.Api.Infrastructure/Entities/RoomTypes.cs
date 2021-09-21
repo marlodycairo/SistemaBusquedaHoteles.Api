@@ -12,7 +12,7 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Entities
         [Key]
         public int Id { get; set; }
         public string Nombre { get; set; }
-        public Reservation Reservations { get; set; }
+        public Reservation Reservation { get; set; }
         public Rate Rates { get; set; }
     }
 }

@@ -28,7 +28,6 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
         public async Task Delete(int id)
         {
             var habitacion = context.Rooms.FirstOrDefaultAsync(p => p.Id == id);
-
             context.Remove(habitacion);
             await context.SaveChangesAsync();
         }
@@ -36,7 +35,6 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
         public async Task<IEnumerable<Rooms>> GetAll()
         {
             return await context.Rooms
-                        .Include(p => p.Reservations)
                         .ToListAsync();
         }
 
@@ -47,10 +45,11 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
 
         public async Task<Rooms> Update(Rooms room)
         {
-            context.Entry(room);
+            var roomUpdate = await context.Rooms.FirstOrDefaultAsync(p => p.Id == room.Id);
+            context.Update(roomUpdate);
             await context.SaveChangesAsync();
 
-            return room;
+            return roomUpdate;
         }
     }
 }
