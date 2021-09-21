@@ -89,19 +89,13 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                         });
                         return roomList.ToList();
                     }
-                    allRooms = allRooms.Select(p => new RoomModel 
-                    {
-                        Id = p.Id,
-                        Fecha = p.Fecha,
-                        Estado = p.Estado,
-                        SedeId = p.SedeId,
-                        TipoId = p.TipoId
-                    }).ToList();
+                    allRooms = allRooms.Where(p => p.Fecha >= filter.Fecha).Where(p => p.Estado == Constants.message);
                 }
             }
 
             if (filter.SeleccionarTipoHabitacion != 0)
             {
+
                 allRooms = allRooms.Where(p => p.TipoId == filter.SeleccionarTipoHabitacion);
             }
 
