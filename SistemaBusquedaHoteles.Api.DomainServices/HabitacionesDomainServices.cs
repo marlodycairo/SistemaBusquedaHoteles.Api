@@ -115,7 +115,9 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
             if (filter.TotalHabitaciones != 0)
             {
+                int count = Constants.variableEnCero;
                 var countRooms = allRooms.Where(p => p.Fecha >= filter.Fecha).Where(p => p.Estado == Constants.message).Count();
+                
                 if (filter.TotalHabitaciones > countRooms)
                 {
                     roomList.Add(new RoomModel 
@@ -124,8 +126,6 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                     });
                     return roomList.ToList();
                 }
-                int count = Constants.variableEnCero;
-
                 foreach (var item in allRooms)
                 {
                     roomList.Add(new RoomModel
