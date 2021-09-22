@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentValidation;
 using SistemaBusquedaHoteles.Api.Domain.Models;
+using SistemaBusquedaHoteles.Api.Domain.QueryFilters;
 
 namespace SistemaBusquedaHoteles.Api.Domain.Validators
 {
@@ -12,7 +13,7 @@ namespace SistemaBusquedaHoteles.Api.Domain.Validators
     {
         public RoomValidator()
         {
-            RuleFor(p => p.)
+            RuleFor(p => p.Estado).NotEmpty().WithMessage("Debe ingresar un estado.");
         }
     }
 }

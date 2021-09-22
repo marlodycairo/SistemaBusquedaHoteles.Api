@@ -20,6 +20,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using FluentValidation.AspNetCore;
+using SistemaBusquedaHoteles.Api.Domain.Validators;
 
 namespace SistemaBusquedaHoteles
 {
@@ -35,6 +37,7 @@ namespace SistemaBusquedaHoteles
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddFluentValidation();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -70,6 +73,8 @@ namespace SistemaBusquedaHoteles
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<IClienteDomain, ClienteDomainService>();
             services.AddScoped<IClienteApplication, ClienteApplicationService>();
+
+            services.AddTransient<RoomValidator>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
