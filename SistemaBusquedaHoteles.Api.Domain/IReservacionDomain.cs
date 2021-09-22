@@ -14,9 +14,6 @@ namespace SistemaBusquedaHoteles.Api.Domain
         Task<ReservationsModel> CreateReservacion(Reservation reservacion);
         Task<Reservation> UpdateReservacion(ReservationsModel reservacion);
         Task DeleteReservacion(int id);
-
-        DateTime ValidarFechasDisponibles(DateTime? fecha);
         double TarifasDisponibles(DateTime? fecha, int tipoHabitacion);
-        int CalcularHabitacionesDisponibles(int ciudad);
     }
 }

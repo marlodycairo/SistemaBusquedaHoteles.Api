@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
 using SistemaBusquedaHoteles.Api.Domain;
-using SistemaBusquedaHoteles.Api.Domain.Helpers.Constants;
 using SistemaBusquedaHoteles.Api.Domain.Models;
 using SistemaBusquedaHoteles.Api.Domain.QueryFilters;
 using SistemaBusquedaHoteles.Api.Infrastructure.Entities;
 using SistemaBusquedaHoteles.Api.Infrastructure.Repositories.IRepository;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SistemaBusquedaHoteles.Api.DomainServices
@@ -16,21 +14,11 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
     {
         private readonly IReservacionRepository reservacionRepository;
         private readonly IMapper mapper;
-        private readonly IHabitacionesRepository habitacionesRepository;
-        private readonly ITarifasRepository tarifasRepository;
-        private readonly ITipoAlojamientoRepository alojamientoRepository;
-        private readonly ISedesRepository sedesRepository;
 
-        public ReservacionDomainServices(IReservacionRepository reservacionRepository, IMapper mapper,
-            IHabitacionesRepository habitacionesRepository, ITarifasRepository tarifasRepository,
-            ITipoAlojamientoRepository alojamientoRepository, ISedesRepository sedesRepository)
+        public ReservacionDomainServices(IReservacionRepository reservacionRepository, IMapper mapper)
         {
             this.reservacionRepository = reservacionRepository;
             this.mapper = mapper;
-            this.habitacionesRepository = habitacionesRepository;
-            this.tarifasRepository = tarifasRepository;
-            this.alojamientoRepository = alojamientoRepository;
-            this.sedesRepository = sedesRepository;
         }
 
         public async Task<ReservationsModel> CreateReservacion(Reservation reservacion)
@@ -56,8 +44,8 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
         public async Task<IEnumerable<ReservationsModel>> GetReservaciones(ReservacionQueryFilter filter)
         {
-            var reservaciones = reservacionRepository.GetAllReservations();
-            var result = mapper.Map<IEnumerable<Domain.Models.ReservationsModel>>(reservaciones);
+            Task<IEnumerable<Reservation>> reservaciones = reservacionRepository.GetAllReservations();
+            IEnumerable<ReservationsModel> result = mapper.Map<IEnumerable<Domain.Models.ReservationsModel>>(reservaciones);
 
             if (filter.Ciudad != 0)
             {
@@ -88,9 +76,9 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
         public async Task<Reservation> UpdateReservacion(ReservationsModel reservacion)
         {
-            var reservas = mapper.Map<Reservation>(reservacion);
+            Reservation reservas = mapper.Map<Reservation>(reservacion);
 
-            var reservationUpdate = await reservacionRepository.UpdateReservation(reservas);
+            Reservation reservationUpdate = await reservacionRepository.UpdateReservation(reservas);
 
             return reservationUpdate;
         }

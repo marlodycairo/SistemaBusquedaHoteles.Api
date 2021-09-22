@@ -20,16 +20,18 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
         private readonly ISedesRepository sedesRepository;
         private readonly ITipoAlojamientoRepository alojamientoRepository;
         private readonly IReservacionRepository reservacionRepository;
+        private readonly ITarifasRepository tarifasRepository;
 
         public HabitacionesDomainServices(IHabitacionesRepository habitacionesRepository, IMapper mapper, 
             ISedesRepository sedesRepository, ITipoAlojamientoRepository alojamientoRepository,
-            IReservacionRepository reservacionRepository)
+            IReservacionRepository reservacionRepository, ITarifasRepository tarifasRepository)
         {
             this.habitacionesRepository = habitacionesRepository;
             this.mapper = mapper;
             this.sedesRepository = sedesRepository;
             this.alojamientoRepository = alojamientoRepository;
             this.reservacionRepository = reservacionRepository;
+            this.tarifasRepository = tarifasRepository;
         }
 
         public async Task<RoomModel> Create(Rooms room)
@@ -60,7 +62,11 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             var reservation = await reservacionRepository.GetAllReservations();
             var allReserves = mapper.Map<IEnumerable<ReservationsModel>>(reservation);
 
+            var rates = await tarifasRepository.GetTarifas();
+            var allRates = mapper.Map<IEnumerable<RatesModel>>(rates);
+
             var roomList = new List<RoomModel>();
+            var typesList = new List<RoomTypeModel>();
 
             if (filter.Ciudad != 0)
             {
@@ -95,8 +101,16 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
             if (filter.SeleccionarTipoHabitacion != 0)
             {
+                allTypes = allTypes.Where(p => p.Id == filter.SeleccionarTipoHabitacion);
 
-                allRooms = allRooms.Where(p => p.TipoId == filter.SeleccionarTipoHabitacion);
+                var roomTypes = allRooms
+                    .Join(allTypes,
+                    room => room.TipoId,
+                    type => type.Id,
+                    (room, type) => new
+                    {
+                        room, type
+                    }).Where(p => p.type.Id == filter.SeleccionarTipoHabitacion);
             }
 
             if (filter.TotalHabitaciones != 0)
