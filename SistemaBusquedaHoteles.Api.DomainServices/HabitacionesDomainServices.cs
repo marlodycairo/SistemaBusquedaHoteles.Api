@@ -93,6 +93,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                         {
                             Response = Constants.superaCapacidadMax
                         });
+                        
                         return roomList.ToList();
                     }
                     allRooms = allRooms.Where(p => p.Fecha >= filter.Fecha).Where(p => p.Estado == Constants.message);
@@ -116,6 +117,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             if (filter.TotalHabitaciones != 0)
             {
                 int count = Constants.variableEnCero;
+                
                 var countRooms = allRooms.Where(p => p.Fecha >= filter.Fecha).Where(p => p.Estado == Constants.message).Count();
                 
                 if (filter.TotalHabitaciones > countRooms)
@@ -124,8 +126,10 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                     {
                         Response = Constants.valorNoValido
                     });
+                    
                     return roomList.ToList();
                 }
+                
                 foreach (var item in allRooms)
                 {
                     roomList.Add(new RoomModel
@@ -136,14 +140,17 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                         TipoId = item.TipoId
                     });
                     count++;
+                    
                     if (count == filter.TotalHabitaciones)
                     {
                         allRooms = roomList;
                         count = 0;
+                        
                         return allRooms;
                     }
                 }
             }
+            
             return allRooms;
         }
 
