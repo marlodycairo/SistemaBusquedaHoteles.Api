@@ -21,7 +21,6 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using FluentValidation.AspNetCore;
-using SistemaBusquedaHoteles.Api.Domain.Validators;
 
 namespace SistemaBusquedaHoteles
 {
@@ -37,13 +36,18 @@ namespace SistemaBusquedaHoteles
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddFluentValidation();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             //Ignorar referencia circular. Corregir error JsonException. "A possible object cycle was detected."
-            services.AddControllers().AddJsonOptions(opt =>
-                                        opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
+            services.AddControllers()
+                .AddJsonOptions(opt => opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve)
+
+                .AddFluentValidation(fv =>
+                {
+                    fv.DisableDataAnnotationsValidation = true;
+                    fv.RegisterValidatorsFromAssemblyContaining<Startup>();
+                });
 
             services.AddDbContext<ApplicationDbContext>(options => 
             {
@@ -73,8 +77,6 @@ namespace SistemaBusquedaHoteles
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<IClienteDomain, ClienteDomainService>();
             services.AddScoped<IClienteApplication, ClienteApplicationService>();
-
-            services.AddTransient<RoomValidator>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

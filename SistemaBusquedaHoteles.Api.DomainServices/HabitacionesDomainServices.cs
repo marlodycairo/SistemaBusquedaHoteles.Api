@@ -151,14 +151,14 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
         {
             var room = await habitacionesRepository.GetById(id);
 
-            var roomById = mapper.Map<Domain.Models.RoomModel>(room);
+            var roomById = mapper.Map<RoomModel>(room);
 
             return roomById;
         }
 
         public async Task<Rooms> Update(RoomModel room)
         {
-            var roomMapper = mapper.Map<Infrastructure.Entities.Rooms>(room);
+            var roomMapper = mapper.Map<Rooms>(room);
 
             var roomUpdate = await habitacionesRepository.Update(roomMapper);
 

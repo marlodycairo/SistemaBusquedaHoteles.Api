@@ -21,7 +21,6 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
         {
             await context.Rooms.AddAsync(rooms);
             await context.SaveChangesAsync();
-
             return rooms;
         }
 
