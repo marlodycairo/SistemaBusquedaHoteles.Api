@@ -35,6 +35,7 @@ namespace SistemaBusquedaHoteles.Controllers
         public async Task<ActionResult<RoomModel>> GetHabitacionById(int id)
         {
             RoomModel room = await habitacionesApplication.GetById(id);
+
             if (room == null)
             {
                 return NotFound();

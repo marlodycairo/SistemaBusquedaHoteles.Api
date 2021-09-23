@@ -20,21 +20,24 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
         public async Task<Rooms> Create(Rooms rooms)
         {
             await context.Rooms.AddAsync(rooms);
+            
             await context.SaveChangesAsync();
+            
             return rooms;
         }
 
         public async Task Delete(int id)
         {
             var habitacion = context.Rooms.FirstOrDefaultAsync(p => p.Id == id);
+
             context.Remove(habitacion);
+
             await context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Rooms>> GetAll()
         {
-            return await context.Rooms
-                        .ToListAsync();
+            return await context.Rooms.ToListAsync();
         }
 
         public async Task<Rooms> GetById(int id)
@@ -45,7 +48,9 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
         public async Task<Rooms> Update(Rooms room)
         {
             var roomUpdate = await context.Rooms.FirstOrDefaultAsync(p => p.Id == room.Id);
+
             context.Update(roomUpdate);
+
             await context.SaveChangesAsync();
 
             return roomUpdate;
