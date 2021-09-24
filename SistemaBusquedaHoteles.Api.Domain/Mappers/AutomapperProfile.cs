@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using SistemaBusquedaHoteles.Api.Domain.Models;
+using SistemaBusquedaHoteles.Api.Domain.QueryFilters;
 using SistemaBusquedaHoteles.Api.Infrastructure.Entities;
+using SistemaBusquedaHoteles.Api.Infrastructure.QueryFilters;
 
 namespace SistemaBusquedaHoteles.Api.Domain.Mappers
 {

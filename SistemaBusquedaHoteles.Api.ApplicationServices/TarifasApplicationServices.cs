@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace SistemaBusquedaHoteles.Api.ApplicationServices
 {
-    public class TarifasApplicationServices : ITarifasApplication
+    public class TarifasApplicationServices : IRatesApplication
     {
-        private readonly ITarifasDomain tarifasDomain;
+        private readonly IRatesDomain tarifasDomain;
 
-        public TarifasApplicationServices(ITarifasDomain tarifasDomain)
+        public TarifasApplicationServices(IRatesDomain tarifasDomain)
         {
             this.tarifasDomain = tarifasDomain;
         }

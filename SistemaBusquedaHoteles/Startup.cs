@@ -1,26 +1,21 @@
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using SistemaBusquedaHoteles.Api.Application;
 using SistemaBusquedaHoteles.Api.ApplicationServices;
 using SistemaBusquedaHoteles.Api.Domain;
 using SistemaBusquedaHoteles.Api.DomainServices;
 using SistemaBusquedaHoteles.Api.Infrastructure.Context;
+using SistemaBusquedaHoteles.Api.Infrastructure.Filters;
 using SistemaBusquedaHoteles.Api.Infrastructure.Repositories;
 using SistemaBusquedaHoteles.Api.Infrastructure.Repositories.IRepository;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using FluentValidation.AspNetCore;
 
 namespace SistemaBusquedaHoteles
 {
@@ -40,45 +35,48 @@ namespace SistemaBusquedaHoteles
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             //Ignorar referencia circular. Corregir error JsonException. "A possible object cycle was detected."
-            services.AddControllers()
+            services.AddControllers(options =>
+            {
+                options.EnableEndpointRouting = false;
+                options.Filters.Add<ValidationFilter>();
+            })
                 .AddJsonOptions(opt => opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve)
-
                 .AddFluentValidation(fv =>
                 {
                     fv.DisableDataAnnotationsValidation = true;
-                    fv.RegisterValidatorsFromAssemblyContaining<Startup>();
+                    //fv.RegisterValidatorsFromAssemblyContaining<Startup>();
+                    fv.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
                 });
 
-            services.AddDbContext<ApplicationDbContext>(options => 
+            services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("ConnectionDefault"));
             });
 
-            services.AddScoped<IHabitacionesRepository, HabitacionesRepository>();
-            services.AddScoped<ISedesRepository, SedesRepository>();
-            services.AddScoped<ITipoAlojamientoRepository, TipoAlojamientoRepository>();
+            services.AddScoped<IRoomsRepository, RoomsRepository>();
+            services.AddScoped<ILocationRepository, LocationRepository>();
+            services.AddScoped<IRoomTypesRepository, RoomTypesRepository>();
 
-            services.AddScoped<IHabitacionesDomain, HabitacionesDomainServices>();
-            services.AddScoped<ISedesDomain, SedesDomainServices>();
-            services.AddScoped<ITipoAlojamientoDomain, TipoAlojamientoDomainServices>();
+            services.AddScoped<IRoomsDomain, RoomsDomainServices>();
+            services.AddScoped<ILocationDomain, LocationDomainServices>();
+            services.AddScoped<IRoomTypesDomain, RoomTypesDomainServices>();
 
-            services.AddScoped<IHabitacionesApplication, HabitacionesApplicationService>();
-            services.AddScoped<ISedesApplication, SedesApplicationService>();
-            services.AddScoped<ITipoAlojamientoApplication, TipoAlojamientoApplicationService>();
+            services.AddScoped<IRoomsApplication, RoomsApplicationService>();
+            services.AddScoped<ILocationApplication, SedesApplicationService>();
+            services.AddScoped<IRoomTypesApplication, TipoAlojamientoApplicationService>();
 
-            services.AddScoped<ITarifasRepository, TarifasRepository>();
-            services.AddScoped<ITarifasDomain, TarifasDomainServices>();
-            services.AddScoped<ITarifasApplication, TarifasApplicationServices>();
+            services.AddScoped<IRatesRepository, RatesRepository>();
+            services.AddScoped<IRatesDomain, RatesDomainServices>();
+            services.AddScoped<IRatesApplication, TarifasApplicationServices>();
 
-            services.AddScoped<IReservacionRepository, ReservacionRepository>();
-            services.AddScoped<IReservacionDomain, ReservacionDomainServices>();
-            services.AddScoped<IReservacionApplication, ReservacionApplicationServices>();
+            services.AddScoped<IReservationRepository, ReservationRepository>();
+            services.AddScoped<IReservationDomain, ReservationDomainServices>();
+            services.AddScoped<IReservationApplication, ReservacionApplicationServices>();
 
-            services.AddScoped<IClienteRepository, ClienteRepository>();
-            services.AddScoped<IClienteDomain, ClienteDomainService>();
-            services.AddScoped<IClienteApplication, ClienteApplicationService>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<ICustomerDomain, CustomerDomainService>();
+            services.AddScoped<ICustomerApplication, ClienteApplicationService>();
 
-            services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SistemaBusquedaHoteles", Version = "v1" });

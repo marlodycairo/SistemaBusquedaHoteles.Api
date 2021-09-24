@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace SistemaBusquedaHoteles.Api.ApplicationServices
 {
-    public class TipoAlojamientoApplicationService : ITipoAlojamientoApplication
+    public class TipoAlojamientoApplicationService : IRoomTypesApplication
     {
-        private readonly ITipoAlojamientoDomain tipoAlojamientoDomain;
+        private readonly IRoomTypesDomain tipoAlojamientoDomain;
         private readonly IMapper mapper;
 
-        public TipoAlojamientoApplicationService(ITipoAlojamientoDomain tipoAlojamientoDomain, IMapper mapper)
+        public TipoAlojamientoApplicationService(IRoomTypesDomain tipoAlojamientoDomain, IMapper mapper)
         {
             this.tipoAlojamientoDomain = tipoAlojamientoDomain;
             this.mapper = mapper;

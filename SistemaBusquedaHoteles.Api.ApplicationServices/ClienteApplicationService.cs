@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace SistemaBusquedaHoteles.Api.ApplicationServices
 {
-    public class ClienteApplicationService : IClienteApplication
+    public class ClienteApplicationService : ICustomerApplication
     {
-        private readonly IClienteDomain clienteDomain;
+        private readonly ICustomerDomain clienteDomain;
         private readonly IMapper mapper;
 
-        public ClienteApplicationService(IClienteDomain clienteDomain, IMapper mapper)
+        public ClienteApplicationService(ICustomerDomain clienteDomain, IMapper mapper)
         {
             this.clienteDomain = clienteDomain;
             this.mapper = mapper;

@@ -13,7 +13,13 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Validations
     {
         public RoomValidator()
         {
-            
+            RuleFor(p => p.Estado)
+                .NotNull()
+                .Length(7, 10);
+
+            RuleFor(p => p.Fecha)
+                .NotNull()
+                .LessThan(DateTime.Now);
         }
     }
 }

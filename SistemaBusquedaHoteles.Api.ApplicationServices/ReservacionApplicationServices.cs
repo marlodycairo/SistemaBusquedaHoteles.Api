@@ -12,12 +12,12 @@ using System.Threading.Tasks;
 
 namespace SistemaBusquedaHoteles.Api.ApplicationServices
 {
-    public class ReservacionApplicationServices : IReservacionApplication
+    public class ReservacionApplicationServices : IReservationApplication
     {
-        private readonly IReservacionDomain reservacionDomain;
+        private readonly IReservationDomain reservacionDomain;
         private readonly IMapper mapper;
 
-        public ReservacionApplicationServices(IReservacionDomain reservacionDomain, IMapper mapper)
+        public ReservacionApplicationServices(IReservationDomain reservacionDomain, IMapper mapper)
         {
             this.reservacionDomain = reservacionDomain;
             this.mapper = mapper;
@@ -41,7 +41,7 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
             return await reservacionDomain.GetReservationById(id);
         }
 
-        public async Task<IEnumerable<ReservationsModel>> GetReservaciones(ReservacionQueryFilter filter)
+        public async Task<IEnumerable<ReservationsModel>> GetReservaciones(ReservacionQueryFilterModel filter)
         {
             return await reservacionDomain.GetReservaciones(filter);
         }

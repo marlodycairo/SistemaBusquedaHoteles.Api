@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace SistemaBusquedaHoteles.Api.ApplicationServices
 {
-    public class SedesApplicationService : ISedesApplication
+    public class SedesApplicationService : ILocationApplication
     {
-        private readonly ISedesDomain sedesDomain;
+        private readonly ILocationDomain sedesDomain;
         private readonly IMapper mapper;
 
-        public SedesApplicationService(ISedesDomain sedesDomain, IMapper mapper)
+        public SedesApplicationService(ILocationDomain sedesDomain, IMapper mapper)
         {
             this.sedesDomain = sedesDomain;
             this.mapper = mapper;
