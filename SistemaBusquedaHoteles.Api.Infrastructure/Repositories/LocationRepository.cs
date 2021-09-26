@@ -26,8 +26,7 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
 
         public async Task<IEnumerable<Location>> GetSedes()
         {
-            return await context.Location
-                .ToListAsync();
+            return await context.Location.ToListAsync();
         }
     }
 }

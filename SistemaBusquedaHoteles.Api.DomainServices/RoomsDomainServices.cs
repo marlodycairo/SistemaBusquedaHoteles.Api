@@ -93,7 +93,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                         {
                             Response = Constants.superaCapacidadMax
                         });
-                        
+
                         return roomList.ToList();
                     }
                     allRooms = allRooms.Where(p => p.Fecha >= filter.Fecha).Where(p => p.Estado == Constants.message);
@@ -126,10 +126,10 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                     {
                         Response = Constants.valorNoValido
                     });
-                    
+
                     return roomList.ToList();
                 }
-                
+
                 foreach (var item in allRooms)
                 {
                     roomList.Add(new RoomModel
@@ -150,7 +150,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                     }
                 }
             }
-            
+
             return allRooms;
         }
 

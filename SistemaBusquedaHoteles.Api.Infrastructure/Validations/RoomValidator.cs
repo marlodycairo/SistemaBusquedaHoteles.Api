@@ -11,15 +11,15 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Validations
 {
     public class RoomValidator : AbstractValidator<Rooms>
     {
-        public RoomValidator()
-        {
-            RuleFor(p => p.Estado)
-                .NotNull()
-                .Length(7, 10);
+        //public RoomValidator()
+        //{
+        //    RuleFor(p => p.Estado)
+        //        .NotNull()
+        //        .Length(7, 10);
 
-            RuleFor(p => p.Fecha)
-                .NotNull()
-                .LessThan(DateTime.Now);
-        }
+        //    RuleFor(p => p.Fecha)
+        //        .NotNull()
+        //        .LessThan(DateTime.Now);
+        //}
     }
 }

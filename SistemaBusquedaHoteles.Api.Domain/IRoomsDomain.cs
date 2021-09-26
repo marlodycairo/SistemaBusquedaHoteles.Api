@@ -1,7 +1,6 @@
 ﻿using SistemaBusquedaHoteles.Api.Domain.Models;
 using SistemaBusquedaHoteles.Api.Domain.QueryFilters;
 using SistemaBusquedaHoteles.Api.Infrastructure.Entities;
-using SistemaBusquedaHoteles.Api.Infrastructure.QueryFilters;
 using System;
 using System.Collections.Generic;
 using System.Linq;

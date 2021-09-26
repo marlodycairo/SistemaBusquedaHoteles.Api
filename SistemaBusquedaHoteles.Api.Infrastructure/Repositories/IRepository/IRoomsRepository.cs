@@ -1,5 +1,5 @@
 ﻿using SistemaBusquedaHoteles.Api.Infrastructure.Entities;
-using SistemaBusquedaHoteles.Api.Infrastructure.QueryFilters;
+using SistemaBusquedaHoteles.Api.Infrastructure.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;

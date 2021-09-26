@@ -25,7 +25,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
         {
             await reservacionRepository.CreateReservation(reservacion);
             
-            ReservationsModel reserva = mapper.Map<ReservationsModel>(reservacion);
+            var reserva = mapper.Map<ReservationsModel>(reservacion);
             
             return reserva;
         }

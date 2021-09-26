@@ -34,7 +34,9 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
         public async Task<IEnumerable<RatesModel>> GetTarifas()
         {
             var allRates = await tarifasRepository.GetTarifas();
+
             var rates = mapper.Map<IEnumerable<RatesModel>>(allRates);
+
             return rates;
         }
     }

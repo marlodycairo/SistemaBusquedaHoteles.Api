@@ -19,10 +19,6 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
 
         public async Task<Rooms> Create(Rooms rooms)
         {
-            if ()
-            {
-
-            }
             await context.Rooms.AddAsync(rooms);
 
             await context.SaveChangesAsync();

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using SistemaBusquedaHoteles.Api.Domain;
 using SistemaBusquedaHoteles.Api.Domain.Models;
+using SistemaBusquedaHoteles.Api.Domain.ResponseModels;
 using SistemaBusquedaHoteles.Api.Infrastructure.Entities;
 using SistemaBusquedaHoteles.Api.Infrastructure.Repositories.IRepository;
 using System;
@@ -22,13 +23,13 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             this.mapper = mapper;
         }
 
-        public async Task<CustomersModel> CreateCliente(Customer customer)
+        public async Task<CustomersModel> CreateCliente(CustomersModel customer)
         {
-            await clienteRepository.CreateCliente(customer);
+            var customerMapper = mapper.Map<Customer>(customer);
 
-            var customerMapper = mapper.Map<CustomersModel>(customer);
+            await clienteRepository.CreateCliente(customerMapper);
 
-            return customerMapper;
+            return customer;
         }
 
         public async Task DeleteCliente(int id)

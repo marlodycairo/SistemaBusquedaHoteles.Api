@@ -9,11 +9,13 @@ using Microsoft.OpenApi.Models;
 using SistemaBusquedaHoteles.Api.Application;
 using SistemaBusquedaHoteles.Api.ApplicationServices;
 using SistemaBusquedaHoteles.Api.Domain;
+using SistemaBusquedaHoteles.Api.Domain.ResponseModels;
 using SistemaBusquedaHoteles.Api.DomainServices;
 using SistemaBusquedaHoteles.Api.Infrastructure.Context;
 using SistemaBusquedaHoteles.Api.Infrastructure.Filters;
 using SistemaBusquedaHoteles.Api.Infrastructure.Repositories;
 using SistemaBusquedaHoteles.Api.Infrastructure.Repositories.IRepository;
+using SistemaBusquedaHoteles.Api.Infrastructure.Responses;
 using System;
 using System.Text.Json.Serialization;
 
@@ -35,11 +37,12 @@ namespace SistemaBusquedaHoteles
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             //Ignorar referencia circular. Corregir error JsonException. "A possible object cycle was detected."
-            services.AddControllers(options =>
-            {
-                options.EnableEndpointRouting = false;
-                options.Filters.Add<ValidationFilter>();
-            })
+            services.AddControllers()
+            //    options =>
+            //{
+            //    options.EnableEndpointRouting = false;
+            //    options.Filters.Add<ValidationFilter>();
+            //})
                 .AddJsonOptions(opt => opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve)
                 .AddFluentValidation(fv =>
                 {
@@ -76,6 +79,10 @@ namespace SistemaBusquedaHoteles
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<ICustomerDomain, CustomerDomainService>();
             services.AddScoped<ICustomerApplication, ClienteApplicationService>();
+
+            services.AddScoped<ResponseCustomer>();
+            services.AddScoped<MessageModel>();
+            services.AddScoped<ResponseMessages>();
 
             services.AddSwaggerGen(c =>
             {

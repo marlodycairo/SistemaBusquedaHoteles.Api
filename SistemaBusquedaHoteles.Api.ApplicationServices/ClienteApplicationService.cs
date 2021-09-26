@@ -2,6 +2,7 @@
 using SistemaBusquedaHoteles.Api.Application;
 using SistemaBusquedaHoteles.Api.Domain;
 using SistemaBusquedaHoteles.Api.Domain.Models;
+using SistemaBusquedaHoteles.Api.Domain.ResponseModels;
 using SistemaBusquedaHoteles.Api.Infrastructure.Entities;
 using System;
 using System.Collections.Generic;
@@ -24,9 +25,9 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
 
         public async Task<CustomersModel> CreateCliente(CustomersModel customer)
         {
-            var allCustomers = mapper.Map<Customer>(customer);
-            var customerCreate = await clienteDomain.CreateCliente(allCustomers);
-            return customerCreate;
+            await clienteDomain.CreateCliente(customer);
+
+            return customer;
         }
 
         public async Task DeleteCliente(int id)

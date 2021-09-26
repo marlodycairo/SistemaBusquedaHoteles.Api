@@ -26,8 +26,7 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
 
         public async Task<IEnumerable<RoomTypes>> GetAlojamientos()
         {
-            return await context.RoomTypes
-                .ToListAsync();
+            return await context.RoomTypes.ToListAsync();
         }
     }
 }

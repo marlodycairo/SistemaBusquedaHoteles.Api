@@ -30,6 +30,7 @@ namespace SistemaBusquedaHoteles.Controllers
             }
 
             var customers = await clienteApplication.GetClientes();
+
             return Ok(customers);
         }
 
@@ -37,6 +38,7 @@ namespace SistemaBusquedaHoteles.Controllers
         public async Task<ActionResult> GetClienteById(int id)
         {
             var customer = await clienteApplication.GetClienteById(id);
+
             return Ok(customer);
         }
 
@@ -44,21 +46,24 @@ namespace SistemaBusquedaHoteles.Controllers
         public async Task<ActionResult<CustomersModel>> CreateClientes(CustomersModel customer)
         {
             var customerCreate = await clienteApplication.CreateCliente(customer);
+
             if (customerCreate == null)
             {
                 return BadRequest();
             }
-            return Ok(customerCreate);
+
+            return new CustomersModel { IDCliente = customer.IDCliente, NombreCliente = customer.NombreCliente };
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCliente(int id, CustomersModel customer)
+        public async Task<IActionResult> UpdateCliente(string id, CustomersModel customer)
         {
-            if (id != customer.Id)
+            if (id != customer.IDCliente)
             {
                 return BadRequest();
             }
             var customerUpdate = await clienteApplication.UpdateCliente(customer);
+
             if (customerUpdate == null)
             {
                 return NotFound();
@@ -70,6 +75,7 @@ namespace SistemaBusquedaHoteles.Controllers
         public async Task<IActionResult> DeleteCliente(int id)
         {
             await clienteApplication.DeleteCliente(id);
+
             return Ok();
         }
     }
