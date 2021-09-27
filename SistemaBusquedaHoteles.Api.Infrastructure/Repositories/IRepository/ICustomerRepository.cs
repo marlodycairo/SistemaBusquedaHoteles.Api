@@ -12,7 +12,7 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories.IRepository
     {
         Task<IEnumerable<Customer>> GetClientes();
         Task<Customer> GetClienteById(int id);
-        Task<Customer> CreateCliente(Customer clientes);
+        Task<CustomerResponse> CreateCliente(Customer clientes);
         Task<Customer> UpdateCliente(Customer clientes);
         Task DeleteCliente(int id);
     }

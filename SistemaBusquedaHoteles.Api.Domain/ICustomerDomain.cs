@@ -14,7 +14,7 @@ namespace SistemaBusquedaHoteles.Api.Domain
     {
         Task<IEnumerable<CustomersModel>> GetClientes();
         Task<CustomersModel> GetClienteById(int id);
-        Task<CustomersModel> CreateCliente(CustomersModel customer);
+        Task<CustomerResponseModel> CreateCliente(CustomersModel customer);
         Task<Customer> UpdateCliente(CustomersModel customer);
         Task DeleteCliente(int id);
     }

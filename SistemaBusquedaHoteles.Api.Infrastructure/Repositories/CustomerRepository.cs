@@ -20,30 +20,28 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
             this.context = context;
         }
 
-        public async Task<Customer> CreateCliente(Customer cliente)
+        public async Task<CustomerResponse> CreateCliente(Customer cliente)
         {
             var customerExists = await context.Customer.AnyAsync(p => p.IDCliente == cliente.IDCliente);
 
-            var errorMessage = "";
-
             if (customerExists)
             {
-                errorMessage = ResponseMessages.ExistRegister;
+                return new CustomerResponse() { Response = ResponseMessages.ExistRegister };
             }
-            
+
             context.Customer.Add(cliente);
 
             await context.SaveChangesAsync();
-            
-            return cliente;
+
+            return new CustomerResponse() { Response = ResponseMessages.SuccedSavedRegister };
         }
 
         public async Task DeleteCliente(int id)
         {
             var cliente = context.Customer.FirstOrDefaultAsync(p => p.Id == id);
-            
+
             context.Remove(cliente);
-            
+
             await context.SaveChangesAsync();
         }
 
