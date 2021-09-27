@@ -4,7 +4,6 @@ using SistemaBusquedaHoteles.Api.Domain;
 using SistemaBusquedaHoteles.Api.Domain.Models;
 using SistemaBusquedaHoteles.Api.Domain.ResponseModels;
 using SistemaBusquedaHoteles.Api.Infrastructure.Entities;
-using SistemaBusquedaHoteles.Api.Infrastructure.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,17 +15,19 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
     public class ClienteApplicationService : ICustomerApplication
     {
         private readonly ICustomerDomain clienteDomain;
+        private readonly IMapper mapper;
 
-        public ClienteApplicationService(ICustomerDomain clienteDomain)
+        public ClienteApplicationService(ICustomerDomain clienteDomain, IMapper mapper)
         {
             this.clienteDomain = clienteDomain;
+            this.mapper = mapper;
         }
 
-        public async Task<CustomerResponseModel> CreateCliente(CustomersModel customer)
+        public async Task<CustomersModel> CreateCliente(CustomersModel customer)
         {
             await clienteDomain.CreateCliente(customer);
 
-            return new CustomerResponseModel { Response = ResponseMessages.SuccedSavedRegister };
+            return customer;
         }
 
         public async Task DeleteCliente(int id)

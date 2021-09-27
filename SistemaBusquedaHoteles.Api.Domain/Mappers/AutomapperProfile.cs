@@ -37,8 +37,8 @@ namespace SistemaBusquedaHoteles.Api.Domain.Mappers
             CreateMap<ResponseCustomer, MessageModel>();
             CreateMap<MessageModel, ResponseCustomer>();
 
-            CreateMap<CustomerResponseModel, CustomerResponse>();
             CreateMap<CustomerResponse, CustomerResponseModel>();
+            CreateMap<CustomerResponseModel, CustomerResponse>();
         }
     }
 }

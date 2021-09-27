@@ -83,6 +83,7 @@ namespace SistemaBusquedaHoteles
             services.AddScoped<ResponseCustomer>();
             services.AddScoped<MessageModel>();
             services.AddScoped<ResponseMessages>();
+            services.AddScoped<CustomerResponse>();
 
             services.AddSwaggerGen(c =>
             {

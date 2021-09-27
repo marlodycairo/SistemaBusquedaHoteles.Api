@@ -4,7 +4,6 @@ using SistemaBusquedaHoteles.Api.Domain.Models;
 using SistemaBusquedaHoteles.Api.Domain.ResponseModels;
 using SistemaBusquedaHoteles.Api.Infrastructure.Entities;
 using SistemaBusquedaHoteles.Api.Infrastructure.Repositories.IRepository;
-using SistemaBusquedaHoteles.Api.Infrastructure.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,13 +23,13 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
             this.mapper = mapper;
         }
 
-        public async Task<CustomerResponseModel> CreateCliente(CustomersModel customer)
+        public async Task<CustomersModel> CreateCliente(CustomersModel customer)
         {
             var customerMapper = mapper.Map<Customer>(customer);
 
             await clienteRepository.CreateCliente(customerMapper);
 
-            return new CustomerResponseModel { Response = ResponseMessages.SuccedSavedRegister };
+            return customer;
         }
 
         public async Task DeleteCliente(int id)

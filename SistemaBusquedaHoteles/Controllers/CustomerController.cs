@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using SistemaBusquedaHoteles.Api.Application;
 using SistemaBusquedaHoteles.Api.Domain.Models;
 using SistemaBusquedaHoteles.Api.Domain.QueryFilters;
-using SistemaBusquedaHoteles.Api.Domain.ResponseModels;
-using SistemaBusquedaHoteles.Api.Infrastructure.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +43,7 @@ namespace SistemaBusquedaHoteles.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<CustomerResponseModel>> CreateClientes(CustomersModel customer)
+        public async Task<ActionResult<CustomersModel>> CreateClientes(CustomersModel customer)
         {
             var customerCreate = await clienteApplication.CreateCliente(customer);
 
@@ -54,9 +52,7 @@ namespace SistemaBusquedaHoteles.Controllers
                 return BadRequest();
             }
 
-            //return new CustomersModel { IDCliente = customer.IDCliente, NombreCliente = customer.NombreCliente };
-            return new CustomerResponseModel { Response = ResponseMessages.SuccedSavedRegister };
-
+            return new CustomersModel { IDCliente = customer.IDCliente, NombreCliente = customer.NombreCliente };
         }
 
         [HttpPut("{id}")]
