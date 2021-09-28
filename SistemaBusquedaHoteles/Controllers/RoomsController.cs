@@ -51,6 +51,7 @@ namespace SistemaBusquedaHoteles.Controllers
                 return BadRequest();
             }
             RoomModel roomCreate = await habitacionesApplication.Create(model);
+
             return Ok(roomCreate);
         }
 

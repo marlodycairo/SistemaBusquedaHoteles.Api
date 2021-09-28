@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
 using SistemaBusquedaHoteles.Api.Domain.Models;
-using SistemaBusquedaHoteles.Api.Domain.QueryFilters;
-using SistemaBusquedaHoteles.Api.Domain.ResponseModels;
 using SistemaBusquedaHoteles.Api.Infrastructure.Entities;
-using SistemaBusquedaHoteles.Api.Infrastructure.Responses;
 
 namespace SistemaBusquedaHoteles.Api.Domain.Mappers
 {
@@ -33,12 +30,6 @@ namespace SistemaBusquedaHoteles.Api.Domain.Mappers
 
             CreateMap<Customer, CustomersModel>();
             CreateMap<CustomersModel, Customer>();
-
-            CreateMap<ResponseCustomer, MessageModel>();
-            CreateMap<MessageModel, ResponseCustomer>();
-
-            CreateMap<CustomerResponse, CustomerResponseModel>();
-            CreateMap<CustomerResponseModel, CustomerResponse>();
         }
     }
 }

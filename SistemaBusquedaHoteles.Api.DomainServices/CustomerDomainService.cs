@@ -1,13 +1,9 @@
 ﻿using AutoMapper;
 using SistemaBusquedaHoteles.Api.Domain;
 using SistemaBusquedaHoteles.Api.Domain.Models;
-using SistemaBusquedaHoteles.Api.Domain.ResponseModels;
 using SistemaBusquedaHoteles.Api.Infrastructure.Entities;
 using SistemaBusquedaHoteles.Api.Infrastructure.Repositories.IRepository;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SistemaBusquedaHoteles.Api.DomainServices
@@ -25,7 +21,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
         public async Task<CustomersModel> CreateCliente(CustomersModel customer)
         {
-            var customerMapper = mapper.Map<Customer>(customer);
+            Customer customerMapper = mapper.Map<Customer>(customer);
 
             await clienteRepository.CreateCliente(customerMapper);
 
@@ -39,27 +35,27 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
         public async Task<CustomersModel> GetClienteById(int id)
         {
-            var customer = await clienteRepository.GetClienteById(id);
+            Customer customer = await clienteRepository.GetClienteById(id);
 
-            var customerMapper = mapper.Map<CustomersModel>(customer);
+            CustomersModel customerMapper = mapper.Map<CustomersModel>(customer);
 
             return customerMapper;
         }
 
         public async Task<IEnumerable<CustomersModel>> GetClientes()
         {
-            var allCustomers = await clienteRepository.GetClientes();
+            IEnumerable<Customer> allCustomers = await clienteRepository.GetClientes();
 
-            var customersMapper = mapper.Map<IEnumerable<Domain.Models.CustomersModel>>(allCustomers);
+            IEnumerable<CustomersModel> customersMapper = mapper.Map<IEnumerable<Domain.Models.CustomersModel>>(allCustomers);
 
             return customersMapper;
         }
 
         public async Task<Customer> UpdateCliente(CustomersModel customers)
         {
-            var customerMapper = mapper.Map<Customer>(customers);
+            Customer customerMapper = mapper.Map<Customer>(customers);
 
-            var customerUpdate = await clienteRepository.UpdateCliente(customerMapper);
+            Customer customerUpdate = await clienteRepository.UpdateCliente(customerMapper);
 
             return customerUpdate;
         }

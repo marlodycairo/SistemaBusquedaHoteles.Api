@@ -9,13 +9,11 @@ using Microsoft.OpenApi.Models;
 using SistemaBusquedaHoteles.Api.Application;
 using SistemaBusquedaHoteles.Api.ApplicationServices;
 using SistemaBusquedaHoteles.Api.Domain;
-using SistemaBusquedaHoteles.Api.Domain.ResponseModels;
+using SistemaBusquedaHoteles.Api.Domain.Filters;
 using SistemaBusquedaHoteles.Api.DomainServices;
 using SistemaBusquedaHoteles.Api.Infrastructure.Context;
-using SistemaBusquedaHoteles.Api.Infrastructure.Filters;
 using SistemaBusquedaHoteles.Api.Infrastructure.Repositories;
 using SistemaBusquedaHoteles.Api.Infrastructure.Repositories.IRepository;
-using SistemaBusquedaHoteles.Api.Infrastructure.Responses;
 using System;
 using System.Text.Json.Serialization;
 
@@ -38,15 +36,18 @@ namespace SistemaBusquedaHoteles
 
             //Ignorar referencia circular. Corregir error JsonException. "A possible object cycle was detected."
             services.AddControllers()
-            //    options =>
-            //{
-            //    options.EnableEndpointRouting = false;
-            //    options.Filters.Add<ValidationFilter>();
-            //})
                 .AddJsonOptions(opt => opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve)
+                .ConfigureApiBehaviorOptions(options =>
+                {
+                    //options.SuppressModelStateInvalidFilter = true;
+                });
+
+            services.AddMvc(options =>
+            {
+                options.Filters.Add<ValidationFilter>();
+            })
                 .AddFluentValidation(fv =>
                 {
-                    fv.DisableDataAnnotationsValidation = true;
                     //fv.RegisterValidatorsFromAssemblyContaining<Startup>();
                     fv.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
                 });
@@ -80,10 +81,7 @@ namespace SistemaBusquedaHoteles
             services.AddScoped<ICustomerDomain, CustomerDomainService>();
             services.AddScoped<ICustomerApplication, ClienteApplicationService>();
 
-            services.AddScoped<ResponseCustomer>();
-            services.AddScoped<MessageModel>();
-            services.AddScoped<ResponseMessages>();
-            services.AddScoped<CustomerResponse>();
+            //services.AddTransient<IValidator<Customer>, CustomerValidator>();
 
             services.AddSwaggerGen(c =>
             {

@@ -2,12 +2,8 @@
 using SistemaBusquedaHoteles.Api.Application;
 using SistemaBusquedaHoteles.Api.Domain;
 using SistemaBusquedaHoteles.Api.Domain.Models;
-using SistemaBusquedaHoteles.Api.Domain.ResponseModels;
 using SistemaBusquedaHoteles.Api.Infrastructure.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SistemaBusquedaHoteles.Api.ApplicationServices
@@ -25,9 +21,7 @@ namespace SistemaBusquedaHoteles.Api.ApplicationServices
 
         public async Task<CustomersModel> CreateCliente(CustomersModel customer)
         {
-            await clienteDomain.CreateCliente(customer);
-
-            return customer;
+            return await clienteDomain.CreateCliente(customer);
         }
 
         public async Task DeleteCliente(int id)

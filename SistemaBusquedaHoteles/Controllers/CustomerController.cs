@@ -24,11 +24,6 @@ namespace SistemaBusquedaHoteles.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCustomers()
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
             var customers = await clienteApplication.GetClientes();
 
             return Ok(customers);
@@ -47,12 +42,7 @@ namespace SistemaBusquedaHoteles.Controllers
         {
             var customerCreate = await clienteApplication.CreateCliente(customer);
 
-            if (customerCreate == null)
-            {
-                return BadRequest();
-            }
-
-            return new CustomersModel { IDCliente = customer.IDCliente, NombreCliente = customer.NombreCliente };
+            return Ok(customerCreate);
         }
 
         [HttpPut("{id}")]
@@ -64,10 +54,6 @@ namespace SistemaBusquedaHoteles.Controllers
             }
             var customerUpdate = await clienteApplication.UpdateCliente(customer);
 
-            if (customerUpdate == null)
-            {
-                return NotFound();
-            }
             return Ok(customerUpdate);
         }
 

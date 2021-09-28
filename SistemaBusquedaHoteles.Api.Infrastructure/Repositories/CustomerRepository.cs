@@ -2,7 +2,6 @@
 using SistemaBusquedaHoteles.Api.Infrastructure.Context;
 using SistemaBusquedaHoteles.Api.Infrastructure.Entities;
 using SistemaBusquedaHoteles.Api.Infrastructure.Repositories.IRepository;
-using SistemaBusquedaHoteles.Api.Infrastructure.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,16 +21,14 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
 
         public async Task<Customer> CreateCliente(Customer cliente)
         {
-            var customerExists = await context.Customer.AnyAsync(p => p.IDCliente == cliente.IDCliente);
+            //var customerExist = await context.Customer.AnyAsync(p => p.IDCliente == cliente.IDCliente);
 
-            var errorMessage = "";
+            //if (customerExist)
+            //{
+            //    throw new Exception(ResponseMessages.ExistRegister);
+            //}
 
-            if (customerExists)
-            {
-                errorMessage = ResponseMessages.ExistRegister;
-            }
-
-            context.Customer.Add(cliente);
+            await context.Customer.AddAsync(cliente);
 
             await context.SaveChangesAsync();
 
