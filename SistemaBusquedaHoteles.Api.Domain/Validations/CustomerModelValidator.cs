@@ -17,7 +17,9 @@ namespace SistemaBusquedaHoteles.Api.Domain.Validations
                 .Length(0, 8)
                 .WithMessage("Ingrese una identificación válida.")
                 .NotEmpty().WithMessage("Debe ingresar su identificación.")
-                .NotEqual(p => p.IDCliente).WithMessage("Cliente ya existe. Verifique la identificación.");
+                .NotEqual("0");
+                
+                //.NotEqual(p => p.IDCliente).WithMessage("Cliente ya existe. Verifique la identificación.");
 
             RuleFor(p => p.NombreCliente)
                 .NotNull()

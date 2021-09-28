@@ -29,6 +29,10 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Context
                 .WithOne(i => i.Customers)
                 .HasForeignKey<Reservation>(h => h.ClienteId);
 
+            modelBuilder.Entity<Customer>()
+                .HasIndex(c => c.IDCliente)
+                .IsUnique();
+
             ////Configuracion propiedades de navegacion consultar: (https://docs.microsoft.com/en-us/ef/core/modeling/relationships?tabs=fluent-api%2Cfluent-api-simple-key%2Csimple-key)
         }
     }

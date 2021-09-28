@@ -1,11 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SistemaBusquedaHoteles.Api.Application;
 using SistemaBusquedaHoteles.Api.Domain.Models;
-using SistemaBusquedaHoteles.Api.Domain.QueryFilters;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SistemaBusquedaHoteles.Controllers
@@ -24,7 +20,7 @@ namespace SistemaBusquedaHoteles.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCustomers()
         {
-            var customers = await clienteApplication.GetClientes();
+            IEnumerable<CustomersModel> customers = await clienteApplication.GetClientes();
 
             return Ok(customers);
         }
@@ -32,7 +28,7 @@ namespace SistemaBusquedaHoteles.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult> GetClienteById(int id)
         {
-            var customer = await clienteApplication.GetClienteById(id);
+            CustomersModel customer = await clienteApplication.GetClienteById(id);
 
             return Ok(customer);
         }
@@ -40,18 +36,14 @@ namespace SistemaBusquedaHoteles.Controllers
         [HttpPost]
         public async Task<ActionResult<CustomersModel>> CreateClientes(CustomersModel customer)
         {
-            var customerCreate = await clienteApplication.CreateCliente(customer);
+            CustomersModel customerCreate = await clienteApplication.CreateCliente(customer);
 
             return Ok(customerCreate);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCliente(string id, CustomersModel customer)
+        public async Task<IActionResult> UpdateCliente(CustomersModel customer)
         {
-            if (id != customer.IDCliente)
-            {
-                return BadRequest();
-            }
             var customerUpdate = await clienteApplication.UpdateCliente(customer);
 
             return Ok(customerUpdate);

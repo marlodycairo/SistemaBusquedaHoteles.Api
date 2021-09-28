@@ -2,10 +2,7 @@
 using SistemaBusquedaHoteles.Api.Infrastructure.Context;
 using SistemaBusquedaHoteles.Api.Infrastructure.Entities;
 using SistemaBusquedaHoteles.Api.Infrastructure.Repositories.IRepository;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
@@ -21,13 +18,6 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
 
         public async Task<Customer> CreateCliente(Customer cliente)
         {
-            //var customerExist = await context.Customer.AnyAsync(p => p.IDCliente == cliente.IDCliente);
-
-            //if (customerExist)
-            //{
-            //    throw new Exception(ResponseMessages.ExistRegister);
-            //}
-
             await context.Customer.AddAsync(cliente);
 
             await context.SaveChangesAsync();
@@ -37,10 +27,10 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
 
         public async Task DeleteCliente(int id)
         {
-            var cliente = context.Customer.FirstOrDefaultAsync(p => p.Id == id);
-            
+            Task<Customer> cliente = context.Customer.FirstOrDefaultAsync(p => p.Id == id);
+
             context.Remove(cliente);
-            
+
             await context.SaveChangesAsync();
         }
 
@@ -56,7 +46,7 @@ namespace SistemaBusquedaHoteles.Api.Infrastructure.Repositories
 
         public async Task<Customer> UpdateCliente(Customer cliente)
         {
-            context.Entry(cliente);
+            context.Update(cliente);
 
             await context.SaveChangesAsync();
 
