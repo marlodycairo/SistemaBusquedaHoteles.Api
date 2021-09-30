@@ -192,8 +192,7 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                         }
                     }
                 }
-                allRooms = roomList.Where(p => p.Estado == Constants.message).Where(p => p.TipoId == filter.Tipo)
-                    .Where(p => p.Temporada == Constants.temporadaB);
+                allRooms = roomList.Where(p => p.TipoId == filter.Tipo).Where(p => p.Temporada == Constants.temporadaB);
             }
             return allRooms;
         }
