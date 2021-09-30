@@ -173,6 +173,8 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                                     PrecioHabitacion = item.rate.Valor,
                                     ValorTotalHabitaciones = item.rate.Valor * Convert.ToDouble(filter.TotalHabitaciones)
                                 });
+                                allRooms = roomList.Where(p => p.TipoId == filter.Tipo).Where(p => p.Temporada == Constants.temporadaB);
+                                return allRooms;
                             }
                         }
                         else if ((filter.Fecha < item.type.room.Fecha && filter.Fecha < constants.finTemporadaAlta) && (item.rate.Temporada == Constants.temporadaA))
@@ -188,11 +190,12 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                                     PrecioHabitacion = item.rate.Valor,
                                     ValorTotalHabitaciones = item.rate.Valor * Convert.ToDouble(filter.TotalHabitaciones)
                                 });
+                                allRooms = roomList.Where(p => p.TipoId == filter.Tipo).Where(p => p.Temporada == Constants.temporadaA);
+                                return allRooms;
                             }
                         }
                     }
                 }
-                allRooms = roomList.Where(p => p.TipoId == filter.Tipo).Where(p => p.Temporada == Constants.temporadaB);
             }
             return allRooms;
         }
