@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SistemaBusquedaHoteles.Api.Infrastructure.Context;
 using SistemaBusquedaHoteles.Api.Infrastructure.Entities;
 using SistemaBusquedaHoteles.Api.Infrastructure.Repositories.IRepository;

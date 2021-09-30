@@ -11,5 +11,6 @@ namespace SistemaBusquedaHoteles.Api.Domain.Models
         public int TipoId { get; set; }
         public int SedeId { get; set; }
         public string Response { get; set; }
+        public double PrecioHabitacion { get; set; }
     }
 }
