@@ -67,8 +67,6 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
 
             var roomList = new List<RoomModel>();
 
-            var typesList = new List<RoomTypeModel>();
-
             if (filter.Ciudad != 0)
             {
                 allRooms = allRooms.Where(p => p.SedeId == filter.Ciudad);
@@ -101,6 +99,44 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                 }
             }
 
+            if (filter.TotalHabitaciones != 0)
+            {
+                int count = Constants.variableEnCero;
+
+                var countRooms = allRooms.Where(p => p.Fecha >= filter.Fecha).Where(p => p.Estado == Constants.message).Count();
+
+                if (filter.TotalHabitaciones > countRooms)
+                {
+                    roomList.Add(new RoomModel
+                    {
+                        Response = Constants.valorNoValido
+                    });
+
+                    return roomList.ToList();
+                }
+
+                foreach (var item in allRooms)
+                {
+                    roomList.Add(new RoomModel
+                    {
+                        Fecha = item.Fecha,
+                        Estado = item.Estado,
+                        SedeId = item.SedeId,
+                        TipoId = item.TipoId
+                    });
+                    count++;
+
+                    if (count == filter.TotalHabitaciones)
+                    {
+                        allRooms = roomList;
+                        count = 0;
+
+                        //return allRooms;
+                    }
+                }
+                allRooms = allRooms.ToList();
+            }
+
             if (filter.Tipo != 0)
             {
                 var constants = new Constants();
@@ -128,60 +164,37 @@ namespace SistemaBusquedaHoteles.Api.DomainServices
                         {
                             if (filter.Tipo == item.type.room.TipoId)
                             {
-                                roomList.Add(new RoomModel { Fecha = filter.Fecha, TipoId = filter.Tipo, Estado = Constants.message, PrecioHabitacion = item.rate.Valor });
+                                roomList.Add(new RoomModel 
+                                { 
+                                    Fecha = filter.Fecha, 
+                                    TipoId = item.type.room.TipoId, 
+                                    Estado = item.type.room.Estado,
+                                    Temporada = item.rate.Temporada,
+                                    PrecioHabitacion = item.rate.Valor,
+                                    ValorTotalHabitaciones = item.rate.Valor * Convert.ToDouble(filter.TotalHabitaciones)
+                                });
                             }
                         }
                         else if ((filter.Fecha < item.type.room.Fecha && filter.Fecha < constants.finTemporadaAlta) && (item.rate.Temporada == Constants.temporadaA))
                         {
                             if (filter.Tipo == item.type.room.TipoId)
                             {
-                                roomList.Add(new RoomModel { Fecha = filter.Fecha, TipoId = filter.Tipo, Estado = Constants.message, PrecioHabitacion = item.rate.Valor });
+                                roomList.Add(new RoomModel 
+                                {
+                                    Fecha = filter.Fecha,
+                                    TipoId = item.type.room.TipoId,
+                                    Estado = item.type.room.Estado,
+                                    Temporada = item.rate.Temporada,
+                                    PrecioHabitacion = item.rate.Valor,
+                                    ValorTotalHabitaciones = item.rate.Valor * Convert.ToDouble(filter.TotalHabitaciones)
+                                });
                             }
                         }
                     }
                 }
-                allRooms = roomList.Where(p => p.TipoId == filter.Tipo);
-
-                return allRooms; 
+                allRooms = roomList.Where(p => p.Estado == Constants.message).Where(p => p.TipoId == filter.Tipo)
+                    .Where(p => p.Temporada == Constants.temporadaB);
             }
-
-            if (filter.TotalHabitaciones != 0)
-            {
-                int count = Constants.variableEnCero;
-                
-                var countRooms = allRooms.Where(p => p.Fecha >= filter.Fecha).Where(p => p.Estado == Constants.message).Count();
-                
-                if (filter.TotalHabitaciones > countRooms)
-                {
-                    roomList.Add(new RoomModel 
-                    {
-                        Response = Constants.valorNoValido
-                    });
-
-                    return roomList.ToList();
-                }
-
-                foreach (var item in allRooms)
-                {
-                    roomList.Add(new RoomModel
-                    {
-                        Fecha = item.Fecha,
-                        Estado = item.Estado,
-                        SedeId = item.SedeId,
-                        TipoId = item.TipoId
-                    });
-                    count++;
-                    
-                    if (count == filter.TotalHabitaciones)
-                    {
-                        allRooms = roomList;
-                        count = 0;
-                        
-                        return allRooms;
-                    }
-                }
-            }
-
             return allRooms;
         }
 
